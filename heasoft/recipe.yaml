@@ -9,7 +9,7 @@ package:
   version: ${{ version }}
 
 source:
-  url: https://heasarc.gsfc.nasa.gov/FTP/software/irby/conda/.test/${{ name }}-${{ version }}.tar.gz
+  url: https://heasarc.gsfc.nasa.gov/FTP/software/lheasoft/irby/conda/.test/${{ name }}-${{ version }}.tar.gz
   sha256: 5c3cb38397ea093502f08259098739df66da3b838c40525b84f85a6df5248b1f
   patches:
     - tcltk_Makefile.patch
