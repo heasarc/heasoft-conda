@@ -1,0 +1,99 @@
+--- a/heacore/BUILD_DIR/Makefile.in
++++ b/heacore/BUILD_DIR/Makefile.in
+@@ -339,6 +339,9 @@ makemake-fitsperl: ${FITSPERL_DIR}/Makefile
+ 		sed -e 's: -L/opt/local/lib::' ${FITSPERL_DIR}/Makefile > ${FITSPERL_DIR}/Makefile_tmp; ${HD_MV_F} ${FITSPERL_DIR}/Makefile_tmp ${FITSPERL_DIR}/Makefile; \
+ 		sed -e 's: -L/usr/local/lib::' ${FITSPERL_DIR}/Makefile > ${FITSPERL_DIR}/Makefile_tmp; ${HD_MV_F} ${FITSPERL_DIR}/Makefile_tmp ${FITSPERL_DIR}/Makefile; \
+ 	fi
++	@if [ `echo ${HD_HOST} | grep -c conda` -gt 0 ]; then \
++		sed -e 's:--sysroot=./..:--sysroot=${PREFIX}:' ${FITSPERL_DIR}/Makefile > ${FITSPERL_DIR}/Makefile_tmp; ${HD_MV_F} ${FITSPERL_DIR}/Makefile_tmp ${FITSPERL_DIR}/Makefile; \
++	fi
+ 
+ ${FITSPERL_DIR}/Makefile: ${FITSPERL_DIR}/Makefile.PL
+ 	cd ${FITSPERL_DIR}; ${PERL} Makefile.PL OPTIMIZE=-O
+@@ -383,6 +386,9 @@ makemake-pilperl: ${PILPERL_DIR}/Makefile
+ 		sed -e 's: -L/opt/local/lib::' ${PILPERL_DIR}/Makefile > ${PILPERL_DIR}/Makefile_tmp; ${HD_MV_F} ${PILPERL_DIR}/Makefile_tmp ${PILPERL_DIR}/Makefile; \
+ 		sed -e 's: -L/usr/local/lib::' ${PILPERL_DIR}/Makefile > ${PILPERL_DIR}/Makefile_tmp; ${HD_MV_F} ${PILPERL_DIR}/Makefile_tmp ${PILPERL_DIR}/Makefile; \
+ 	fi
++	@if [ `echo ${HD_HOST} | grep -c conda` -gt 0 ]; then \
++		sed -e 's:--sysroot=./..:--sysroot=${PREFIX}:' ${PILPERL_DIR}/Makefile > ${PILPERL_DIR}/Makefile_tmp; ${HD_MV_F} ${PILPERL_DIR}/Makefile_tmp ${PILPERL_DIR}/Makefile; \
++	fi
+ 
+ ${PILPERL_DIR}/Makefile: ${PILPERL_DIR}/Makefile.PL
+ 	cd ${PILPERL_DIR}; ${PERL} Makefile.PL OPTIMIZE=-O
+@@ -427,6 +433,9 @@ makemake-hdutilsperl: ${HDUTILSPERL_DIR}/Makefile
+ 		sed -e 's: -L/opt/local/lib::' ${HDUTILSPERL_DIR}/Makefile > ${HDUTILSPERL_DIR}/Makefile_tmp; ${HD_MV_F} ${HDUTILSPERL_DIR}/Makefile_tmp ${HDUTILSPERL_DIR}/Makefile; \
+ 		sed -e 's: -L/usr/local/lib::' ${HDUTILSPERL_DIR}/Makefile > ${HDUTILSPERL_DIR}/Makefile_tmp; ${HD_MV_F} ${HDUTILSPERL_DIR}/Makefile_tmp ${HDUTILSPERL_DIR}/Makefile; \
+ 	fi
++	@if [ `echo ${HD_HOST} | grep -c conda` -gt 0 ]; then \
++		sed -e 's:--sysroot=./..:--sysroot=${PREFIX}:' ${HDUTILSPERL_DIR}/Makefile > ${HDUTILSPERL_DIR}/Makefile_tmp; ${HD_MV_F} ${HDUTILSPERL_DIR}/Makefile_tmp ${HDUTILSPERL_DIR}/Makefile; \
++	fi
+ 
+ ${HDUTILSPERL_DIR}/Makefile: ${HDUTILSPERL_DIR}/Makefile.PL
+ 	cd ${HDUTILSPERL_DIR}; ${PERL} Makefile.PL OPTIMIZE=-O
+@@ -471,6 +480,9 @@ makemake-hdinitperl: ${HDINITPERL_DIR}/Makefile
+ 		sed -e 's: -L/opt/local/lib::' ${HDINITPERL_DIR}/Makefile > ${HDINITPERL_DIR}/Makefile_tmp; ${HD_MV_F} ${HDINITPERL_DIR}/Makefile_tmp ${HDINITPERL_DIR}/Makefile; \
+ 		sed -e 's: -L/usr/local/lib::' ${HDINITPERL_DIR}/Makefile > ${HDINITPERL_DIR}/Makefile_tmp; ${HD_MV_F} ${HDINITPERL_DIR}/Makefile_tmp ${HDINITPERL_DIR}/Makefile; \
+ 	fi
++	@if [ `echo ${HD_HOST} | grep -c conda` -gt 0 ]; then \
++		sed -e 's:--sysroot=./..:--sysroot=${PREFIX}:' ${HDINITPERL_DIR}/Makefile > ${HDINITPERL_DIR}/Makefile_tmp; ${HD_MV_F} ${HDINITPERL_DIR}/Makefile_tmp ${HDINITPERL_DIR}/Makefile; \
++	fi
+ 
+ ${HDINITPERL_DIR}/Makefile: ${HDINITPERL_DIR}/Makefile.PL
+ 	cd ${HDINITPERL_DIR}; ${PERL} Makefile.PL OPTIMIZE=-O
+--- a/heacore/BUILD_DIR/configure
++++ b/heacore/BUILD_DIR/configure
+@@ -5687,6 +5687,8 @@ if test `echo $PERL_CC | grep -c /` -eq 0; then
+    else
+       PERL_CC=""
+    fi
++elif test `echo $PERL_CC | grep -c conda` -ne 0; then
++   PERL_CC="$CC"
+ else
+    PERL_CC=""
+ fi
+--- a/maxi/BUILD_DIR/Makefile
++++ b/maxi/BUILD_DIR/Makefile
+@@ -85,6 +85,9 @@ makemake-maxitoolperl: ${MAXITOOLPERL_DIR}/Makefile
+ 		sed -e 's: -L/opt/local/lib::' ${MAXITOOLPERL_DIR}/Makefile > ${MAXITOOLPERL_DIR}/Makefile_tmp; ${HD_MV_F} ${MAXITOOLPERL_DIR}/Makefile_tmp ${MAXITOOLPERL_DIR}/Makefile; \
+ 		sed -e 's: -L/usr/local/lib::' ${MAXITOOLPERL_DIR}/Makefile > ${MAXITOOLPERL_DIR}/Makefile_tmp; ${HD_MV_F} ${MAXITOOLPERL_DIR}/Makefile_tmp ${MAXITOOLPERL_DIR}/Makefile; \
+ 	fi
++	@if [ `echo ${HD_HOST} | grep -c conda` -gt 0 ]; then \
++		sed -e 's:--sysroot=./..:--sysroot=${PREFIX}:' ${MAXITOOLPERL_DIR}/Makefile > ${MAXITOOLPERL_DIR}/Makefile_tmp; ${HD_MV_F} ${MAXITOOLPERL_DIR}/Makefile_tmp ${MAXITOOLPERL_DIR}/Makefile; \
++	fi
+ 
+ ${MAXITOOLPERL_DIR}/Makefile: ${MAXITOOLPERL_DIR}/Makefile.PL
+ 	cd ${MAXITOOLPERL_DIR}; ${PERL} Makefile.PL OPTIMIZE=-O
+--- a/maxi/BUILD_DIR/configure
++++ b/maxi/BUILD_DIR/configure
+@@ -5912,6 +5912,8 @@ if test `echo $PERL_CC | grep -c /` -eq 0; then
+    else
+       PERL_CC=""
+    fi
++elif test `echo $PERL_CC | grep -c conda` -ne 0; then
++   PERL_CC="$CC"
+ else
+    PERL_CC=""
+ fi
+--- a/tcltk/BUILD_DIR/Makefile.in
++++ b/tcltk/BUILD_DIR/Makefile.in
+@@ -398,6 +398,9 @@ makemake-pgplotperl: ${PGPLOTPERL_DIR}/Makefile
+ 	@if [ `echo ${HD_HOST} | grep -c ^aarch64-apple` -gt 0 ]; then \
+ 		sed -e 's: -fstack-protector-strong::' ${PGPLOTPERL_DIR}/Makefile > ${PGPLOTPERL_DIR}/Makefile_tmp; ${HD_MV_F} ${PGPLOTPERL_DIR}/Makefile_tmp ${PGPLOTPERL_DIR}/Makefile; \
+ 	fi
++	@if [ `echo ${HD_HOST} | grep -c conda` -gt 0 ]; then \
++		sed -e 's:--sysroot=./..:--sysroot=${PREFIX}:' ${PGPLOTPERL_DIR}/Makefile > ${PGPLOTPERL_DIR}/Makefile_tmp; ${HD_MV_F} ${PGPLOTPERL_DIR}/Makefile_tmp ${PGPLOTPERL_DIR}/Makefile; \
++	fi
+ 
+ ${EXTF77PERL_DIR}/Makefile: ${EXTF77PERL_DIR}/Makefile.PL
+ 	cd ${EXTF77PERL_DIR}; ${PERL} Makefile.PL
+--- a/tcltk/BUILD_DIR/configure
++++ b/tcltk/BUILD_DIR/configure
+@@ -5812,6 +5812,8 @@ if test `echo $PERL_CC | grep -c /` -eq 0; then
+    else
+       PERL_CC=""
+    fi
++elif test `echo $PERL_CC | grep -c conda` -ne 0; then
++   PERL_CC="$CC"
+ else
+    PERL_CC=""
+ fi

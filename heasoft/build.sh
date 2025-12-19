@@ -31,7 +31,6 @@ configure_args=(
     --x-includes=$PREFIX/include
     --x-libraries=$PREFIX/lib
     --with-tcl=$PREFIX/lib
-    --with-tk=$PREFIX/lib
     --with-fgsl=$PREFIX
     --with-gsl=$PREFIX
     --with-fftw=$PREFIX
