@@ -36,12 +36,12 @@ configure_args=(
     --with-fftw=$PREFIX
 )
 
-#mask_files="libtk8.6.dylib" # libtcl8.6.dylib"
-#if [ "$ostype" = "Darwin" ]; then
-#    for file in $mask_files; do
-#        mv $PREFIX/lib/$file $PREFIX/lib/${file}.off
-#    done
-#fi
+mask_files="libtk8.6.dylib" # libtcl8.6.dylib"
+if [ "$ostype" = "Darwin" ]; then
+    for file in $mask_files; do
+        mv $PREFIX/lib/$file $PREFIX/lib/${file}.off
+    done
+fi
 
 
 cd BUILD_DIR
@@ -66,11 +66,11 @@ cp ../Xspec/BUILD_DIR/Makefile-std $PREFIX/$HEA_SUBDIR/bin/
 # Copy fix-x11-conda.sh; we are inside BUILD_DIR
 cp fix-x11-conda.sh $PREFIX/$HEA_SUBDIR/BUILD_DIR/
 
-#if [ "$ostype" = "Darwin" ]; then
-#    for file in $mask_files; do
-#        mv $PREFIX/lib/${file}.off $PREFIX/lib/${file}
-#    done
-#fi
+if [ "$ostype" = "Darwin" ]; then
+    for file in $mask_files; do
+        mv $PREFIX/lib/${file}.off $PREFIX/lib/${file}
+    done
+fi
 
 # we need all libraries to be writable so conda-build can
 # modify the rpath, etc. (e.g. libxpa.so.1.0)

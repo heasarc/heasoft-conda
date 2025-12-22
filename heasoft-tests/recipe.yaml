@@ -2,19 +2,20 @@
 
 context:
   name: heasoft-tests
-  version: 6.36
+  version: develop
 
 package:
   name: ${{ name|lower }}
   version: ${{ version }}
 
 source:
-  url: https://heasarc.gsfc.nasa.gov/FTP/software/conda/source/${{ name }}-${{ version }}.tar.gz
-  sha256: 53d91083195ddad7f19260ba6dbeebc01d96802f7e0e7db9d17e950eb4e7b4f9
+  url: https://heasarc.gsfc.nasa.gov/FTP/software/lheasoft/irby/conda/.test/${{ name }}-${{ version }}.tar.gz
+  sha256: 6ce08636105f99b4838d33e0e97d70f1874ac6afe401cc5f1388733b1a7735d4
   patches:
     - ../heasoft/tcltk_Makefile.patch
     - ../heasoft/pgplot_makefiles.patch
     - ../heasoft/xspec.patch
+    - ../heasoft/xspec2.patch
     - ../heasoft/zlib_makefiles.patch
     - ../heasoft/python_makefiles.patch
     - ../heasoft/itk_configure.patch
@@ -23,6 +24,8 @@ source:
     - if: osx
       then:
       - ../heasoft/configures.patch
+      - ../heasoft/pgplot_makefiles_osx.patch
+    - ../heasoft/perl_config.patch
     - ../heasoft/fix-x11-conda.patch
 
 build:
@@ -30,6 +33,7 @@ build:
 
 requirements:
   host:
+    - make
     - ${{ compiler('cxx') }}
     - ${{ compiler('c') }}
     - ${{ compiler('fortran') }}
