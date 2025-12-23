@@ -10,7 +10,7 @@ package:
 
 source:
   url: https://heasarc.gsfc.nasa.gov/FTP/software/lheasoft/irby/conda/.test/${{ name }}-${{ version }}.tar.gz
-  sha256: 71e889532f2d9a6ecf81be44f74c1b0e3534d30090a27ad7ba70500ce3e560f6
+  sha256: 737b81acbfcf69ffcd86df176387ccd1b87ed2f6848cfefbc67391189de4135a
   patches:
     - ../heasoft/tcltk_Makefile.patch
     - ../heasoft/pgplot_makefiles.patch
@@ -33,7 +33,6 @@ build:
 
 requirements:
   host:
-    - make
     - ${{ compiler('cxx') }}
     - ${{ compiler('c') }}
     - ${{ compiler('fortran') }}
