@@ -16,6 +16,7 @@ source:
     - ../heasoft/tcltk_Makefile.patch
     - ../heasoft/pgplot_makefiles.patch
     - ../heasoft/xspec.patch
+    - ../heasoft/xspec2.patch
     - ../heasoft/zlib_makefiles.patch
     - ../heasoft/python_makefiles.patch
     - ../heasoft/itk_configure.patch
@@ -24,6 +25,8 @@ source:
     - if: osx
       then:
       - ../heasoft/configures.patch
+      - ../heasoft/pgplot_makefiles_osx.patch
+    - ../heasoft/perl_config.patch
     - ../heasoft/fix-x11-conda.patch
 
 build:
