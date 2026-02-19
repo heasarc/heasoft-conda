@@ -9,8 +9,7 @@ package:
   version: ${{ version }}
 
 source:
-  url: https://heasarc.gsfc.nasa.gov/FTP/software/lheasoft/irby/conda/.test/${{ name }}-${{ version }}.tar.gz
-  sha256: 737b81acbfcf69ffcd86df176387ccd1b87ed2f6848cfefbc67391189de4135a
+  path: /local/data/karpuz1/birby/clean
   patches:
     - tcltk_Makefile.patch
     - pgplot_makefiles.patch
@@ -25,6 +24,10 @@ source:
       then:
       - configures.patch
       - pgplot_makefiles_osx.patch
+    - if: linux
+      then:
+      - fv_makefile.patch
+      - fv_unix.patch
     - perl_config.patch
     - fix-x11-conda.patch
 

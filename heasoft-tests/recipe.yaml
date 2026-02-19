@@ -25,6 +25,10 @@ source:
       then:
       - ../heasoft/configures.patch
       - ../heasoft/pgplot_makefiles_osx.patch
+    - if: linux
+      then:
+      - fv_makefile.patch
+      - fv_unix.patch
     - ../heasoft/perl_config.patch
     - ../heasoft/fix-x11-conda.patch
 
