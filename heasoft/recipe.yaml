@@ -9,7 +9,8 @@ package:
   version: ${{ version }}
 
 source:
-  path: /local/data/karpuz1/birby/clean
+  url: https://heasarc.gsfc.nasa.gov/FTP/software/lheasoft/irby/conda/.test/${{ name }}-${{ version }}.tar.gz
+  sha256: b5d21b49f68e56cf5e5cb42a7154c2e16b23b48dc4d9d7ece0fef3a6cace1d90
   patches:
     - tcltk_Makefile.patch
     - pgplot_makefiles.patch
