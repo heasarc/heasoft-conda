@@ -17,7 +17,7 @@ jobs:
       matrix:
         include:
           - os: ubuntu-24.04
-            platform: linux-arm64
+            platform: linux-aarch64
           - os: ubuntu-latest
             platform: linux-64
           - os: macos-latest
