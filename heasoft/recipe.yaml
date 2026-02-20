@@ -51,8 +51,10 @@ requirements:
     - xorg-xorgproto
     - xorg-libxcursor
     - fftw
-    - fgsl
     - gsl
+    - if: osx or (linux and not aarch64)
+      then:
+        - fgsl
     - perl
     - pip
     - setuptools
@@ -74,14 +76,16 @@ requirements:
     - xorg-libxcursor
     - xorg-xorgproto
     - fftw
-    - fgsl
     - gsl
+    - if: osx or (linux and not aarch64)
+      then:
+        - fgsl
     - perl
     - numpy
     - scipy
     - astropy-base
     - matplotlib
-    - if: linux or (osx and not arm64)
+    - if: (linux and not aarch64) or (osx and not arm64)
       then:
         - lynx
 
