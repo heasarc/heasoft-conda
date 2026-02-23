@@ -52,8 +52,9 @@ cd BUILD_DIR
 ./configure "${configure_args[@]}" 2>&1 | tee config.txt || false
 make all 2>&1 | tee build.txt || false
 make install 2>&1 | tee install.txt || false
-tar -zcvf logs.tgz config.txt build.txt install.txt
-rm -rf config.txt build.txt install.txt
+cp ../heacore/BUILD_DIR/config.log heacore-config.log
+tar -zcvf logs.tgz config.txt build.txt install.txt config.log heacore-config.log
+rm -rf config.txt build.txt install.txt heacore-config.log
 rm -rf $PREFIX/$HEA_SUBDIR/BUILD_DIR/hd_install.o
 
 # heasoftpy fhelp docs are not created correctly; re-run
