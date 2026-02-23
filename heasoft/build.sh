@@ -49,7 +49,15 @@ fi
 
 # configure, build, install:
 cd BUILD_DIR
-./configure "${configure_args[@]}" 2>&1 | tee config.txt || false
+#./configure "${configure_args[@]}" 2>&1 | tee config.txt || false
+./configure "${configure_args[@]}" 2>&1 | tee config.txt
+echo "Top config.log:"
+cat config.log
+if [ -f ../heacore/BUILD_DIR/config.log ]; then
+  echo "HEACORE config.log:"
+  cat ../heacore/BUILD_DIR/config.log
+fi
+echo ""
 make all 2>&1 | tee build.txt || false
 make install 2>&1 | tee install.txt || false
 cp ../heacore/BUILD_DIR/config.log heacore-config.log
