@@ -75,6 +75,8 @@ jobs:
             rattler-build build --no-include-recipe --target-platform ${{ matrix.platform }} --output-dir ../output
           fi
           cd ..
+          cp output/bld/*/work/BUILD_DIR/config.log output/${package}-top-config.log
+          cp output/bld/*/work/heacore/BUILD_DIR/config.log output/${package}-heacore-config.log
           rm -rf output/src_cache output/bld
         shell: micromamba-shell {0}
 
