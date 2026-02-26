@@ -1,0 +1,340 @@
+diff --git a/Xspec/BUILD_DIR/configure b/Xspec/BUILD_DIR/configure
+index a47bc30abd..fc3e838a65 100755
+--- a/Xspec/BUILD_DIR/configure
++++ b/Xspec/BUILD_DIR/configure
+@@ -6163,9 +6163,9 @@ fi
+ # Capture default optimization for use if COPT/CXXOPT/FOPT were not specified:
+ #-------------------------------------------------------------------------------
+ 
+-COPT_DEFAULT=`echo $CFLAGS | tr " " "\012" | grep "^-O[0-9]"`
+-CXXOPT_DEFAULT=`echo $CXXFLAGS | tr " " "\012" | grep "^-O[0-9]"`
+-FOPT_DEFAULT=`echo $FFLAGS | tr " " "\012" | grep "^-O[0-9]"`
++COPT_DEFAULT=`echo $CFLAGS | tr " " "\012" | sort -u | grep -m1 "^-O[0-9]"`
++CXXOPT_DEFAULT=`echo $CXXFLAGS | tr " " "\012" | sort -u | grep -m1 "^-O[0-9]"`
++FOPT_DEFAULT=`echo $FFLAGS | tr " " "\012" | sort -u | grep -m1 "^-O[0-9]"`
+ 
+ 
+ # Remove existing/default optimization (use *OPT macros instead):
+diff --git a/attitude/BUILD_DIR/configure b/attitude/BUILD_DIR/configure
+index 9efb35cb2b..002e07f73b 100755
+--- a/attitude/BUILD_DIR/configure
++++ b/attitude/BUILD_DIR/configure
+@@ -5920,9 +5920,9 @@ fi
+ # Capture default optimization for use if COPT/CXXOPT/FOPT were not specified:
+ #-------------------------------------------------------------------------------
+ 
+-COPT_DEFAULT=`echo $CFLAGS | tr " " "\012" | grep "^-O[0-9]"`
+-CXXOPT_DEFAULT=`echo $CXXFLAGS | tr " " "\012" | grep "^-O[0-9]"`
+-FOPT_DEFAULT=`echo $FFLAGS | tr " " "\012" | grep "^-O[0-9]"`
++COPT_DEFAULT=`echo $CFLAGS | tr " " "\012" | sort -u | grep "^-O[0-9]" | tr "\012" " "`
++CXXOPT_DEFAULT=`echo $CXXFLAGS | tr " " "\012" | sort -u | grep "^-O[0-9]" | tr "\012" " "`
++FOPT_DEFAULT=`echo $FFLAGS | tr " " "\012" | sort -u | grep "^-O[0-9]" | tr "\012" " "`
+ 
+ 
+ # Remove existing/default optimization (use *OPT macros instead):
+diff --git a/burstcube/BUILD_DIR/configure b/burstcube/BUILD_DIR/configure
+index 9efb35cb2b..002e07f73b 100755
+--- a/burstcube/BUILD_DIR/configure
++++ b/burstcube/BUILD_DIR/configure
+@@ -5920,9 +5920,9 @@ fi
+ # Capture default optimization for use if COPT/CXXOPT/FOPT were not specified:
+ #-------------------------------------------------------------------------------
+ 
+-COPT_DEFAULT=`echo $CFLAGS | tr " " "\012" | grep "^-O[0-9]"`
+-CXXOPT_DEFAULT=`echo $CXXFLAGS | tr " " "\012" | grep "^-O[0-9]"`
+-FOPT_DEFAULT=`echo $FFLAGS | tr " " "\012" | grep "^-O[0-9]"`
++COPT_DEFAULT=`echo $CFLAGS | tr " " "\012" | sort -u | grep "^-O[0-9]" | tr "\012" " "`
++CXXOPT_DEFAULT=`echo $CXXFLAGS | tr " " "\012" | sort -u | grep "^-O[0-9]" | tr "\012" " "`
++FOPT_DEFAULT=`echo $FFLAGS | tr " " "\012" | sort -u | grep "^-O[0-9]" | tr "\012" " "`
+ 
+ 
+ # Remove existing/default optimization (use *OPT macros instead):
+diff --git a/calet/BUILD_DIR/configure b/calet/BUILD_DIR/configure
+index 9efb35cb2b..002e07f73b 100755
+--- a/calet/BUILD_DIR/configure
++++ b/calet/BUILD_DIR/configure
+@@ -5920,9 +5920,9 @@ fi
+ # Capture default optimization for use if COPT/CXXOPT/FOPT were not specified:
+ #-------------------------------------------------------------------------------
+ 
+-COPT_DEFAULT=`echo $CFLAGS | tr " " "\012" | grep "^-O[0-9]"`
+-CXXOPT_DEFAULT=`echo $CXXFLAGS | tr " " "\012" | grep "^-O[0-9]"`
+-FOPT_DEFAULT=`echo $FFLAGS | tr " " "\012" | grep "^-O[0-9]"`
++COPT_DEFAULT=`echo $CFLAGS | tr " " "\012" | sort -u | grep "^-O[0-9]" | tr "\012" " "`
++CXXOPT_DEFAULT=`echo $CXXFLAGS | tr " " "\012" | sort -u | grep "^-O[0-9]" | tr "\012" " "`
++FOPT_DEFAULT=`echo $FFLAGS | tr " " "\012" | sort -u | grep "^-O[0-9]" | tr "\012" " "`
+ 
+ 
+ # Remove existing/default optimization (use *OPT macros instead):
+diff --git a/demo/BUILD_DIR/configure b/demo/BUILD_DIR/configure
+index 9efb35cb2b..002e07f73b 100755
+--- a/demo/BUILD_DIR/configure
++++ b/demo/BUILD_DIR/configure
+@@ -5920,9 +5920,9 @@ fi
+ # Capture default optimization for use if COPT/CXXOPT/FOPT were not specified:
+ #-------------------------------------------------------------------------------
+ 
+-COPT_DEFAULT=`echo $CFLAGS | tr " " "\012" | grep "^-O[0-9]"`
+-CXXOPT_DEFAULT=`echo $CXXFLAGS | tr " " "\012" | grep "^-O[0-9]"`
+-FOPT_DEFAULT=`echo $FFLAGS | tr " " "\012" | grep "^-O[0-9]"`
++COPT_DEFAULT=`echo $CFLAGS | tr " " "\012" | sort -u | grep "^-O[0-9]" | tr "\012" " "`
++CXXOPT_DEFAULT=`echo $CXXFLAGS | tr " " "\012" | sort -u | grep "^-O[0-9]" | tr "\012" " "`
++FOPT_DEFAULT=`echo $FFLAGS | tr " " "\012" | sort -u | grep "^-O[0-9]" | tr "\012" " "`
+ 
+ 
+ # Remove existing/default optimization (use *OPT macros instead):
+diff --git a/ftools/BUILD_DIR/configure b/ftools/BUILD_DIR/configure
+index 15dab196a2..7166e613af 100755
+--- a/ftools/BUILD_DIR/configure
++++ b/ftools/BUILD_DIR/configure
+@@ -5995,9 +5995,9 @@ fi
+ # Capture default optimization for use if COPT/CXXOPT/FOPT were not specified:
+ #-------------------------------------------------------------------------------
+ 
+-COPT_DEFAULT=`echo $CFLAGS | tr " " "\012" | grep "^-O[0-9]"`
+-CXXOPT_DEFAULT=`echo $CXXFLAGS | tr " " "\012" | grep "^-O[0-9]"`
+-FOPT_DEFAULT=`echo $FFLAGS | tr " " "\012" | grep "^-O[0-9]"`
++COPT_DEFAULT=`echo $CFLAGS | tr " " "\012" | sort -u | grep "^-O[0-9]" | tr "\012" " "`
++CXXOPT_DEFAULT=`echo $CXXFLAGS | tr " " "\012" | sort -u | grep "^-O[0-9]" | tr "\012" " "`
++FOPT_DEFAULT=`echo $FFLAGS | tr " " "\012" | sort -u | grep "^-O[0-9]" | tr "\012" " "`
+ 
+ 
+ # Remove existing/default optimization (use *OPT macros instead):
+diff --git a/heacore/BUILD_DIR/configure b/heacore/BUILD_DIR/configure
+index ff990e889c..65fd4e55c5 100755
+--- a/heacore/BUILD_DIR/configure
++++ b/heacore/BUILD_DIR/configure
+@@ -5695,9 +5695,9 @@ fi
+ # Capture default optimization for use if COPT/CXXOPT/FOPT were not specified:
+ #-------------------------------------------------------------------------------
+ 
+-COPT_DEFAULT=`echo $CFLAGS | tr " " "\012" | grep "^-O[0-9]"`
+-CXXOPT_DEFAULT=`echo $CXXFLAGS | tr " " "\012" | grep "^-O[0-9]"`
+-FOPT_DEFAULT=`echo $FFLAGS | tr " " "\012" | grep "^-O[0-9]"`
++COPT_DEFAULT=`echo $CFLAGS | tr " " "\012" | sort -u | grep "^-O[0-9]" | tr "\012" " "`
++CXXOPT_DEFAULT=`echo $CXXFLAGS | tr " " "\012" | sort -u | grep "^-O[0-9]" | tr "\012" " "`
++FOPT_DEFAULT=`echo $FFLAGS | tr " " "\012" | sort -u | grep "^-O[0-9]" | tr "\012" " "`
+ 
+ 
+ # Remove existing/default optimization (use *OPT macros instead):
+diff --git a/heagen/BUILD_DIR/configure b/heagen/BUILD_DIR/configure
+index 9efb35cb2b..002e07f73b 100755
+--- a/heagen/BUILD_DIR/configure
++++ b/heagen/BUILD_DIR/configure
+@@ -5920,9 +5920,9 @@ fi
+ # Capture default optimization for use if COPT/CXXOPT/FOPT were not specified:
+ #-------------------------------------------------------------------------------
+ 
+-COPT_DEFAULT=`echo $CFLAGS | tr " " "\012" | grep "^-O[0-9]"`
+-CXXOPT_DEFAULT=`echo $CXXFLAGS | tr " " "\012" | grep "^-O[0-9]"`
+-FOPT_DEFAULT=`echo $FFLAGS | tr " " "\012" | grep "^-O[0-9]"`
++COPT_DEFAULT=`echo $CFLAGS | tr " " "\012" | sort -u | grep "^-O[0-9]" | tr "\012" " "`
++CXXOPT_DEFAULT=`echo $CXXFLAGS | tr " " "\012" | sort -u | grep "^-O[0-9]" | tr "\012" " "`
++FOPT_DEFAULT=`echo $FFLAGS | tr " " "\012" | sort -u | grep "^-O[0-9]" | tr "\012" " "`
+ 
+ 
+ # Remove existing/default optimization (use *OPT macros instead):
+diff --git a/heasim/BUILD_DIR/configure b/heasim/BUILD_DIR/configure
+index 9efb35cb2b..002e07f73b 100755
+--- a/heasim/BUILD_DIR/configure
++++ b/heasim/BUILD_DIR/configure
+@@ -5920,9 +5920,9 @@ fi
+ # Capture default optimization for use if COPT/CXXOPT/FOPT were not specified:
+ #-------------------------------------------------------------------------------
+ 
+-COPT_DEFAULT=`echo $CFLAGS | tr " " "\012" | grep "^-O[0-9]"`
+-CXXOPT_DEFAULT=`echo $CXXFLAGS | tr " " "\012" | grep "^-O[0-9]"`
+-FOPT_DEFAULT=`echo $FFLAGS | tr " " "\012" | grep "^-O[0-9]"`
++COPT_DEFAULT=`echo $CFLAGS | tr " " "\012" | sort -u | grep "^-O[0-9]" | tr "\012" " "`
++CXXOPT_DEFAULT=`echo $CXXFLAGS | tr " " "\012" | sort -u | grep "^-O[0-9]" | tr "\012" " "`
++FOPT_DEFAULT=`echo $FFLAGS | tr " " "\012" | sort -u | grep "^-O[0-9]" | tr "\012" " "`
+ 
+ 
+ # Remove existing/default optimization (use *OPT macros instead):
+diff --git a/heasptools/BUILD_DIR/configure b/heasptools/BUILD_DIR/configure
+index 9efb35cb2b..002e07f73b 100755
+--- a/heasptools/BUILD_DIR/configure
++++ b/heasptools/BUILD_DIR/configure
+@@ -5920,9 +5920,9 @@ fi
+ # Capture default optimization for use if COPT/CXXOPT/FOPT were not specified:
+ #-------------------------------------------------------------------------------
+ 
+-COPT_DEFAULT=`echo $CFLAGS | tr " " "\012" | grep "^-O[0-9]"`
+-CXXOPT_DEFAULT=`echo $CXXFLAGS | tr " " "\012" | grep "^-O[0-9]"`
+-FOPT_DEFAULT=`echo $FFLAGS | tr " " "\012" | grep "^-O[0-9]"`
++COPT_DEFAULT=`echo $CFLAGS | tr " " "\012" | sort -u | grep "^-O[0-9]" | tr "\012" " "`
++CXXOPT_DEFAULT=`echo $CXXFLAGS | tr " " "\012" | sort -u | grep "^-O[0-9]" | tr "\012" " "`
++FOPT_DEFAULT=`echo $FFLAGS | tr " " "\012" | sort -u | grep "^-O[0-9]" | tr "\012" " "`
+ 
+ 
+ # Remove existing/default optimization (use *OPT macros instead):
+diff --git a/heatools/BUILD_DIR/configure b/heatools/BUILD_DIR/configure
+index 9efb35cb2b..002e07f73b 100755
+--- a/heatools/BUILD_DIR/configure
++++ b/heatools/BUILD_DIR/configure
+@@ -5920,9 +5920,9 @@ fi
+ # Capture default optimization for use if COPT/CXXOPT/FOPT were not specified:
+ #-------------------------------------------------------------------------------
+ 
+-COPT_DEFAULT=`echo $CFLAGS | tr " " "\012" | grep "^-O[0-9]"`
+-CXXOPT_DEFAULT=`echo $CXXFLAGS | tr " " "\012" | grep "^-O[0-9]"`
+-FOPT_DEFAULT=`echo $FFLAGS | tr " " "\012" | grep "^-O[0-9]"`
++COPT_DEFAULT=`echo $CFLAGS | tr " " "\012" | sort -u | grep "^-O[0-9]" | tr "\012" " "`
++CXXOPT_DEFAULT=`echo $CXXFLAGS | tr " " "\012" | sort -u | grep "^-O[0-9]" | tr "\012" " "`
++FOPT_DEFAULT=`echo $FFLAGS | tr " " "\012" | sort -u | grep "^-O[0-9]" | tr "\012" " "`
+ 
+ 
+ # Remove existing/default optimization (use *OPT macros instead):
+diff --git a/hitomixrism/BUILD_DIR/configure b/hitomixrism/BUILD_DIR/configure
+index 9efb35cb2b..002e07f73b 100755
+--- a/hitomixrism/BUILD_DIR/configure
++++ b/hitomixrism/BUILD_DIR/configure
+@@ -5920,9 +5920,9 @@ fi
+ # Capture default optimization for use if COPT/CXXOPT/FOPT were not specified:
+ #-------------------------------------------------------------------------------
+ 
+-COPT_DEFAULT=`echo $CFLAGS | tr " " "\012" | grep "^-O[0-9]"`
+-CXXOPT_DEFAULT=`echo $CXXFLAGS | tr " " "\012" | grep "^-O[0-9]"`
+-FOPT_DEFAULT=`echo $FFLAGS | tr " " "\012" | grep "^-O[0-9]"`
++COPT_DEFAULT=`echo $CFLAGS | tr " " "\012" | sort -u | grep "^-O[0-9]" | tr "\012" " "`
++CXXOPT_DEFAULT=`echo $CXXFLAGS | tr " " "\012" | sort -u | grep "^-O[0-9]" | tr "\012" " "`
++FOPT_DEFAULT=`echo $FFLAGS | tr " " "\012" | sort -u | grep "^-O[0-9]" | tr "\012" " "`
+ 
+ 
+ # Remove existing/default optimization (use *OPT macros instead):
+diff --git a/integral/BUILD_DIR/configure b/integral/BUILD_DIR/configure
+index 9efb35cb2b..002e07f73b 100755
+--- a/integral/BUILD_DIR/configure
++++ b/integral/BUILD_DIR/configure
+@@ -5920,9 +5920,9 @@ fi
+ # Capture default optimization for use if COPT/CXXOPT/FOPT were not specified:
+ #-------------------------------------------------------------------------------
+ 
+-COPT_DEFAULT=`echo $CFLAGS | tr " " "\012" | grep "^-O[0-9]"`
+-CXXOPT_DEFAULT=`echo $CXXFLAGS | tr " " "\012" | grep "^-O[0-9]"`
+-FOPT_DEFAULT=`echo $FFLAGS | tr " " "\012" | grep "^-O[0-9]"`
++COPT_DEFAULT=`echo $CFLAGS | tr " " "\012" | sort -u | grep "^-O[0-9]" | tr "\012" " "`
++CXXOPT_DEFAULT=`echo $CXXFLAGS | tr " " "\012" | sort -u | grep "^-O[0-9]" | tr "\012" " "`
++FOPT_DEFAULT=`echo $FFLAGS | tr " " "\012" | sort -u | grep "^-O[0-9]" | tr "\012" " "`
+ 
+ 
+ # Remove existing/default optimization (use *OPT macros instead):
+diff --git a/ixpe/BUILD_DIR/configure b/ixpe/BUILD_DIR/configure
+index 9efb35cb2b..002e07f73b 100755
+--- a/ixpe/BUILD_DIR/configure
++++ b/ixpe/BUILD_DIR/configure
+@@ -5920,9 +5920,9 @@ fi
+ # Capture default optimization for use if COPT/CXXOPT/FOPT were not specified:
+ #-------------------------------------------------------------------------------
+ 
+-COPT_DEFAULT=`echo $CFLAGS | tr " " "\012" | grep "^-O[0-9]"`
+-CXXOPT_DEFAULT=`echo $CXXFLAGS | tr " " "\012" | grep "^-O[0-9]"`
+-FOPT_DEFAULT=`echo $FFLAGS | tr " " "\012" | grep "^-O[0-9]"`
++COPT_DEFAULT=`echo $CFLAGS | tr " " "\012" | sort -u | grep "^-O[0-9]" | tr "\012" " "`
++CXXOPT_DEFAULT=`echo $CXXFLAGS | tr " " "\012" | sort -u | grep "^-O[0-9]" | tr "\012" " "`
++FOPT_DEFAULT=`echo $FFLAGS | tr " " "\012" | sort -u | grep "^-O[0-9]" | tr "\012" " "`
+ 
+ 
+ # Remove existing/default optimization (use *OPT macros instead):
+diff --git a/maxi/BUILD_DIR/configure b/maxi/BUILD_DIR/configure
+index 9efb35cb2b..002e07f73b 100755
+--- a/maxi/BUILD_DIR/configure
++++ b/maxi/BUILD_DIR/configure
+@@ -5920,9 +5920,9 @@ fi
+ # Capture default optimization for use if COPT/CXXOPT/FOPT were not specified:
+ #-------------------------------------------------------------------------------
+ 
+-COPT_DEFAULT=`echo $CFLAGS | tr " " "\012" | grep "^-O[0-9]"`
+-CXXOPT_DEFAULT=`echo $CXXFLAGS | tr " " "\012" | grep "^-O[0-9]"`
+-FOPT_DEFAULT=`echo $FFLAGS | tr " " "\012" | grep "^-O[0-9]"`
++COPT_DEFAULT=`echo $CFLAGS | tr " " "\012" | sort -u | grep "^-O[0-9]" | tr "\012" " "`
++CXXOPT_DEFAULT=`echo $CXXFLAGS | tr " " "\012" | sort -u | grep "^-O[0-9]" | tr "\012" " "`
++FOPT_DEFAULT=`echo $FFLAGS | tr " " "\012" | sort -u | grep "^-O[0-9]" | tr "\012" " "`
+ 
+ 
+ # Remove existing/default optimization (use *OPT macros instead):
+diff --git a/nicer/BUILD_DIR/configure b/nicer/BUILD_DIR/configure
+index 9efb35cb2b..002e07f73b 100755
+--- a/nicer/BUILD_DIR/configure
++++ b/nicer/BUILD_DIR/configure
+@@ -5920,9 +5920,9 @@ fi
+ # Capture default optimization for use if COPT/CXXOPT/FOPT were not specified:
+ #-------------------------------------------------------------------------------
+ 
+-COPT_DEFAULT=`echo $CFLAGS | tr " " "\012" | grep "^-O[0-9]"`
+-CXXOPT_DEFAULT=`echo $CXXFLAGS | tr " " "\012" | grep "^-O[0-9]"`
+-FOPT_DEFAULT=`echo $FFLAGS | tr " " "\012" | grep "^-O[0-9]"`
++COPT_DEFAULT=`echo $CFLAGS | tr " " "\012" | sort -u | grep "^-O[0-9]" | tr "\012" " "`
++CXXOPT_DEFAULT=`echo $CXXFLAGS | tr " " "\012" | sort -u | grep "^-O[0-9]" | tr "\012" " "`
++FOPT_DEFAULT=`echo $FFLAGS | tr " " "\012" | sort -u | grep "^-O[0-9]" | tr "\012" " "`
+ 
+ 
+ # Remove existing/default optimization (use *OPT macros instead):
+diff --git a/nustar/BUILD_DIR/configure b/nustar/BUILD_DIR/configure
+index 9efb35cb2b..002e07f73b 100755
+--- a/nustar/BUILD_DIR/configure
++++ b/nustar/BUILD_DIR/configure
+@@ -5920,9 +5920,9 @@ fi
+ # Capture default optimization for use if COPT/CXXOPT/FOPT were not specified:
+ #-------------------------------------------------------------------------------
+ 
+-COPT_DEFAULT=`echo $CFLAGS | tr " " "\012" | grep "^-O[0-9]"`
+-CXXOPT_DEFAULT=`echo $CXXFLAGS | tr " " "\012" | grep "^-O[0-9]"`
+-FOPT_DEFAULT=`echo $FFLAGS | tr " " "\012" | grep "^-O[0-9]"`
++COPT_DEFAULT=`echo $CFLAGS | tr " " "\012" | sort -u | grep "^-O[0-9]" | tr "\012" " "`
++CXXOPT_DEFAULT=`echo $CXXFLAGS | tr " " "\012" | sort -u | grep "^-O[0-9]" | tr "\012" " "`
++FOPT_DEFAULT=`echo $FFLAGS | tr " " "\012" | sort -u | grep "^-O[0-9]" | tr "\012" " "`
+ 
+ 
+ # Remove existing/default optimization (use *OPT macros instead):
+diff --git a/suzaku/BUILD_DIR/configure b/suzaku/BUILD_DIR/configure
+index 9efb35cb2b..002e07f73b 100755
+--- a/suzaku/BUILD_DIR/configure
++++ b/suzaku/BUILD_DIR/configure
+@@ -5920,9 +5920,9 @@ fi
+ # Capture default optimization for use if COPT/CXXOPT/FOPT were not specified:
+ #-------------------------------------------------------------------------------
+ 
+-COPT_DEFAULT=`echo $CFLAGS | tr " " "\012" | grep "^-O[0-9]"`
+-CXXOPT_DEFAULT=`echo $CXXFLAGS | tr " " "\012" | grep "^-O[0-9]"`
+-FOPT_DEFAULT=`echo $FFLAGS | tr " " "\012" | grep "^-O[0-9]"`
++COPT_DEFAULT=`echo $CFLAGS | tr " " "\012" | sort -u | grep "^-O[0-9]" | tr "\012" " "`
++CXXOPT_DEFAULT=`echo $CXXFLAGS | tr " " "\012" | sort -u | grep "^-O[0-9]" | tr "\012" " "`
++FOPT_DEFAULT=`echo $FFLAGS | tr " " "\012" | sort -u | grep "^-O[0-9]" | tr "\012" " "`
+ 
+ 
+ # Remove existing/default optimization (use *OPT macros instead):
+diff --git a/swift/BUILD_DIR/configure b/swift/BUILD_DIR/configure
+index 9efb35cb2b..002e07f73b 100755
+--- a/swift/BUILD_DIR/configure
++++ b/swift/BUILD_DIR/configure
+@@ -5920,9 +5920,9 @@ fi
+ # Capture default optimization for use if COPT/CXXOPT/FOPT were not specified:
+ #-------------------------------------------------------------------------------
+ 
+-COPT_DEFAULT=`echo $CFLAGS | tr " " "\012" | grep "^-O[0-9]"`
+-CXXOPT_DEFAULT=`echo $CXXFLAGS | tr " " "\012" | grep "^-O[0-9]"`
+-FOPT_DEFAULT=`echo $FFLAGS | tr " " "\012" | grep "^-O[0-9]"`
++COPT_DEFAULT=`echo $CFLAGS | tr " " "\012" | sort -u | grep "^-O[0-9]" | tr "\012" " "`
++CXXOPT_DEFAULT=`echo $CXXFLAGS | tr " " "\012" | sort -u | grep "^-O[0-9]" | tr "\012" " "`
++FOPT_DEFAULT=`echo $FFLAGS | tr " " "\012" | sort -u | grep "^-O[0-9]" | tr "\012" " "`
+ 
+ 
+ # Remove existing/default optimization (use *OPT macros instead):
+diff --git a/tcltk/BUILD_DIR/configure b/tcltk/BUILD_DIR/configure
+index 0b99943326..283dfd565f 100755
+--- a/tcltk/BUILD_DIR/configure
++++ b/tcltk/BUILD_DIR/configure
+@@ -5820,9 +5820,9 @@ fi
+ # Capture default optimization for use if COPT/CXXOPT/FOPT were not specified:
+ #-------------------------------------------------------------------------------
+ 
+-COPT_DEFAULT=`echo $CFLAGS | tr " " "\012" | grep "^-O[0-9]"`
+-CXXOPT_DEFAULT=`echo $CXXFLAGS | tr " " "\012" | grep "^-O[0-9]"`
+-FOPT_DEFAULT=`echo $FFLAGS | tr " " "\012" | grep "^-O[0-9]"`
++COPT_DEFAULT=`echo $CFLAGS | tr " " "\012" | sort -u | grep "^-O[0-9]" | tr "\012" " "`
++CXXOPT_DEFAULT=`echo $CXXFLAGS | tr " " "\012" | sort -u | grep "^-O[0-9]" | tr "\012" " "`
++FOPT_DEFAULT=`echo $FFLAGS | tr " " "\012" | sort -u | grep "^-O[0-9]" | tr "\012" " "`
+ 
+ 
+ # Remove existing/default optimization (use *OPT macros instead):
