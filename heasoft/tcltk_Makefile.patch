@@ -23,3 +23,30 @@
  
  publish-tk:
  	${MAKE} install-tk HD_TOP_EXEC_PFX=${HD_BLD_EXEC_PFX} HD_EXEC_PFX=${HD_BLD_EXEC_PFX} HD_CP_P="${HD_LN_S}"
+@@ -186,7 +179,7 @@ build-itk:
+ 	${MAKE} subdir-itk
+ 
+ publish-itk:
+-	:
++	${MAKE} install-itk HD_TOP_EXEC_PFX=${HD_BLD_EXEC_PFX} HD_EXEC_PFX=${HD_BLD_EXEC_PFX} HD_CP_P="${HD_LN_S}"
+ 
+ install-itk:
+ 	${MAKE} subdir-itk HD_TARGET="install" \
+@@ -214,7 +207,7 @@ build-iwidgets:
+ 	${MAKE} subdir-iwidgets
+ 
+ publish-iwidgets:
+-	:
++	${MAKE} install-iwidgets HD_TOP_EXEC_PFX=${HD_BLD_EXEC_PFX} HD_EXEC_PFX=${HD_BLD_EXEC_PFX} HD_CP_P="${HD_LN_S}"
+ 
+ install-iwidgets:
+ 	${MAKE} subdir-iwidgets HD_TARGET="install" \
+@@ -264,7 +257,7 @@ build-tix:
+ 	${MAKE} subdir-tix
+ 
+ publish-tix:
+-	:
++	${MAKE} install-tix HD_TOP_EXEC_PFX=${HD_BLD_EXEC_PFX} HD_EXEC_PFX=${HD_BLD_EXEC_PFX} HD_CP_P="${HD_LN_S}"
+ 
+ install-tix:
+ 	${MAKE} subdir-tix HD_TARGET="install" \

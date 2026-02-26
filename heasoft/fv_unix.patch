@@ -1,0 +1,167 @@
+--- a/ftools/guis/fv/unix/Makefile
++++ b/ftools/guis/fv/unix/Makefile
+@@ -1,117 +1,65 @@
+ HD_COMPONENT_NAME	= ftools
+ 
+-HD_CTASK		= fv
+-
+-FV_VERSION		= 5.5.3
+-
+-PKG_ARCH		= `uname`
+-
+-PKG_DIR			= fv${FV_VERSION}
+-
+-PKG_FILE		= fv${FV_VERSION}_${PKG_ARCH}.tar
+-
+-HD_CTASK_SRC_c		= fvexec.c Et_AppInit.c
+-
+-HD_CFLAGS		= ${FV_CFLAGS} \
++HD_CFLAGS		= -I. \
++			  -I${HC_BLD_EXEC_PFX}/include \
+ 			  -I${HC_EXEC_PFX}/include \
++			  -I${TCLTK_BLD_EXEC_PFX}/include \
+ 			  -I${TCLTK_EXEC_PFX}/include \
+ 			  -I${TCL_DIR} -I${TCL_DIR}/../generic \
+ 			  -I${TIX_DIR}/generic \
+ 			  -I${ITK_DIR}/generic \
+-			  -I${HD_INC} ${XINCLUDES} \
++			  -I${HD_INC} -I${HD_BLD_INC} \
++			  ${XINCLUDES} \
+ 			  -DHAVE_UNISTD_H=1 -DSTDC_HEADERS=1 -DHAVE_SYS_STAT_H=1
+ 
+-ITCL_VERS	= ${shell echo ${ITCL} | sed -e 's:itcl::'}
+-TCL_VERS_SHORT	= ${shell echo ${TCL} | sed -e 's:tcl::'}
+-TK_VERS_SHORT	= ${shell echo ${TK} | sed -e 's:tk::'}
++HD_CLIBS		= ${HD_LFLAGS} -l${CFITSIO} -lpow -lfitstcl \
++			  -L${ITK_DIR} -l${ITK} \
++			  -L${ITCL_DIR} -l${ITCL} \
++			  -L${TIX_DIR} -l${TIX} \
++			  ${TCL} ${TK} \
++			  ${TCLTK_BLD_EXEC_PFX}/lib/lib${XPA}.a
+ 
+-HD_CLIBS		= ${HC_EXEC_PFX}/lib/lib${CFITSIO}.a \
+-			  ${TCLTK_EXEC_PFX}/lib/libpow.a \
+-			  ${TCLTK_EXEC_PFX}/lib/${ITK}/lib${ITK}.a \
+-			  ${TCLTK_EXEC_PFX}/lib/${ITCL}/lib${ITCL}.a \
+-			  ${TCLTK_EXEC_PFX}/lib/${ITCL}/libitclstub${ITCL_VERS}.a \
+-			  ${TCLTK_EXEC_PFX}/lib/lib${TCL}.a \
+-			  ${TCLTK_EXEC_PFX}/lib/libtclstub${TCL_VERS_SHORT}.a \
+-			  ${TCLTK_EXEC_PFX}/lib/lib${TK}.a \
+-			  ${TCLTK_EXEC_PFX}/lib/lib${XPA}.a \
+-			  ${TCLTK_EXEC_PFX}/lib/${TIX}/lib${TIX}.a \
+-			  ${TCLTK_EXEC_PFX}/lib/libtkstub${TK_VERS_SHORT}.a \
+-			  ${HD_LIB}/libfitstcl.a \
+-			  ${FV_LIBS} -lz -lpthread
++HD_INSTALL_TASKS	= fv
+ 
+-LDFLAGS_C_BIN		= ${FV_LDFLAGS}
++HD_CLEAN		= ${HD_INSTALL_TASKS} tklib fvexec.c fvexec.h mktclapp
+ 
+-HD_INSTALL_TASKS	= ${HD_CTASK}
++default: fvsrc fvexe
+ 
+-HD_CLEAN		= ${PKG_DIR} ${PKG_FILE}.gz pow
+-
+-HD_DISTCLEAN		= fvexec.c fvexec.h mktclapp tklib appinit.mta.bak
++all: default
+ 
+ include ${HD_STD_MAKEFILE}
+ 
+-fv-tklib:
+-	@${HD_INSTALL} ${TCLTK_EXEC_PFX}/lib/tcl8 tklib/tcl8 ${HD_CP_P}
+-	@${HD_INSTALL} ${TCLTK_EXEC_PFX}/lib/${TCL} tklib/${TCL} ${HD_CP_P}
+-	@${HD_INSTALL} ${TCLTK_EXEC_PFX}/lib/${TK} tklib/${TK} ${HD_CP_P}
+-	@${HD_INSTALL} ${TCLTK_EXEC_PFX}/lib/${ITCL} tklib/${ITCL} ${HD_CP_P}
+-	@${HD_INSTALL} ${TCLTK_EXEC_PFX}/lib/${ITK} tklib/${ITK} ${HD_CP_P}
+-	@${HD_INSTALL} ${TCLTK_EXEC_PFX}/lib/${IWIDGETS} tklib/${IWIDGETS} ${HD_CP_P}
+-	@${HD_INSTALL} ${TCLTK_EXEC_PFX}/lib/${TIX} tklib/${TIX} ${HD_CP_P}
+-	@-rm -f tklib/${TIX}/Init.tcl
+-	@${HD_INSTALL} ${TIX_DIR}/library/Init.tcl.fv tklib/${TIX}/Init.tcl ${HD_CP}
+-	@${HD_INSTALL} ${XPA_DIR}/pkgIndex.tcl tklib/xpa/pkgIndex.tcl ${HD_CP_P}
+-	@${HD_INSTALL} ${XPA_DIR}/test.tcl tklib/xpa/test.tcl ${HD_CP_P}
+-	@cd ${HD_SRC}/../tcltk/pow; ../BUILD_DIR/hmake install-pow-extras \
+-		HD_LIB=${HD_SRC}/guis/fv/unix/tklib POW_EXTRAS="" POW_HTML=""
+-	@cat tklib/${TCL}/init.tcl | sed 's: -encoding utf-8::' > init.tcl.edit; ${HD_MV_F} init.tcl.edit tklib/${TCL}/init.tcl
+-	@cat tklib/${TK}/tk.tcl | sed 's: -encoding utf-8::' > tk.tcl.edit; ${HD_MV_F} tk.tcl.edit tklib/${TK}/tk.tcl
+-#	@cat tklib/${TCL}/init.tcl | sed '184s: -encoding utf-8::' > init.tcl.edit; ${HD_MV_F} init.tcl.edit tklib/${TCL}/init.tcl
+-
+-
+-fvexec: fv-tklib
+-	@${HD_BUILD_DIR}/hmake mktclapp HD_CTASK=mktclapp \
+-		HD_CTASK_SRC_c=mktclapp.c HD_CFLAGS="" LDFLAGS_C="" HD_CLIBS=""
+-	@echo "Launching xmktclapp, please wait..."
+-	@echo "...and click on 'Build' in the window when it opens."
+-	@PATH=.:${PATH}; export PATH; \
+-	${TCLTK_EXEC_PFX}/bin/wish xmktclapp.tcl &
+-	@echo "Backing up appinit.mta as appinit.mta.bak"
+-	@/bin/cp -f appinit.mta appinit.mta.bak
+-	@echo "After building fvexec.c|.h, you should check for any diffs in appinit.mta:"
+-	@echo ""
+-	@echo "diff appinit.mta.bak appinit.mta"
+-	@echo ""
+-	@echo "If there are any, you may need to modify appinit.mta and then run 'hmake fvexec-remake'..."
+-
+-fvexec-remake:
+-#	/bin/cp -f appinit.new appinit.mta
++msgcat	= ${shell ls ${TCL_DIR}/tcl8/8.5/msgcat-*.tm | xargs basename}
++http	= ${shell ls ${TCL_DIR}/tcl8/8.6/http-*.tm | xargs basename}
++itclv	= ${shell find ${TCL_DIR} -type d -name itcl\* | xargs basename}
++
++fvsrc:
++	@mkdir -p ./tklib/xpa
++	@cp -rL ${TCL_DIR}/tcl8* tklib/.
++	@cp -rL ${TCL_DIR}/itcl* tklib/.
++	@cp -rL ${TK_DIR}/tk8* tklib/.
++	@cp -rL ${TCLTK_BLD_EXEC_PFX}/lib/itk* tklib/.
++	@cp -rL ${TCLTK_BLD_EXEC_PFX}/lib/iwidgets* tklib/.
++	@cp -rL ${TCLTK_BLD_EXEC_PFX}/lib/pow tklib/.
++	@cp -rL ${TCLTK_BLD_EXEC_PFX}/lib/Tix* tklib/.
++	@rm -f tklib/itcl*/libitcl* tklib/itk*/libitk* tklib/Tix*/libTix*
++	@cp ${HD_SRC}/../tcltk/tix/library/Init.tcl.fv tklib/Tix*/Init.tcl
++	@cp ${HD_SRC}/../tcltk/xpa/pkgIndex.tcl tklib/xpa/.
++	@cp ${HD_SRC}/../tcltk/xpa/test.tcl tklib/xpa/.
++	@find tklib -type f -exec sed -i.bak "s/-encoding utf-8//g" {} +
++	@find tklib -type f -name '*.bak' -exec rm -f {} +
++	@sed -i.bak "s|tklib/itcl[^/]*|tklib/${itclv}|" appinit.mta
++	@sed -i.bak "s|8\.5/msgcat-[^/]*\.tm|8.5/${msgcat}|" appinit.mta
++	@sed -i.bak "s|8\.6/http-[^/]*\.tm|8.6/${http}|" appinit.mta
++	${CC} mktclapp.c -o mktclapp
+ 	./mktclapp -f appinit.mta > fvexec.c
++	./mktclapp -header > fvexec.h
++	@sed -i.bak "s|tklib/itcl[^/]*|tklib/${itclv}|" fvexec.c
++	@sed -i.bak "s|8\.5/msgcat-[^/]*\.tm|8.5/${msgcat}|" fvexec.c
++	@sed -i.bak "s|8\.6/http-[^/]*\.tm|8.6/${http}|" fvexec.c
++
++#	@sed -i.bak "s|8\.5/msgcat-[^/]*\.tm|8.5/${msgcat}|" fvInit.tcl
++#	@sed -i.bak "s|8\.6/http-[^/]*\.tm|8.6/${http}|" fvInit.tcl
+ 
+-fvpkg:
+-	@${HD_INSTALL} ${HD_CTASK} ${PKG_DIR}/${HD_CTASK} ${HD_CP_P}
+-	@${HD_INSTALL} ${XPA_DIR}/xpaaccess ${PKG_DIR}/xpabin/xpaaccess ${HD_CP_P}
+-	@${HD_INSTALL} ${XPA_DIR}/xpaget ${PKG_DIR}/xpabin/xpaget ${HD_CP_P}
+-	@${HD_INSTALL} ${XPA_DIR}/xpainfo ${PKG_DIR}/xpabin/xpainfo ${HD_CP_P}
+-	@${HD_INSTALL} ${XPA_DIR}/xpamb ${PKG_DIR}/xpabin/xpamb ${HD_CP_P}
+-	@${HD_INSTALL} ${XPA_DIR}/xpans ${PKG_DIR}/xpabin/xpans ${HD_CP_P}
+-	@${HD_INSTALL} ${XPA_DIR}/xpaset ${PKG_DIR}/xpabin/xpaset ${HD_CP_P}
+-	@${HD_INSTALL} tklib/${TIX} ${PKG_DIR}/${TIX} ${HD_CP_P}
+-	@cd ${HD_SRC}/../tcltk/pow; ../BUILD_DIR/hmake install-pow-extras \
+-		HD_LIB=${HD_SRC}/guis/fv/unix POW_EXTRAS="" POW_TCL=""
+-	@${HD_INSTALL} pow ${PKG_DIR}/doc ${HD_CP_P}
+-	@${HD_INSTALL} ../doc ${PKG_DIR}/doc ${HD_CP_P}
+-	@${HD_INSTALL} ../Release_Notes ${PKG_DIR}/Release_Notes ${HD_CP_P}
+-	@${HD_INSTALL} ../sample_data ${PKG_DIR}/sample_data ${HD_CP_P}
+-	@${HD_INSTALL} ../scripts ${PKG_DIR}/sample_scripts ${HD_CP_P}
+-	@-rm -f ${PKG_DIR}/${TIX}/lib*
+-	@-rm -rf ${PKG_DIR}/doc/CVS
+-	@-rm -rf ${PKG_DIR}/sample_data/CVS
+-	@-rm -rf ${PKG_DIR}/sample_scripts/CVS
+-	@cd ${PKG_DIR}/doc; \
+-	sed -e "s:..\/..\/pow\/::" fv_scripting.html > fv_scripting.html-edit; \
+-	sed -e "s:..\/fv\/doc\/::" Scripting.html > Scripting.html-edit; \
+-	${HD_INSTALL} fv_scripting.html-edit fv_scripting.html ${HD_MV_F}; \
+-	${HD_INSTALL} Scripting.html-edit Scripting.html ${HD_MV_F}
+-	@-rm -f ${PKG_FILE} ${PKG_FILE}.gz
+-	@echo "tar cf ${PKG_FILE} ${PKG_DIR}"; tar cf ${PKG_FILE} ${PKG_DIR}
+-	@echo "gzip ${PKG_FILE}"; gzip ${PKG_FILE}
++fvexe:
++	${HD_MAKE} fv HD_CTASK=fv HD_CTASK_SRC_c="Et_AppInit.c fvexec.c"

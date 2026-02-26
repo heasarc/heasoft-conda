@@ -1,0 +1,49 @@
+diff --git a/ftools/guis/fv/unix/mktclapp.c b/ftools/guis/fv/unix/mktclapp.c
+index 7385947541..8e90febece 100644
+--- a/ftools/guis/fv/unix/mktclapp.c
++++ b/ftools/guis/fv/unix/mktclapp.c
+@@ -786,7 +786,7 @@ static char zHeader[] =
+ "ET_EXTERN int Et_AppendObjF(Tcl_Obj*,const char*,...);\n"
+ "#endif\n"
+ "#define ET_TCLARGS "
+-     "ClientData clientData,Tcl_Interp*interp,int argc,char**argv\n"
++     "ClientData clientData,Tcl_Interp*interp,int argc,const char**argv\n"
+ "#define ET_OBJARGS "
+      "ClientData clientData,Tcl_Interp*interp,int objc,Tcl_Obj *CONST objv[]\n"
+ "#endif\n"
+@@ -1119,7 +1119,7 @@ int main(int argc, char **argv){
+     "#define INTERFACE 1\n"
+     "#if INTERFACE\n"
+     "#define ET_TCLARGS "
+-       "ClientData clientData,Tcl_Interp*interp,int argc,char**argv\n"
++       "ClientData clientData,Tcl_Interp*interp,int argc,const char**argv\n"
+     "#define ET_OBJARGS "
+        "ClientData clientData,Tcl_Interp*interp,int objc,Tcl_Obj*CONST objv[]\n"
+     "#endif\n"   
+@@ -3241,7 +3241,7 @@ char zTail[] =
+ "/*\n"
+ "** Initialize everything.\n"
+ "*/\n"
+-"static int Et_Local_Init(int argc, char **argv){\n"
++"static int Et_Local_Init(int argc, const char **argv){\n"
+ "  Tcl_Interp *interp;\n"
+ "  char *args;\n"
+ "  char buf[100];\n"
+@@ -3275,7 +3275,7 @@ char zTail[] =
+ "/*\n"
+ "** This routine is called to do the complete initialization.\n"
+ "*/\n"
+-"int Et_Init(int argc, char **argv){\n"
++"int Et_Init(int argc, const char **argv){\n"
+ "#ifdef ET_TCL_LIBRARY\n"
+ "  putenv(\"TCL_LIBRARY=\" ET_TCL_LIBRARY);\n"
+ "#endif\n"
+@@ -3300,7 +3300,7 @@ char zTail[] =
+ "** their own main() routine in a C module, then the ET_HAVE_MAIN\n"
+ "** macro will be set to 1 and this code will be skipped.\n"
+ "*/\n"
+-"int main(int argc, char **argv){\n"
++"int main(int argc, const char **argv){\n"
+ "#if ET_AUTO_FORK\n"
+ "  int rc = fork();\n"
+ "  if( rc<0 ){\n"
