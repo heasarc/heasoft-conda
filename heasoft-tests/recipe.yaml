@@ -11,7 +11,7 @@ package:
 source:
   #url: https://heasarc.gsfc.nasa.gov/FTP/software/conda/source/${{ name }}-${{ version }}.tar.gz
   #sha256: 53d91083195ddad7f19260ba6dbeebc01d96802f7e0e7db9d17e950eb4e7b4f9
-  url: https://heasarc.gsfc.nasa.gov/FTP/software/irby/conda/${{ name }}-${{ version }}.tar.gz
+  url: https://heasarc.gsfc.nasa.gov/FTP/software/lheasoft/irby/conda/${{ name }}-${{ version }}.tar.gz
   sha256: 90e7e41850c719c84093c9fb8850f91ca9bff02a1c0222ad99dbdce26d640c5a
   patches:
     - ../heasoft/configures_opt.patch
