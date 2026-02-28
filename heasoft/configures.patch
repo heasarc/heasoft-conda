@@ -1,8 +1,32 @@
 diff --git a/Xspec/BUILD_DIR/configure b/Xspec/BUILD_DIR/configure
-index a47bc30abd..0be3c99b22 100755
+index a47bc30abd..2b71a90b94 100755
 --- a/Xspec/BUILD_DIR/configure
 +++ b/Xspec/BUILD_DIR/configure
-@@ -8945,8 +8945,8 @@ case $host in
+@@ -8547,9 +8547,21 @@ SIZEOF_LONG="$ac_cv_sizeof_long"
+ echo "int main(){return(0);}" > /tmp/$$.c
+ $CXX $CXXFLAGS -v -o /tmp/$$.out /tmp/$$.c 2> /tmp/$$.log
+ if test `cat /tmp/$$.log | grep -c collect2` -ne 0; then
+-    cxx_lib_paths=`grep collect2 /tmp/$$.log | tr " " "\012" | grep "^-L" | tr "\012" " "`
++    # Allow for case of linker output (e.g. conda) that has a space
++    # between '-L' and the directory path:
++    if test `cat /tmp/$$.log | grep collect2 | grep -c "L /"` -ne 0; then
++       cxx_lib_paths=`grep collect2 /tmp/$$.log | sed 's:L /:L/:g' | tr " " "\012" | grep "^-L" | tr "\012" " "`
++    else
++       cxx_lib_paths=`grep collect2 /tmp/$$.log | tr " " "\012" | grep "^-L" | tr "\012" " "`
++    fi
+ else
+-    cxx_lib_paths=`grep ld /tmp/$$.log | tr " " "\012" | grep "^-L" | tr "\012" " "`
++    # Allow for case of linker output (e.g. conda) that has a space
++    # between '-L' and the directory path:
++    if test `cat /tmp/$$.log | grep ld | grep -c "L /"` -ne 0; then
++       cxx_lib_paths=`grep ld /tmp/$$.log | sed 's:L /:L/:g' | tr " " "\012" | grep "^-L" | tr "\012" " "`
++    else
++       cxx_lib_paths=`grep ld /tmp/$$.log | tr " " "\012" | grep "^-L" | tr "\012" " "`
++    fi
+ fi
+ # The ld grep can return "-L/usr/local/lib", which we don't want:
+ if test "x$APPLEXCODE" = xyes; then
+@@ -8945,8 +8957,8 @@ case $host in
      LDFLAGS_C_PY="-Wl,-rpath,\$HD_TOP_EXEC_PFX/lib"
      LDFLAGS_CXX_PY="-Wl,-rpath,\$HD_TOP_EXEC_PFX/lib"
      ;;
@@ -14,10 +38,34 @@ index a47bc30abd..0be3c99b22 100755
      # LDFLAGS for Mac executables:
      LDFLAGS_C_BIN="$LDFLAGS_C_BIN -headerpad_max_install_names -Wl,-rpath,@executable_path/../lib -Wl,-rpath,\$HD_TOP_EXEC_PFX/lib -Wl,-rpath,\$TCL_DIR"
 diff --git a/attitude/BUILD_DIR/configure b/attitude/BUILD_DIR/configure
-index 9efb35cb2b..babc942d0a 100755
+index 9efb35cb2b..9eb9d92c8b 100755
 --- a/attitude/BUILD_DIR/configure
 +++ b/attitude/BUILD_DIR/configure
-@@ -7973,8 +7973,8 @@ case $host in
+@@ -7613,9 +7613,21 @@ SIZEOF_LONG="$ac_cv_sizeof_long"
+ echo "int main(){return(0);}" > /tmp/$$.c
+ $CXX $CXXFLAGS -v -o /tmp/$$.out /tmp/$$.c 2> /tmp/$$.log
+ if test `cat /tmp/$$.log | grep -c collect2` -ne 0; then
+-    cxx_lib_paths=`grep collect2 /tmp/$$.log | tr " " "\012" | grep "^-L" | tr "\012" " "`
++    # Allow for case of linker output (e.g. conda) that has a space
++    # between '-L' and the directory path:
++    if test `cat /tmp/$$.log | grep collect2 | grep -c "L /"` -ne 0; then
++       cxx_lib_paths=`grep collect2 /tmp/$$.log | sed 's:L /:L/:g' | tr " " "\012" | grep "^-L" | tr "\012" " "`
++    else
++       cxx_lib_paths=`grep collect2 /tmp/$$.log | tr " " "\012" | grep "^-L" | tr "\012" " "`
++    fi
+ else
+-    cxx_lib_paths=`grep ld /tmp/$$.log | tr " " "\012" | grep "^-L" | tr "\012" " "`
++    # Allow for case of linker output (e.g. conda) that has a space
++    # between '-L' and the directory path:
++    if test `cat /tmp/$$.log | grep ld | grep -c "L /"` -ne 0; then
++       cxx_lib_paths=`grep ld /tmp/$$.log | sed 's:L /:L/:g' | tr " " "\012" | grep "^-L" | tr "\012" " "`
++    else
++       cxx_lib_paths=`grep ld /tmp/$$.log | tr " " "\012" | grep "^-L" | tr "\012" " "`
++    fi
+ fi
+ # The ld grep can return "-L/usr/local/lib", which we don't want:
+ if test "x$APPLEXCODE" = xyes; then
+@@ -7973,8 +7985,8 @@ case $host in
      LDFLAGS_C_BIN="$LDFLAGS_C_BIN -Wl,-rpath,\$HD_TOP_EXEC_PFX/lib -Wl,-rpath,\$GSL_DIR -Wl,-rpath-link,\$HC_BLD_EXEC_PFX/lib"
      LDFLAGS_CXX_BIN="$LDFLAGS_CXX_BIN -Wl,-rpath,\$HD_TOP_EXEC_PFX/lib -Wl,-rpath,\$GSL_DIR -Wl,-rpath-link,\$HC_BLD_EXEC_PFX/lib"
      ;;
@@ -29,10 +77,34 @@ index 9efb35cb2b..babc942d0a 100755
      # LDFLAGS for Mac executables:
      if test `echo $F77LIBS4C | grep -c /opt/local/lib/libgcc` -ne 0; then
 diff --git a/burstcube/BUILD_DIR/configure b/burstcube/BUILD_DIR/configure
-index 9efb35cb2b..babc942d0a 100755
+index 9efb35cb2b..9eb9d92c8b 100755
 --- a/burstcube/BUILD_DIR/configure
 +++ b/burstcube/BUILD_DIR/configure
-@@ -7973,8 +7973,8 @@ case $host in
+@@ -7613,9 +7613,21 @@ SIZEOF_LONG="$ac_cv_sizeof_long"
+ echo "int main(){return(0);}" > /tmp/$$.c
+ $CXX $CXXFLAGS -v -o /tmp/$$.out /tmp/$$.c 2> /tmp/$$.log
+ if test `cat /tmp/$$.log | grep -c collect2` -ne 0; then
+-    cxx_lib_paths=`grep collect2 /tmp/$$.log | tr " " "\012" | grep "^-L" | tr "\012" " "`
++    # Allow for case of linker output (e.g. conda) that has a space
++    # between '-L' and the directory path:
++    if test `cat /tmp/$$.log | grep collect2 | grep -c "L /"` -ne 0; then
++       cxx_lib_paths=`grep collect2 /tmp/$$.log | sed 's:L /:L/:g' | tr " " "\012" | grep "^-L" | tr "\012" " "`
++    else
++       cxx_lib_paths=`grep collect2 /tmp/$$.log | tr " " "\012" | grep "^-L" | tr "\012" " "`
++    fi
+ else
+-    cxx_lib_paths=`grep ld /tmp/$$.log | tr " " "\012" | grep "^-L" | tr "\012" " "`
++    # Allow for case of linker output (e.g. conda) that has a space
++    # between '-L' and the directory path:
++    if test `cat /tmp/$$.log | grep ld | grep -c "L /"` -ne 0; then
++       cxx_lib_paths=`grep ld /tmp/$$.log | sed 's:L /:L/:g' | tr " " "\012" | grep "^-L" | tr "\012" " "`
++    else
++       cxx_lib_paths=`grep ld /tmp/$$.log | tr " " "\012" | grep "^-L" | tr "\012" " "`
++    fi
+ fi
+ # The ld grep can return "-L/usr/local/lib", which we don't want:
+ if test "x$APPLEXCODE" = xyes; then
+@@ -7973,8 +7985,8 @@ case $host in
      LDFLAGS_C_BIN="$LDFLAGS_C_BIN -Wl,-rpath,\$HD_TOP_EXEC_PFX/lib -Wl,-rpath,\$GSL_DIR -Wl,-rpath-link,\$HC_BLD_EXEC_PFX/lib"
      LDFLAGS_CXX_BIN="$LDFLAGS_CXX_BIN -Wl,-rpath,\$HD_TOP_EXEC_PFX/lib -Wl,-rpath,\$GSL_DIR -Wl,-rpath-link,\$HC_BLD_EXEC_PFX/lib"
      ;;
@@ -44,10 +116,34 @@ index 9efb35cb2b..babc942d0a 100755
      # LDFLAGS for Mac executables:
      if test `echo $F77LIBS4C | grep -c /opt/local/lib/libgcc` -ne 0; then
 diff --git a/calet/BUILD_DIR/configure b/calet/BUILD_DIR/configure
-index 9efb35cb2b..babc942d0a 100755
+index 9efb35cb2b..9eb9d92c8b 100755
 --- a/calet/BUILD_DIR/configure
 +++ b/calet/BUILD_DIR/configure
-@@ -7973,8 +7973,8 @@ case $host in
+@@ -7613,9 +7613,21 @@ SIZEOF_LONG="$ac_cv_sizeof_long"
+ echo "int main(){return(0);}" > /tmp/$$.c
+ $CXX $CXXFLAGS -v -o /tmp/$$.out /tmp/$$.c 2> /tmp/$$.log
+ if test `cat /tmp/$$.log | grep -c collect2` -ne 0; then
+-    cxx_lib_paths=`grep collect2 /tmp/$$.log | tr " " "\012" | grep "^-L" | tr "\012" " "`
++    # Allow for case of linker output (e.g. conda) that has a space
++    # between '-L' and the directory path:
++    if test `cat /tmp/$$.log | grep collect2 | grep -c "L /"` -ne 0; then
++       cxx_lib_paths=`grep collect2 /tmp/$$.log | sed 's:L /:L/:g' | tr " " "\012" | grep "^-L" | tr "\012" " "`
++    else
++       cxx_lib_paths=`grep collect2 /tmp/$$.log | tr " " "\012" | grep "^-L" | tr "\012" " "`
++    fi
+ else
+-    cxx_lib_paths=`grep ld /tmp/$$.log | tr " " "\012" | grep "^-L" | tr "\012" " "`
++    # Allow for case of linker output (e.g. conda) that has a space
++    # between '-L' and the directory path:
++    if test `cat /tmp/$$.log | grep ld | grep -c "L /"` -ne 0; then
++       cxx_lib_paths=`grep ld /tmp/$$.log | sed 's:L /:L/:g' | tr " " "\012" | grep "^-L" | tr "\012" " "`
++    else
++       cxx_lib_paths=`grep ld /tmp/$$.log | tr " " "\012" | grep "^-L" | tr "\012" " "`
++    fi
+ fi
+ # The ld grep can return "-L/usr/local/lib", which we don't want:
+ if test "x$APPLEXCODE" = xyes; then
+@@ -7973,8 +7985,8 @@ case $host in
      LDFLAGS_C_BIN="$LDFLAGS_C_BIN -Wl,-rpath,\$HD_TOP_EXEC_PFX/lib -Wl,-rpath,\$GSL_DIR -Wl,-rpath-link,\$HC_BLD_EXEC_PFX/lib"
      LDFLAGS_CXX_BIN="$LDFLAGS_CXX_BIN -Wl,-rpath,\$HD_TOP_EXEC_PFX/lib -Wl,-rpath,\$GSL_DIR -Wl,-rpath-link,\$HC_BLD_EXEC_PFX/lib"
      ;;
@@ -59,10 +155,34 @@ index 9efb35cb2b..babc942d0a 100755
      # LDFLAGS for Mac executables:
      if test `echo $F77LIBS4C | grep -c /opt/local/lib/libgcc` -ne 0; then
 diff --git a/demo/BUILD_DIR/configure b/demo/BUILD_DIR/configure
-index 9efb35cb2b..babc942d0a 100755
+index 9efb35cb2b..9eb9d92c8b 100755
 --- a/demo/BUILD_DIR/configure
 +++ b/demo/BUILD_DIR/configure
-@@ -7973,8 +7973,8 @@ case $host in
+@@ -7613,9 +7613,21 @@ SIZEOF_LONG="$ac_cv_sizeof_long"
+ echo "int main(){return(0);}" > /tmp/$$.c
+ $CXX $CXXFLAGS -v -o /tmp/$$.out /tmp/$$.c 2> /tmp/$$.log
+ if test `cat /tmp/$$.log | grep -c collect2` -ne 0; then
+-    cxx_lib_paths=`grep collect2 /tmp/$$.log | tr " " "\012" | grep "^-L" | tr "\012" " "`
++    # Allow for case of linker output (e.g. conda) that has a space
++    # between '-L' and the directory path:
++    if test `cat /tmp/$$.log | grep collect2 | grep -c "L /"` -ne 0; then
++       cxx_lib_paths=`grep collect2 /tmp/$$.log | sed 's:L /:L/:g' | tr " " "\012" | grep "^-L" | tr "\012" " "`
++    else
++       cxx_lib_paths=`grep collect2 /tmp/$$.log | tr " " "\012" | grep "^-L" | tr "\012" " "`
++    fi
+ else
+-    cxx_lib_paths=`grep ld /tmp/$$.log | tr " " "\012" | grep "^-L" | tr "\012" " "`
++    # Allow for case of linker output (e.g. conda) that has a space
++    # between '-L' and the directory path:
++    if test `cat /tmp/$$.log | grep ld | grep -c "L /"` -ne 0; then
++       cxx_lib_paths=`grep ld /tmp/$$.log | sed 's:L /:L/:g' | tr " " "\012" | grep "^-L" | tr "\012" " "`
++    else
++       cxx_lib_paths=`grep ld /tmp/$$.log | tr " " "\012" | grep "^-L" | tr "\012" " "`
++    fi
+ fi
+ # The ld grep can return "-L/usr/local/lib", which we don't want:
+ if test "x$APPLEXCODE" = xyes; then
+@@ -7973,8 +7985,8 @@ case $host in
      LDFLAGS_C_BIN="$LDFLAGS_C_BIN -Wl,-rpath,\$HD_TOP_EXEC_PFX/lib -Wl,-rpath,\$GSL_DIR -Wl,-rpath-link,\$HC_BLD_EXEC_PFX/lib"
      LDFLAGS_CXX_BIN="$LDFLAGS_CXX_BIN -Wl,-rpath,\$HD_TOP_EXEC_PFX/lib -Wl,-rpath,\$GSL_DIR -Wl,-rpath-link,\$HC_BLD_EXEC_PFX/lib"
      ;;
@@ -74,10 +194,34 @@ index 9efb35cb2b..babc942d0a 100755
      # LDFLAGS for Mac executables:
      if test `echo $F77LIBS4C | grep -c /opt/local/lib/libgcc` -ne 0; then
 diff --git a/ftools/BUILD_DIR/configure b/ftools/BUILD_DIR/configure
-index 15dab196a2..0ebc582afd 100755
+index 15dab196a2..b21273720e 100755
 --- a/ftools/BUILD_DIR/configure
 +++ b/ftools/BUILD_DIR/configure
-@@ -8795,8 +8795,8 @@ case $host in
+@@ -8450,9 +8450,21 @@ SIZEOF_LONG="$ac_cv_sizeof_long"
+ echo "int main(){return(0);}" > /tmp/$$.c
+ $CXX $CXXFLAGS -v -o /tmp/$$.out /tmp/$$.c 2> /tmp/$$.log
+ if test `cat /tmp/$$.log | grep -c collect2` -ne 0; then
+-    cxx_lib_paths=`grep collect2 /tmp/$$.log | tr " " "\012" | grep "^-L" | tr "\012" " "`
++    # Allow for case of linker output (e.g. conda) that has a space
++    # between '-L' and the directory path:
++    if test `cat /tmp/$$.log | grep collect2 | grep -c "L /"` -ne 0; then
++       cxx_lib_paths=`grep collect2 /tmp/$$.log | sed 's:L /:L/:g' | tr " " "\012" | grep "^-L" | tr "\012" " "`
++    else
++       cxx_lib_paths=`grep collect2 /tmp/$$.log | tr " " "\012" | grep "^-L" | tr "\012" " "`
++    fi
+ else
+-    cxx_lib_paths=`grep ld /tmp/$$.log | tr " " "\012" | grep "^-L" | tr "\012" " "`
++    # Allow for case of linker output (e.g. conda) that has a space
++    # between '-L' and the directory path:
++    if test `cat /tmp/$$.log | grep ld | grep -c "L /"` -ne 0; then
++       cxx_lib_paths=`grep ld /tmp/$$.log | sed 's:L /:L/:g' | tr " " "\012" | grep "^-L" | tr "\012" " "`
++    else
++       cxx_lib_paths=`grep ld /tmp/$$.log | tr " " "\012" | grep "^-L" | tr "\012" " "`
++    fi
+ fi
+ # The ld grep can return "-L/usr/local/lib", which we don't want:
+ if test "x$APPLEXCODE" = xyes; then
+@@ -8795,8 +8807,8 @@ case $host in
      LDFLAGS_C_BIN="$LDFLAGS_C_BIN -Wl,-rpath,\$HD_TOP_EXEC_PFX/lib -Wl,-rpath,\$TCL_DIR -Wl,-rpath-link,\$HC_BLD_EXEC_PFX/lib"
      LDFLAGS_CXX_BIN="$LDFLAGS_CXX_BIN -Wl,-rpath,\$HD_TOP_EXEC_PFX/lib -Wl,-rpath,\$TCL_DIR -Wl,-rpath-link,\$HC_BLD_EXEC_PFX/lib"
      ;;
@@ -89,10 +233,34 @@ index 15dab196a2..0ebc582afd 100755
      # LDFLAGS for Mac executables:
      if test `echo $F77LIBS4C | grep -c /opt/local/lib/libgcc` -ne 0; then
 diff --git a/heacore/BUILD_DIR/configure b/heacore/BUILD_DIR/configure
-index 0a321563cc..45a1fc30d8 100755
+index ff990e889c..5598c31309 100755
 --- a/heacore/BUILD_DIR/configure
 +++ b/heacore/BUILD_DIR/configure
-@@ -8219,8 +8219,8 @@ case $host in
+@@ -7884,9 +7884,21 @@ SIZEOF_LONG="$ac_cv_sizeof_long"
+ echo "int main(){return(0);}" > /tmp/$$.c
+ $CXX $CXXFLAGS -v -o /tmp/$$.out /tmp/$$.c 2> /tmp/$$.log
+ if test `cat /tmp/$$.log | grep -c collect2` -ne 0; then
+-    cxx_lib_paths=`grep collect2 /tmp/$$.log | tr " " "\012" | grep "^-L" | tr "\012" " "`
++    # Allow for case of linker output (e.g. conda) that has a space
++    # between '-L' and the directory path:
++    if test `cat /tmp/$$.log | grep collect2 | grep -c "L /"` -ne 0; then
++       cxx_lib_paths=`grep collect2 /tmp/$$.log | sed 's:L /:L/:g' | tr " " "\012" | grep "^-L" | tr "\012" " "`
++    else
++       cxx_lib_paths=`grep collect2 /tmp/$$.log | tr " " "\012" | grep "^-L" | tr "\012" " "`
++    fi
+ else
+-    cxx_lib_paths=`grep ld /tmp/$$.log | tr " " "\012" | grep "^-L" | tr "\012" " "`
++    # Allow for case of linker output (e.g. conda) that has a space
++    # between '-L' and the directory path:
++    if test `cat /tmp/$$.log | grep ld | grep -c "L /"` -ne 0; then
++       cxx_lib_paths=`grep ld /tmp/$$.log | sed 's:L /:L/:g' | tr " " "\012" | grep "^-L" | tr "\012" " "`
++    else
++       cxx_lib_paths=`grep ld /tmp/$$.log | tr " " "\012" | grep "^-L" | tr "\012" " "`
++    fi
+ fi
+ # The ld grep can return "-L/usr/local/lib", which we don't want:
+ if test "x$APPLEXCODE" = xyes; then
+@@ -8237,8 +8249,8 @@ case $host in
      LDFLAGS_C_PY="-Wl,-rpath,\$HD_TOP_EXEC_PFX/lib"
      LDFLAGS_CXX_PY="-Wl,-rpath,\$HD_TOP_EXEC_PFX/lib"
      ;;
@@ -104,10 +272,34 @@ index 0a321563cc..45a1fc30d8 100755
      # LDFLAGS for Mac executables:
      LDFLAGS_C_BIN="$LDFLAGS_C_BIN -headerpad_max_install_names -Wl,-rpath,@executable_path/../lib -Wl,-rpath,\$HD_TOP_EXEC_PFX/lib"
 diff --git a/heagen/BUILD_DIR/configure b/heagen/BUILD_DIR/configure
-index 9efb35cb2b..babc942d0a 100755
+index 9efb35cb2b..9eb9d92c8b 100755
 --- a/heagen/BUILD_DIR/configure
 +++ b/heagen/BUILD_DIR/configure
-@@ -7973,8 +7973,8 @@ case $host in
+@@ -7613,9 +7613,21 @@ SIZEOF_LONG="$ac_cv_sizeof_long"
+ echo "int main(){return(0);}" > /tmp/$$.c
+ $CXX $CXXFLAGS -v -o /tmp/$$.out /tmp/$$.c 2> /tmp/$$.log
+ if test `cat /tmp/$$.log | grep -c collect2` -ne 0; then
+-    cxx_lib_paths=`grep collect2 /tmp/$$.log | tr " " "\012" | grep "^-L" | tr "\012" " "`
++    # Allow for case of linker output (e.g. conda) that has a space
++    # between '-L' and the directory path:
++    if test `cat /tmp/$$.log | grep collect2 | grep -c "L /"` -ne 0; then
++       cxx_lib_paths=`grep collect2 /tmp/$$.log | sed 's:L /:L/:g' | tr " " "\012" | grep "^-L" | tr "\012" " "`
++    else
++       cxx_lib_paths=`grep collect2 /tmp/$$.log | tr " " "\012" | grep "^-L" | tr "\012" " "`
++    fi
+ else
+-    cxx_lib_paths=`grep ld /tmp/$$.log | tr " " "\012" | grep "^-L" | tr "\012" " "`
++    # Allow for case of linker output (e.g. conda) that has a space
++    # between '-L' and the directory path:
++    if test `cat /tmp/$$.log | grep ld | grep -c "L /"` -ne 0; then
++       cxx_lib_paths=`grep ld /tmp/$$.log | sed 's:L /:L/:g' | tr " " "\012" | grep "^-L" | tr "\012" " "`
++    else
++       cxx_lib_paths=`grep ld /tmp/$$.log | tr " " "\012" | grep "^-L" | tr "\012" " "`
++    fi
+ fi
+ # The ld grep can return "-L/usr/local/lib", which we don't want:
+ if test "x$APPLEXCODE" = xyes; then
+@@ -7973,8 +7985,8 @@ case $host in
      LDFLAGS_C_BIN="$LDFLAGS_C_BIN -Wl,-rpath,\$HD_TOP_EXEC_PFX/lib -Wl,-rpath,\$GSL_DIR -Wl,-rpath-link,\$HC_BLD_EXEC_PFX/lib"
      LDFLAGS_CXX_BIN="$LDFLAGS_CXX_BIN -Wl,-rpath,\$HD_TOP_EXEC_PFX/lib -Wl,-rpath,\$GSL_DIR -Wl,-rpath-link,\$HC_BLD_EXEC_PFX/lib"
      ;;
@@ -119,10 +311,34 @@ index 9efb35cb2b..babc942d0a 100755
      # LDFLAGS for Mac executables:
      if test `echo $F77LIBS4C | grep -c /opt/local/lib/libgcc` -ne 0; then
 diff --git a/heasim/BUILD_DIR/configure b/heasim/BUILD_DIR/configure
-index 9efb35cb2b..babc942d0a 100755
+index 9efb35cb2b..9eb9d92c8b 100755
 --- a/heasim/BUILD_DIR/configure
 +++ b/heasim/BUILD_DIR/configure
-@@ -7973,8 +7973,8 @@ case $host in
+@@ -7613,9 +7613,21 @@ SIZEOF_LONG="$ac_cv_sizeof_long"
+ echo "int main(){return(0);}" > /tmp/$$.c
+ $CXX $CXXFLAGS -v -o /tmp/$$.out /tmp/$$.c 2> /tmp/$$.log
+ if test `cat /tmp/$$.log | grep -c collect2` -ne 0; then
+-    cxx_lib_paths=`grep collect2 /tmp/$$.log | tr " " "\012" | grep "^-L" | tr "\012" " "`
++    # Allow for case of linker output (e.g. conda) that has a space
++    # between '-L' and the directory path:
++    if test `cat /tmp/$$.log | grep collect2 | grep -c "L /"` -ne 0; then
++       cxx_lib_paths=`grep collect2 /tmp/$$.log | sed 's:L /:L/:g' | tr " " "\012" | grep "^-L" | tr "\012" " "`
++    else
++       cxx_lib_paths=`grep collect2 /tmp/$$.log | tr " " "\012" | grep "^-L" | tr "\012" " "`
++    fi
+ else
+-    cxx_lib_paths=`grep ld /tmp/$$.log | tr " " "\012" | grep "^-L" | tr "\012" " "`
++    # Allow for case of linker output (e.g. conda) that has a space
++    # between '-L' and the directory path:
++    if test `cat /tmp/$$.log | grep ld | grep -c "L /"` -ne 0; then
++       cxx_lib_paths=`grep ld /tmp/$$.log | sed 's:L /:L/:g' | tr " " "\012" | grep "^-L" | tr "\012" " "`
++    else
++       cxx_lib_paths=`grep ld /tmp/$$.log | tr " " "\012" | grep "^-L" | tr "\012" " "`
++    fi
+ fi
+ # The ld grep can return "-L/usr/local/lib", which we don't want:
+ if test "x$APPLEXCODE" = xyes; then
+@@ -7973,8 +7985,8 @@ case $host in
      LDFLAGS_C_BIN="$LDFLAGS_C_BIN -Wl,-rpath,\$HD_TOP_EXEC_PFX/lib -Wl,-rpath,\$GSL_DIR -Wl,-rpath-link,\$HC_BLD_EXEC_PFX/lib"
      LDFLAGS_CXX_BIN="$LDFLAGS_CXX_BIN -Wl,-rpath,\$HD_TOP_EXEC_PFX/lib -Wl,-rpath,\$GSL_DIR -Wl,-rpath-link,\$HC_BLD_EXEC_PFX/lib"
      ;;
@@ -134,10 +350,34 @@ index 9efb35cb2b..babc942d0a 100755
      # LDFLAGS for Mac executables:
      if test `echo $F77LIBS4C | grep -c /opt/local/lib/libgcc` -ne 0; then
 diff --git a/heasptools/BUILD_DIR/configure b/heasptools/BUILD_DIR/configure
-index 9efb35cb2b..babc942d0a 100755
+index 9efb35cb2b..9eb9d92c8b 100755
 --- a/heasptools/BUILD_DIR/configure
 +++ b/heasptools/BUILD_DIR/configure
-@@ -7973,8 +7973,8 @@ case $host in
+@@ -7613,9 +7613,21 @@ SIZEOF_LONG="$ac_cv_sizeof_long"
+ echo "int main(){return(0);}" > /tmp/$$.c
+ $CXX $CXXFLAGS -v -o /tmp/$$.out /tmp/$$.c 2> /tmp/$$.log
+ if test `cat /tmp/$$.log | grep -c collect2` -ne 0; then
+-    cxx_lib_paths=`grep collect2 /tmp/$$.log | tr " " "\012" | grep "^-L" | tr "\012" " "`
++    # Allow for case of linker output (e.g. conda) that has a space
++    # between '-L' and the directory path:
++    if test `cat /tmp/$$.log | grep collect2 | grep -c "L /"` -ne 0; then
++       cxx_lib_paths=`grep collect2 /tmp/$$.log | sed 's:L /:L/:g' | tr " " "\012" | grep "^-L" | tr "\012" " "`
++    else
++       cxx_lib_paths=`grep collect2 /tmp/$$.log | tr " " "\012" | grep "^-L" | tr "\012" " "`
++    fi
+ else
+-    cxx_lib_paths=`grep ld /tmp/$$.log | tr " " "\012" | grep "^-L" | tr "\012" " "`
++    # Allow for case of linker output (e.g. conda) that has a space
++    # between '-L' and the directory path:
++    if test `cat /tmp/$$.log | grep ld | grep -c "L /"` -ne 0; then
++       cxx_lib_paths=`grep ld /tmp/$$.log | sed 's:L /:L/:g' | tr " " "\012" | grep "^-L" | tr "\012" " "`
++    else
++       cxx_lib_paths=`grep ld /tmp/$$.log | tr " " "\012" | grep "^-L" | tr "\012" " "`
++    fi
+ fi
+ # The ld grep can return "-L/usr/local/lib", which we don't want:
+ if test "x$APPLEXCODE" = xyes; then
+@@ -7973,8 +7985,8 @@ case $host in
      LDFLAGS_C_BIN="$LDFLAGS_C_BIN -Wl,-rpath,\$HD_TOP_EXEC_PFX/lib -Wl,-rpath,\$GSL_DIR -Wl,-rpath-link,\$HC_BLD_EXEC_PFX/lib"
      LDFLAGS_CXX_BIN="$LDFLAGS_CXX_BIN -Wl,-rpath,\$HD_TOP_EXEC_PFX/lib -Wl,-rpath,\$GSL_DIR -Wl,-rpath-link,\$HC_BLD_EXEC_PFX/lib"
      ;;
@@ -149,10 +389,34 @@ index 9efb35cb2b..babc942d0a 100755
      # LDFLAGS for Mac executables:
      if test `echo $F77LIBS4C | grep -c /opt/local/lib/libgcc` -ne 0; then
 diff --git a/heatools/BUILD_DIR/configure b/heatools/BUILD_DIR/configure
-index 9efb35cb2b..babc942d0a 100755
+index 9efb35cb2b..9eb9d92c8b 100755
 --- a/heatools/BUILD_DIR/configure
 +++ b/heatools/BUILD_DIR/configure
-@@ -7973,8 +7973,8 @@ case $host in
+@@ -7613,9 +7613,21 @@ SIZEOF_LONG="$ac_cv_sizeof_long"
+ echo "int main(){return(0);}" > /tmp/$$.c
+ $CXX $CXXFLAGS -v -o /tmp/$$.out /tmp/$$.c 2> /tmp/$$.log
+ if test `cat /tmp/$$.log | grep -c collect2` -ne 0; then
+-    cxx_lib_paths=`grep collect2 /tmp/$$.log | tr " " "\012" | grep "^-L" | tr "\012" " "`
++    # Allow for case of linker output (e.g. conda) that has a space
++    # between '-L' and the directory path:
++    if test `cat /tmp/$$.log | grep collect2 | grep -c "L /"` -ne 0; then
++       cxx_lib_paths=`grep collect2 /tmp/$$.log | sed 's:L /:L/:g' | tr " " "\012" | grep "^-L" | tr "\012" " "`
++    else
++       cxx_lib_paths=`grep collect2 /tmp/$$.log | tr " " "\012" | grep "^-L" | tr "\012" " "`
++    fi
+ else
+-    cxx_lib_paths=`grep ld /tmp/$$.log | tr " " "\012" | grep "^-L" | tr "\012" " "`
++    # Allow for case of linker output (e.g. conda) that has a space
++    # between '-L' and the directory path:
++    if test `cat /tmp/$$.log | grep ld | grep -c "L /"` -ne 0; then
++       cxx_lib_paths=`grep ld /tmp/$$.log | sed 's:L /:L/:g' | tr " " "\012" | grep "^-L" | tr "\012" " "`
++    else
++       cxx_lib_paths=`grep ld /tmp/$$.log | tr " " "\012" | grep "^-L" | tr "\012" " "`
++    fi
+ fi
+ # The ld grep can return "-L/usr/local/lib", which we don't want:
+ if test "x$APPLEXCODE" = xyes; then
+@@ -7973,8 +7985,8 @@ case $host in
      LDFLAGS_C_BIN="$LDFLAGS_C_BIN -Wl,-rpath,\$HD_TOP_EXEC_PFX/lib -Wl,-rpath,\$GSL_DIR -Wl,-rpath-link,\$HC_BLD_EXEC_PFX/lib"
      LDFLAGS_CXX_BIN="$LDFLAGS_CXX_BIN -Wl,-rpath,\$HD_TOP_EXEC_PFX/lib -Wl,-rpath,\$GSL_DIR -Wl,-rpath-link,\$HC_BLD_EXEC_PFX/lib"
      ;;
@@ -164,10 +428,34 @@ index 9efb35cb2b..babc942d0a 100755
      # LDFLAGS for Mac executables:
      if test `echo $F77LIBS4C | grep -c /opt/local/lib/libgcc` -ne 0; then
 diff --git a/hitomixrism/BUILD_DIR/configure b/hitomixrism/BUILD_DIR/configure
-index 9efb35cb2b..babc942d0a 100755
+index 9efb35cb2b..9eb9d92c8b 100755
 --- a/hitomixrism/BUILD_DIR/configure
 +++ b/hitomixrism/BUILD_DIR/configure
-@@ -7973,8 +7973,8 @@ case $host in
+@@ -7613,9 +7613,21 @@ SIZEOF_LONG="$ac_cv_sizeof_long"
+ echo "int main(){return(0);}" > /tmp/$$.c
+ $CXX $CXXFLAGS -v -o /tmp/$$.out /tmp/$$.c 2> /tmp/$$.log
+ if test `cat /tmp/$$.log | grep -c collect2` -ne 0; then
+-    cxx_lib_paths=`grep collect2 /tmp/$$.log | tr " " "\012" | grep "^-L" | tr "\012" " "`
++    # Allow for case of linker output (e.g. conda) that has a space
++    # between '-L' and the directory path:
++    if test `cat /tmp/$$.log | grep collect2 | grep -c "L /"` -ne 0; then
++       cxx_lib_paths=`grep collect2 /tmp/$$.log | sed 's:L /:L/:g' | tr " " "\012" | grep "^-L" | tr "\012" " "`
++    else
++       cxx_lib_paths=`grep collect2 /tmp/$$.log | tr " " "\012" | grep "^-L" | tr "\012" " "`
++    fi
+ else
+-    cxx_lib_paths=`grep ld /tmp/$$.log | tr " " "\012" | grep "^-L" | tr "\012" " "`
++    # Allow for case of linker output (e.g. conda) that has a space
++    # between '-L' and the directory path:
++    if test `cat /tmp/$$.log | grep ld | grep -c "L /"` -ne 0; then
++       cxx_lib_paths=`grep ld /tmp/$$.log | sed 's:L /:L/:g' | tr " " "\012" | grep "^-L" | tr "\012" " "`
++    else
++       cxx_lib_paths=`grep ld /tmp/$$.log | tr " " "\012" | grep "^-L" | tr "\012" " "`
++    fi
+ fi
+ # The ld grep can return "-L/usr/local/lib", which we don't want:
+ if test "x$APPLEXCODE" = xyes; then
+@@ -7973,8 +7985,8 @@ case $host in
      LDFLAGS_C_BIN="$LDFLAGS_C_BIN -Wl,-rpath,\$HD_TOP_EXEC_PFX/lib -Wl,-rpath,\$GSL_DIR -Wl,-rpath-link,\$HC_BLD_EXEC_PFX/lib"
      LDFLAGS_CXX_BIN="$LDFLAGS_CXX_BIN -Wl,-rpath,\$HD_TOP_EXEC_PFX/lib -Wl,-rpath,\$GSL_DIR -Wl,-rpath-link,\$HC_BLD_EXEC_PFX/lib"
      ;;
@@ -179,10 +467,34 @@ index 9efb35cb2b..babc942d0a 100755
      # LDFLAGS for Mac executables:
      if test `echo $F77LIBS4C | grep -c /opt/local/lib/libgcc` -ne 0; then
 diff --git a/integral/BUILD_DIR/configure b/integral/BUILD_DIR/configure
-index 9efb35cb2b..babc942d0a 100755
+index 9efb35cb2b..9eb9d92c8b 100755
 --- a/integral/BUILD_DIR/configure
 +++ b/integral/BUILD_DIR/configure
-@@ -7973,8 +7973,8 @@ case $host in
+@@ -7613,9 +7613,21 @@ SIZEOF_LONG="$ac_cv_sizeof_long"
+ echo "int main(){return(0);}" > /tmp/$$.c
+ $CXX $CXXFLAGS -v -o /tmp/$$.out /tmp/$$.c 2> /tmp/$$.log
+ if test `cat /tmp/$$.log | grep -c collect2` -ne 0; then
+-    cxx_lib_paths=`grep collect2 /tmp/$$.log | tr " " "\012" | grep "^-L" | tr "\012" " "`
++    # Allow for case of linker output (e.g. conda) that has a space
++    # between '-L' and the directory path:
++    if test `cat /tmp/$$.log | grep collect2 | grep -c "L /"` -ne 0; then
++       cxx_lib_paths=`grep collect2 /tmp/$$.log | sed 's:L /:L/:g' | tr " " "\012" | grep "^-L" | tr "\012" " "`
++    else
++       cxx_lib_paths=`grep collect2 /tmp/$$.log | tr " " "\012" | grep "^-L" | tr "\012" " "`
++    fi
+ else
+-    cxx_lib_paths=`grep ld /tmp/$$.log | tr " " "\012" | grep "^-L" | tr "\012" " "`
++    # Allow for case of linker output (e.g. conda) that has a space
++    # between '-L' and the directory path:
++    if test `cat /tmp/$$.log | grep ld | grep -c "L /"` -ne 0; then
++       cxx_lib_paths=`grep ld /tmp/$$.log | sed 's:L /:L/:g' | tr " " "\012" | grep "^-L" | tr "\012" " "`
++    else
++       cxx_lib_paths=`grep ld /tmp/$$.log | tr " " "\012" | grep "^-L" | tr "\012" " "`
++    fi
+ fi
+ # The ld grep can return "-L/usr/local/lib", which we don't want:
+ if test "x$APPLEXCODE" = xyes; then
+@@ -7973,8 +7985,8 @@ case $host in
      LDFLAGS_C_BIN="$LDFLAGS_C_BIN -Wl,-rpath,\$HD_TOP_EXEC_PFX/lib -Wl,-rpath,\$GSL_DIR -Wl,-rpath-link,\$HC_BLD_EXEC_PFX/lib"
      LDFLAGS_CXX_BIN="$LDFLAGS_CXX_BIN -Wl,-rpath,\$HD_TOP_EXEC_PFX/lib -Wl,-rpath,\$GSL_DIR -Wl,-rpath-link,\$HC_BLD_EXEC_PFX/lib"
      ;;
@@ -194,10 +506,34 @@ index 9efb35cb2b..babc942d0a 100755
      # LDFLAGS for Mac executables:
      if test `echo $F77LIBS4C | grep -c /opt/local/lib/libgcc` -ne 0; then
 diff --git a/ixpe/BUILD_DIR/configure b/ixpe/BUILD_DIR/configure
-index 9efb35cb2b..babc942d0a 100755
+index 9efb35cb2b..9eb9d92c8b 100755
 --- a/ixpe/BUILD_DIR/configure
 +++ b/ixpe/BUILD_DIR/configure
-@@ -7973,8 +7973,8 @@ case $host in
+@@ -7613,9 +7613,21 @@ SIZEOF_LONG="$ac_cv_sizeof_long"
+ echo "int main(){return(0);}" > /tmp/$$.c
+ $CXX $CXXFLAGS -v -o /tmp/$$.out /tmp/$$.c 2> /tmp/$$.log
+ if test `cat /tmp/$$.log | grep -c collect2` -ne 0; then
+-    cxx_lib_paths=`grep collect2 /tmp/$$.log | tr " " "\012" | grep "^-L" | tr "\012" " "`
++    # Allow for case of linker output (e.g. conda) that has a space
++    # between '-L' and the directory path:
++    if test `cat /tmp/$$.log | grep collect2 | grep -c "L /"` -ne 0; then
++       cxx_lib_paths=`grep collect2 /tmp/$$.log | sed 's:L /:L/:g' | tr " " "\012" | grep "^-L" | tr "\012" " "`
++    else
++       cxx_lib_paths=`grep collect2 /tmp/$$.log | tr " " "\012" | grep "^-L" | tr "\012" " "`
++    fi
+ else
+-    cxx_lib_paths=`grep ld /tmp/$$.log | tr " " "\012" | grep "^-L" | tr "\012" " "`
++    # Allow for case of linker output (e.g. conda) that has a space
++    # between '-L' and the directory path:
++    if test `cat /tmp/$$.log | grep ld | grep -c "L /"` -ne 0; then
++       cxx_lib_paths=`grep ld /tmp/$$.log | sed 's:L /:L/:g' | tr " " "\012" | grep "^-L" | tr "\012" " "`
++    else
++       cxx_lib_paths=`grep ld /tmp/$$.log | tr " " "\012" | grep "^-L" | tr "\012" " "`
++    fi
+ fi
+ # The ld grep can return "-L/usr/local/lib", which we don't want:
+ if test "x$APPLEXCODE" = xyes; then
+@@ -7973,8 +7985,8 @@ case $host in
      LDFLAGS_C_BIN="$LDFLAGS_C_BIN -Wl,-rpath,\$HD_TOP_EXEC_PFX/lib -Wl,-rpath,\$GSL_DIR -Wl,-rpath-link,\$HC_BLD_EXEC_PFX/lib"
      LDFLAGS_CXX_BIN="$LDFLAGS_CXX_BIN -Wl,-rpath,\$HD_TOP_EXEC_PFX/lib -Wl,-rpath,\$GSL_DIR -Wl,-rpath-link,\$HC_BLD_EXEC_PFX/lib"
      ;;
@@ -209,10 +545,34 @@ index 9efb35cb2b..babc942d0a 100755
      # LDFLAGS for Mac executables:
      if test `echo $F77LIBS4C | grep -c /opt/local/lib/libgcc` -ne 0; then
 diff --git a/maxi/BUILD_DIR/configure b/maxi/BUILD_DIR/configure
-index 9efb35cb2b..babc942d0a 100755
+index 9efb35cb2b..9eb9d92c8b 100755
 --- a/maxi/BUILD_DIR/configure
 +++ b/maxi/BUILD_DIR/configure
-@@ -7973,8 +7973,8 @@ case $host in
+@@ -7613,9 +7613,21 @@ SIZEOF_LONG="$ac_cv_sizeof_long"
+ echo "int main(){return(0);}" > /tmp/$$.c
+ $CXX $CXXFLAGS -v -o /tmp/$$.out /tmp/$$.c 2> /tmp/$$.log
+ if test `cat /tmp/$$.log | grep -c collect2` -ne 0; then
+-    cxx_lib_paths=`grep collect2 /tmp/$$.log | tr " " "\012" | grep "^-L" | tr "\012" " "`
++    # Allow for case of linker output (e.g. conda) that has a space
++    # between '-L' and the directory path:
++    if test `cat /tmp/$$.log | grep collect2 | grep -c "L /"` -ne 0; then
++       cxx_lib_paths=`grep collect2 /tmp/$$.log | sed 's:L /:L/:g' | tr " " "\012" | grep "^-L" | tr "\012" " "`
++    else
++       cxx_lib_paths=`grep collect2 /tmp/$$.log | tr " " "\012" | grep "^-L" | tr "\012" " "`
++    fi
+ else
+-    cxx_lib_paths=`grep ld /tmp/$$.log | tr " " "\012" | grep "^-L" | tr "\012" " "`
++    # Allow for case of linker output (e.g. conda) that has a space
++    # between '-L' and the directory path:
++    if test `cat /tmp/$$.log | grep ld | grep -c "L /"` -ne 0; then
++       cxx_lib_paths=`grep ld /tmp/$$.log | sed 's:L /:L/:g' | tr " " "\012" | grep "^-L" | tr "\012" " "`
++    else
++       cxx_lib_paths=`grep ld /tmp/$$.log | tr " " "\012" | grep "^-L" | tr "\012" " "`
++    fi
+ fi
+ # The ld grep can return "-L/usr/local/lib", which we don't want:
+ if test "x$APPLEXCODE" = xyes; then
+@@ -7973,8 +7985,8 @@ case $host in
      LDFLAGS_C_BIN="$LDFLAGS_C_BIN -Wl,-rpath,\$HD_TOP_EXEC_PFX/lib -Wl,-rpath,\$GSL_DIR -Wl,-rpath-link,\$HC_BLD_EXEC_PFX/lib"
      LDFLAGS_CXX_BIN="$LDFLAGS_CXX_BIN -Wl,-rpath,\$HD_TOP_EXEC_PFX/lib -Wl,-rpath,\$GSL_DIR -Wl,-rpath-link,\$HC_BLD_EXEC_PFX/lib"
      ;;
@@ -224,10 +584,34 @@ index 9efb35cb2b..babc942d0a 100755
      # LDFLAGS for Mac executables:
      if test `echo $F77LIBS4C | grep -c /opt/local/lib/libgcc` -ne 0; then
 diff --git a/nicer/BUILD_DIR/configure b/nicer/BUILD_DIR/configure
-index 9efb35cb2b..babc942d0a 100755
+index 9efb35cb2b..9eb9d92c8b 100755
 --- a/nicer/BUILD_DIR/configure
 +++ b/nicer/BUILD_DIR/configure
-@@ -7973,8 +7973,8 @@ case $host in
+@@ -7613,9 +7613,21 @@ SIZEOF_LONG="$ac_cv_sizeof_long"
+ echo "int main(){return(0);}" > /tmp/$$.c
+ $CXX $CXXFLAGS -v -o /tmp/$$.out /tmp/$$.c 2> /tmp/$$.log
+ if test `cat /tmp/$$.log | grep -c collect2` -ne 0; then
+-    cxx_lib_paths=`grep collect2 /tmp/$$.log | tr " " "\012" | grep "^-L" | tr "\012" " "`
++    # Allow for case of linker output (e.g. conda) that has a space
++    # between '-L' and the directory path:
++    if test `cat /tmp/$$.log | grep collect2 | grep -c "L /"` -ne 0; then
++       cxx_lib_paths=`grep collect2 /tmp/$$.log | sed 's:L /:L/:g' | tr " " "\012" | grep "^-L" | tr "\012" " "`
++    else
++       cxx_lib_paths=`grep collect2 /tmp/$$.log | tr " " "\012" | grep "^-L" | tr "\012" " "`
++    fi
+ else
+-    cxx_lib_paths=`grep ld /tmp/$$.log | tr " " "\012" | grep "^-L" | tr "\012" " "`
++    # Allow for case of linker output (e.g. conda) that has a space
++    # between '-L' and the directory path:
++    if test `cat /tmp/$$.log | grep ld | grep -c "L /"` -ne 0; then
++       cxx_lib_paths=`grep ld /tmp/$$.log | sed 's:L /:L/:g' | tr " " "\012" | grep "^-L" | tr "\012" " "`
++    else
++       cxx_lib_paths=`grep ld /tmp/$$.log | tr " " "\012" | grep "^-L" | tr "\012" " "`
++    fi
+ fi
+ # The ld grep can return "-L/usr/local/lib", which we don't want:
+ if test "x$APPLEXCODE" = xyes; then
+@@ -7973,8 +7985,8 @@ case $host in
      LDFLAGS_C_BIN="$LDFLAGS_C_BIN -Wl,-rpath,\$HD_TOP_EXEC_PFX/lib -Wl,-rpath,\$GSL_DIR -Wl,-rpath-link,\$HC_BLD_EXEC_PFX/lib"
      LDFLAGS_CXX_BIN="$LDFLAGS_CXX_BIN -Wl,-rpath,\$HD_TOP_EXEC_PFX/lib -Wl,-rpath,\$GSL_DIR -Wl,-rpath-link,\$HC_BLD_EXEC_PFX/lib"
      ;;
@@ -239,10 +623,34 @@ index 9efb35cb2b..babc942d0a 100755
      # LDFLAGS for Mac executables:
      if test `echo $F77LIBS4C | grep -c /opt/local/lib/libgcc` -ne 0; then
 diff --git a/nustar/BUILD_DIR/configure b/nustar/BUILD_DIR/configure
-index 9efb35cb2b..babc942d0a 100755
+index 9efb35cb2b..9eb9d92c8b 100755
 --- a/nustar/BUILD_DIR/configure
 +++ b/nustar/BUILD_DIR/configure
-@@ -7973,8 +7973,8 @@ case $host in
+@@ -7613,9 +7613,21 @@ SIZEOF_LONG="$ac_cv_sizeof_long"
+ echo "int main(){return(0);}" > /tmp/$$.c
+ $CXX $CXXFLAGS -v -o /tmp/$$.out /tmp/$$.c 2> /tmp/$$.log
+ if test `cat /tmp/$$.log | grep -c collect2` -ne 0; then
+-    cxx_lib_paths=`grep collect2 /tmp/$$.log | tr " " "\012" | grep "^-L" | tr "\012" " "`
++    # Allow for case of linker output (e.g. conda) that has a space
++    # between '-L' and the directory path:
++    if test `cat /tmp/$$.log | grep collect2 | grep -c "L /"` -ne 0; then
++       cxx_lib_paths=`grep collect2 /tmp/$$.log | sed 's:L /:L/:g' | tr " " "\012" | grep "^-L" | tr "\012" " "`
++    else
++       cxx_lib_paths=`grep collect2 /tmp/$$.log | tr " " "\012" | grep "^-L" | tr "\012" " "`
++    fi
+ else
+-    cxx_lib_paths=`grep ld /tmp/$$.log | tr " " "\012" | grep "^-L" | tr "\012" " "`
++    # Allow for case of linker output (e.g. conda) that has a space
++    # between '-L' and the directory path:
++    if test `cat /tmp/$$.log | grep ld | grep -c "L /"` -ne 0; then
++       cxx_lib_paths=`grep ld /tmp/$$.log | sed 's:L /:L/:g' | tr " " "\012" | grep "^-L" | tr "\012" " "`
++    else
++       cxx_lib_paths=`grep ld /tmp/$$.log | tr " " "\012" | grep "^-L" | tr "\012" " "`
++    fi
+ fi
+ # The ld grep can return "-L/usr/local/lib", which we don't want:
+ if test "x$APPLEXCODE" = xyes; then
+@@ -7973,8 +7985,8 @@ case $host in
      LDFLAGS_C_BIN="$LDFLAGS_C_BIN -Wl,-rpath,\$HD_TOP_EXEC_PFX/lib -Wl,-rpath,\$GSL_DIR -Wl,-rpath-link,\$HC_BLD_EXEC_PFX/lib"
      LDFLAGS_CXX_BIN="$LDFLAGS_CXX_BIN -Wl,-rpath,\$HD_TOP_EXEC_PFX/lib -Wl,-rpath,\$GSL_DIR -Wl,-rpath-link,\$HC_BLD_EXEC_PFX/lib"
      ;;
@@ -254,10 +662,34 @@ index 9efb35cb2b..babc942d0a 100755
      # LDFLAGS for Mac executables:
      if test `echo $F77LIBS4C | grep -c /opt/local/lib/libgcc` -ne 0; then
 diff --git a/suzaku/BUILD_DIR/configure b/suzaku/BUILD_DIR/configure
-index 9efb35cb2b..babc942d0a 100755
+index 9efb35cb2b..9eb9d92c8b 100755
 --- a/suzaku/BUILD_DIR/configure
 +++ b/suzaku/BUILD_DIR/configure
-@@ -7973,8 +7973,8 @@ case $host in
+@@ -7613,9 +7613,21 @@ SIZEOF_LONG="$ac_cv_sizeof_long"
+ echo "int main(){return(0);}" > /tmp/$$.c
+ $CXX $CXXFLAGS -v -o /tmp/$$.out /tmp/$$.c 2> /tmp/$$.log
+ if test `cat /tmp/$$.log | grep -c collect2` -ne 0; then
+-    cxx_lib_paths=`grep collect2 /tmp/$$.log | tr " " "\012" | grep "^-L" | tr "\012" " "`
++    # Allow for case of linker output (e.g. conda) that has a space
++    # between '-L' and the directory path:
++    if test `cat /tmp/$$.log | grep collect2 | grep -c "L /"` -ne 0; then
++       cxx_lib_paths=`grep collect2 /tmp/$$.log | sed 's:L /:L/:g' | tr " " "\012" | grep "^-L" | tr "\012" " "`
++    else
++       cxx_lib_paths=`grep collect2 /tmp/$$.log | tr " " "\012" | grep "^-L" | tr "\012" " "`
++    fi
+ else
+-    cxx_lib_paths=`grep ld /tmp/$$.log | tr " " "\012" | grep "^-L" | tr "\012" " "`
++    # Allow for case of linker output (e.g. conda) that has a space
++    # between '-L' and the directory path:
++    if test `cat /tmp/$$.log | grep ld | grep -c "L /"` -ne 0; then
++       cxx_lib_paths=`grep ld /tmp/$$.log | sed 's:L /:L/:g' | tr " " "\012" | grep "^-L" | tr "\012" " "`
++    else
++       cxx_lib_paths=`grep ld /tmp/$$.log | tr " " "\012" | grep "^-L" | tr "\012" " "`
++    fi
+ fi
+ # The ld grep can return "-L/usr/local/lib", which we don't want:
+ if test "x$APPLEXCODE" = xyes; then
+@@ -7973,8 +7985,8 @@ case $host in
      LDFLAGS_C_BIN="$LDFLAGS_C_BIN -Wl,-rpath,\$HD_TOP_EXEC_PFX/lib -Wl,-rpath,\$GSL_DIR -Wl,-rpath-link,\$HC_BLD_EXEC_PFX/lib"
      LDFLAGS_CXX_BIN="$LDFLAGS_CXX_BIN -Wl,-rpath,\$HD_TOP_EXEC_PFX/lib -Wl,-rpath,\$GSL_DIR -Wl,-rpath-link,\$HC_BLD_EXEC_PFX/lib"
      ;;
@@ -269,10 +701,34 @@ index 9efb35cb2b..babc942d0a 100755
      # LDFLAGS for Mac executables:
      if test `echo $F77LIBS4C | grep -c /opt/local/lib/libgcc` -ne 0; then
 diff --git a/swift/BUILD_DIR/configure b/swift/BUILD_DIR/configure
-index 9efb35cb2b..babc942d0a 100755
+index 9efb35cb2b..9eb9d92c8b 100755
 --- a/swift/BUILD_DIR/configure
 +++ b/swift/BUILD_DIR/configure
-@@ -7973,8 +7973,8 @@ case $host in
+@@ -7613,9 +7613,21 @@ SIZEOF_LONG="$ac_cv_sizeof_long"
+ echo "int main(){return(0);}" > /tmp/$$.c
+ $CXX $CXXFLAGS -v -o /tmp/$$.out /tmp/$$.c 2> /tmp/$$.log
+ if test `cat /tmp/$$.log | grep -c collect2` -ne 0; then
+-    cxx_lib_paths=`grep collect2 /tmp/$$.log | tr " " "\012" | grep "^-L" | tr "\012" " "`
++    # Allow for case of linker output (e.g. conda) that has a space
++    # between '-L' and the directory path:
++    if test `cat /tmp/$$.log | grep collect2 | grep -c "L /"` -ne 0; then
++       cxx_lib_paths=`grep collect2 /tmp/$$.log | sed 's:L /:L/:g' | tr " " "\012" | grep "^-L" | tr "\012" " "`
++    else
++       cxx_lib_paths=`grep collect2 /tmp/$$.log | tr " " "\012" | grep "^-L" | tr "\012" " "`
++    fi
+ else
+-    cxx_lib_paths=`grep ld /tmp/$$.log | tr " " "\012" | grep "^-L" | tr "\012" " "`
++    # Allow for case of linker output (e.g. conda) that has a space
++    # between '-L' and the directory path:
++    if test `cat /tmp/$$.log | grep ld | grep -c "L /"` -ne 0; then
++       cxx_lib_paths=`grep ld /tmp/$$.log | sed 's:L /:L/:g' | tr " " "\012" | grep "^-L" | tr "\012" " "`
++    else
++       cxx_lib_paths=`grep ld /tmp/$$.log | tr " " "\012" | grep "^-L" | tr "\012" " "`
++    fi
+ fi
+ # The ld grep can return "-L/usr/local/lib", which we don't want:
+ if test "x$APPLEXCODE" = xyes; then
+@@ -7973,8 +7985,8 @@ case $host in
      LDFLAGS_C_BIN="$LDFLAGS_C_BIN -Wl,-rpath,\$HD_TOP_EXEC_PFX/lib -Wl,-rpath,\$GSL_DIR -Wl,-rpath-link,\$HC_BLD_EXEC_PFX/lib"
      LDFLAGS_CXX_BIN="$LDFLAGS_CXX_BIN -Wl,-rpath,\$HD_TOP_EXEC_PFX/lib -Wl,-rpath,\$GSL_DIR -Wl,-rpath-link,\$HC_BLD_EXEC_PFX/lib"
      ;;
@@ -284,10 +740,34 @@ index 9efb35cb2b..babc942d0a 100755
      # LDFLAGS for Mac executables:
      if test `echo $F77LIBS4C | grep -c /opt/local/lib/libgcc` -ne 0; then
 diff --git a/tcltk/BUILD_DIR/configure b/tcltk/BUILD_DIR/configure
-index 0b99943326..d3e02c5a00 100755
+index 0b99943326..49320b5359 100755
 --- a/tcltk/BUILD_DIR/configure
 +++ b/tcltk/BUILD_DIR/configure
-@@ -8396,8 +8396,8 @@ case $host in
+@@ -8054,9 +8054,21 @@ SIZEOF_LONG="$ac_cv_sizeof_long"
+ echo "int main(){return(0);}" > /tmp/$$.c
+ $CXX $CXXFLAGS -v -o /tmp/$$.out /tmp/$$.c 2> /tmp/$$.log
+ if test `cat /tmp/$$.log | grep -c collect2` -ne 0; then
+-    cxx_lib_paths=`grep collect2 /tmp/$$.log | tr " " "\012" | grep "^-L" | tr "\012" " "`
++    # Allow for case of linker output (e.g. conda) that has a space
++    # between '-L' and the directory path:
++    if test `cat /tmp/$$.log | grep collect2 | grep -c "L /"` -ne 0; then
++       cxx_lib_paths=`grep collect2 /tmp/$$.log | sed 's:L /:L/:g' | tr " " "\012" | grep "^-L" | tr "\012" " "`
++    else
++       cxx_lib_paths=`grep collect2 /tmp/$$.log | tr " " "\012" | grep "^-L" | tr "\012" " "`
++    fi
+ else
+-    cxx_lib_paths=`grep ld /tmp/$$.log | tr " " "\012" | grep "^-L" | tr "\012" " "`
++    # Allow for case of linker output (e.g. conda) that has a space
++    # between '-L' and the directory path:
++    if test `cat /tmp/$$.log | grep ld | grep -c "L /"` -ne 0; then
++       cxx_lib_paths=`grep ld /tmp/$$.log | sed 's:L /:L/:g' | tr " " "\012" | grep "^-L" | tr "\012" " "`
++    else
++       cxx_lib_paths=`grep ld /tmp/$$.log | tr " " "\012" | grep "^-L" | tr "\012" " "`
++    fi
+ fi
+ # The ld grep can return "-L/usr/local/lib", which we don't want:
+ if test "x$APPLEXCODE" = xyes; then
+@@ -8396,8 +8408,8 @@ case $host in
      LDFLAGS_C_BIN="$LDFLAGS_C_BIN -Wl,-rpath,\$HD_TOP_EXEC_PFX/lib -Wl,-rpath-link,\$HC_BLD_EXEC_PFX/lib"
      LDFLAGS_CXX_BIN="$LDFLAGS_CXX_BIN -Wl,-rpath,\$HD_TOP_EXEC_PFX/lib -Wl,-rpath-link,\$HC_BLD_EXEC_PFX/lib"
      ;;
