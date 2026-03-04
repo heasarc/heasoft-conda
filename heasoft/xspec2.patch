@@ -1,0 +1,16 @@
+--- a/Xspec/BUILD_DIR/hd_config_info
++++ b/Xspec/BUILD_DIR/hd_config_info
+@@ -1,9 +1,11 @@
+ COMPONENT=Xspec
+ VERSION=
+ 
+-CONFIGURE_CMD='cd $h_dir; ./configure --build=$build --with-heatop="$prefix" --enable-collapse=$h_collapse --with-heacore=$h_config_heacore --enable-shared=$h_shared --enable-symbols=$h_symbols --enable-strip=$h_strip --enable-guis=no --with-copt="$h_copt" --with-cxxopt="$h_cxxopt" --with-fopt="$h_fopt" --enable-ldopt="$h_ldopt" --with-components="$h_Xspec_components" --enable-hera=$h_hera_build --with-png=$h_png_pfx --x-libraries=$x_libraries --x-includes=$x_includes --enable-openmp=$h_openmp --enable-mac_intel_build=$h_mac_intel_build --enable-x=$h_x11 --host=$target'
++CONFIGURE_CMD='cd $h_dir; ./configure --build=$build --with-heatop="$prefix" --enable-collapse=$h_collapse --with-heacore=$h_config_heacore --with-heatools=$h_config_heatools --enable-shared=$h_shared --enable-symbols=$h_symbols --enable-strip=$h_strip --enable-guis=no --with-copt="$h_copt" --with-cxxopt="$h_cxxopt" --with-fopt="$h_fopt" --enable-ldopt="$h_ldopt" --with-components="$h_Xspec_components" --enable-hera=$h_hera_build --with-png=$h_png_pfx --x-libraries=$x_libraries --x-includes=$x_includes --enable-openmp=$h_openmp --enable-mac_intel_build=$h_mac_intel_build --enable-x=$h_x11 --host=$target'
+ 
+ HEACORE=heacore
+ TCLTK=tcltk
++HEATOOLS=heatools
++ATTITUDE=attitude
+ 
+-DEPENDENCIES="$HEACORE $TCLTK"
++DEPENDENCIES="$HEACORE $TCLTK $HEATOOLS $ATTITUDE"

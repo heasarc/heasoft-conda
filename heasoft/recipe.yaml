@@ -2,20 +2,21 @@
 
 context:
   name: heasoft
-  version: 6.36
+  version: 6.37
 
 package:
   name: ${{ name|lower }}
   version: ${{ version }}
 
 source:
-  url: https://heasarc.gsfc.nasa.gov/FTP/software/conda/source/${{ name }}-${{ version }}.tar.gz
-  sha256: 53d91083195ddad7f19260ba6dbeebc01d96802f7e0e7db9d17e950eb4e7b4f9
+  #url: https://heasarc.gsfc.nasa.gov/FTP/software/conda/source/${{ name }}-${{ version }}.tar.gz
+  #sha256: 53d91083195ddad7f19260ba6dbeebc01d96802f7e0e7db9d17e950eb4e7b4f9
+  path: /local/data/karpuz1/birby/clean
   patches:
-    - configures_opt.patch
     - tcltk_Makefile.patch
     - pgplot_makefiles.patch
     - xspec.patch
+    - xspec2.patch
     - zlib_makefiles.patch
     - python_makefiles.patch
     - itk_configure.patch
@@ -23,7 +24,6 @@ source:
     - tix_configure.patch
     - if: osx
       then:
-      - configures.patch
       - pgplot_makefiles_osx.patch
     - if: linux
       then:

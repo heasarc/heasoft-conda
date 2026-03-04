@@ -1,6 +1,6 @@
 --- a/ftools/guis/fv/unix/Makefile
 +++ b/ftools/guis/fv/unix/Makefile
-@@ -1,117 +1,65 @@
+@@ -1,118 +1,65 @@
  HD_COMPONENT_NAME	= ftools
  
 -HD_CTASK		= fv
@@ -30,8 +30,8 @@
  			  -DHAVE_UNISTD_H=1 -DSTDC_HEADERS=1 -DHAVE_SYS_STAT_H=1
  
 -ITCL_VERS	= ${shell echo ${ITCL} | sed -e 's:itcl::'}
--TCL_VERS_SHORT	= ${shell echo ${TCL} | sed -e 's:tcl::'}
--TK_VERS_SHORT	= ${shell echo ${TK} | sed -e 's:tk::'}
+-TCL_VERS_SHORT	= ${shell echo ${TCL} | sed -e 's:-ltcl::'}
+-TK_VERS_SHORT	= ${shell echo ${TK} | sed -e 's:-ltk::'}
 +HD_CLIBS		= ${HD_LFLAGS} -l${CFITSIO} -lpow -lfitstcl \
 +			  -L${ITK_DIR} -l${ITK} \
 +			  -L${ITCL_DIR} -l${ITCL} \
@@ -44,9 +44,9 @@
 -			  ${TCLTK_EXEC_PFX}/lib/${ITK}/lib${ITK}.a \
 -			  ${TCLTK_EXEC_PFX}/lib/${ITCL}/lib${ITCL}.a \
 -			  ${TCLTK_EXEC_PFX}/lib/${ITCL}/libitclstub${ITCL_VERS}.a \
--			  ${TCLTK_EXEC_PFX}/lib/lib${TCL}.a \
+-			  ${TCLTK_EXEC_PFX}/lib/libtcl${TCL_VERS_SHORT}.a \
 -			  ${TCLTK_EXEC_PFX}/lib/libtclstub${TCL_VERS_SHORT}.a \
--			  ${TCLTK_EXEC_PFX}/lib/lib${TK}.a \
+-			  ${TCLTK_EXEC_PFX}/lib/libtk${TK_VERS_SHORT}.a \
 -			  ${TCLTK_EXEC_PFX}/lib/lib${XPA}.a \
 -			  ${TCLTK_EXEC_PFX}/lib/${TIX}/lib${TIX}.a \
 -			  ${TCLTK_EXEC_PFX}/lib/libtkstub${TK_VERS_SHORT}.a \
@@ -69,8 +69,8 @@
  
 -fv-tklib:
 -	@${HD_INSTALL} ${TCLTK_EXEC_PFX}/lib/tcl8 tklib/tcl8 ${HD_CP_P}
--	@${HD_INSTALL} ${TCLTK_EXEC_PFX}/lib/${TCL} tklib/${TCL} ${HD_CP_P}
--	@${HD_INSTALL} ${TCLTK_EXEC_PFX}/lib/${TK} tklib/${TK} ${HD_CP_P}
+-	@${HD_INSTALL} ${TCLTK_EXEC_PFX}/lib/tcl${TCL_VERS_SHORT} tklib/tcl${TCL_VERS_SHORT} ${HD_CP_P}
+-	@${HD_INSTALL} ${TCLTK_EXEC_PFX}/lib/tk${TK_VERS_SHORT} tklib/tk${TK_VERS_SHORT} ${HD_CP_P}
 -	@${HD_INSTALL} ${TCLTK_EXEC_PFX}/lib/${ITCL} tklib/${ITCL} ${HD_CP_P}
 -	@${HD_INSTALL} ${TCLTK_EXEC_PFX}/lib/${ITK} tklib/${ITK} ${HD_CP_P}
 -	@${HD_INSTALL} ${TCLTK_EXEC_PFX}/lib/${IWIDGETS} tklib/${IWIDGETS} ${HD_CP_P}
@@ -81,9 +81,10 @@
 -	@${HD_INSTALL} ${XPA_DIR}/test.tcl tklib/xpa/test.tcl ${HD_CP_P}
 -	@cd ${HD_SRC}/../tcltk/pow; ../BUILD_DIR/hmake install-pow-extras \
 -		HD_LIB=${HD_SRC}/guis/fv/unix/tklib POW_EXTRAS="" POW_HTML=""
--	@cat tklib/${TCL}/init.tcl | sed 's: -encoding utf-8::' > init.tcl.edit; ${HD_MV_F} init.tcl.edit tklib/${TCL}/init.tcl
--	@cat tklib/${TK}/tk.tcl | sed 's: -encoding utf-8::' > tk.tcl.edit; ${HD_MV_F} tk.tcl.edit tklib/${TK}/tk.tcl
--#	@cat tklib/${TCL}/init.tcl | sed '184s: -encoding utf-8::' > init.tcl.edit; ${HD_MV_F} init.tcl.edit tklib/${TCL}/init.tcl
+-	@cat tklib/tcl${TCL_VERS_SHORT}/init.tcl | sed 's: -encoding utf-8::' > init.tcl.edit; ${HD_MV_F} init.tcl.edit tklib/tcl${TCL_VERS_SHORT}/init.tcl
+-	@cat tklib/tk${TK_VERS_SHORT}/tk.tcl | sed 's: -encoding utf-8::' > tk.tcl.edit; ${HD_MV_F} tk.tcl.edit tklib/tk${TK_VERS_SHORT}/tk.tcl
+-	@cat tklib/tk${TK_VERS_SHORT}/ttk/ttk.tcl | sed 's: -encoding utf-8::' > ttk.tcl.edit; ${HD_MV_F} ttk.tcl.edit tklib/tk${TK_VERS_SHORT}/ttk/ttk.tcl
+-#	@cat tklib/tcl${TCL_VERS_SHORT}/init.tcl | sed '184s: -encoding utf-8::' > init.tcl.edit; ${HD_MV_F} init.tcl.edit tklib/tcl${TCL_VERS_SHORT}/init.tcl
 -
 -
 -fvexec: fv-tklib
