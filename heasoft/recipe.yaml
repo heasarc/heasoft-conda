@@ -16,7 +16,6 @@ source:
     - tcltk_Makefile.patch
     - pgplot_makefiles.patch
     - xspec.patch
-    - xspec2.patch
     - zlib_makefiles.patch
     - python_makefiles.patch
     - itk_configure.patch
