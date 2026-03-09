@@ -50,19 +50,10 @@ fi
 # configure, build, install:
 cd BUILD_DIR
 ./configure "${configure_args[@]}" 2>&1 | tee config.txt || false
-#./configure "${configure_args[@]}" 2>&1 | tee config.txt
-#echo "Top config.log:"
-#cat config.log
-#if [ -f ../heacore/BUILD_DIR/config.log ]; then
-#  echo "HEACORE config.log:"
-#  cat ../heacore/BUILD_DIR/config.log
-#fi
-#echo ""
 make all 2>&1 | tee build.txt || false
 make install 2>&1 | tee install.txt || false
-cp ../heacore/BUILD_DIR/config.log heacore-config.log
-tar -zcvf logs.tgz config.txt build.txt install.txt config.log heacore-config.log
-rm -rf config.txt build.txt install.txt heacore-config.log
+tar -zcvf logs.tgz config.txt build.txt install.txt
+rm -rf config.txt build.txt install.txt
 rm -rf $PREFIX/$HEA_SUBDIR/BUILD_DIR/hd_install.o
 
 # heasoftpy fhelp docs are not created correctly; re-run
@@ -82,7 +73,7 @@ cp fix-x11-conda.sh $PREFIX/$HEA_SUBDIR/BUILD_DIR/
 # Assemble "tklib" folder and other items needed by compiled
 # version of FV on Linux:
 if [ "$ostype" = "Linux" ]; then
-    FV_TKLIB="$PREFIX/$HEA_SUBDIR/lib/fv/tklib"
+    FV_TKLIB=$PREFIX/$HEA_SUBDIR/lib/fv/tklib
     itcldir=`find $PREFIX/lib -type d -name itcl\* | xargs basename`
     itkdir=`find $PREFIX/$HEA_SUBDIR/lib -type d -name itk\* | xargs basename`
     tixdir=`find $PREFIX/$HEA_SUBDIR/lib -type d -name Tix\* | xargs basename`

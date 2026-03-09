@@ -1,0 +1,34 @@
+--- a/tcltk/xpa/tcl.c
++++ b/tcltk/xpa/tcl.c
+@@ -2672,10 +2672,10 @@ static int XPAMessage_Tcl(clientData, interp, objc, objv)
+  */
+ #ifdef ANSI_FUNC
+ int
+-Tclxpa_Init (void *vinterp)
++Tclxpa_Init (Tcl_Interp *vinterp)
+ #else
+ int Tclxpa_Init (vinterp)
+-     void *vinterp;
++     Tcl_Interp *vinterp;
+ #endif
+ {
+   Tcl_Interp *interp = (Tcl_Interp *)vinterp;
+--- a/tcltk/xpa/xpa.h
++++ b/tcltk/xpa/xpa.h
+@@ -11,6 +11,7 @@
+ #ifndef	__xpa_h
+ #define	__xpa_h
+ 
++#include <tcl.h>
+ #include <stdio.h>
+ #include <sys/types.h>
+ #include <prsetup.h>
+@@ -538,7 +539,7 @@ int ClipBoardFree _PRx((XPA xpa, XPAClip clip));
+ int XPAXtAddInput _PRx((void *app, XPA xpa));
+ /* tcl.c */
+ int XPATclAddInput _PRx((XPA xpa));
+-int Tclxpa_Init _PRx((void *vinterp));
++int Tclxpa_Init _PRx((Tcl_Interp *vinterp));
+ /* gtkloop.c */
+ int XPAGtkAddInput _PRx((XPA xpa));
+ /* xpaio.c */
