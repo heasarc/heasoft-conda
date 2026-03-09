@@ -3,7 +3,7 @@
 context:
   name: xspec
   version: 12.15.1
-  hea_version: 6.36
+  hea_version: develop
 
 package:
   name: ${{ name|lower }}

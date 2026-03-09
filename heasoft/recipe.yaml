@@ -2,7 +2,7 @@
 
 context:
   name: heasoft
-  version: 6.37
+  version: develop
 
 package:
   name: ${{ name|lower }}
