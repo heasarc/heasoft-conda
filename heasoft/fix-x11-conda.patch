@@ -1,5 +1,5 @@
 --- /dev/null
-+++ /BUILD_DIR/fix-x11-conda.sh
++++ BUILD_DIR/fix-x11-conda.sh
 @@ -0,0 +1,21 @@
 +#!/bin/bash
 +PREFIX=$1
