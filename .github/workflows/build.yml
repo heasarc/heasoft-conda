@@ -9,7 +9,7 @@ on:
           type: string
 
 env:
-  FORCE_JAVASCRIPT_ACTIONS_TO_NODE24: 'true'
+  FORCE_JAVASCRIPT_ACTIONS_TO_NODE24: true
 
 jobs:
   build:
@@ -32,7 +32,6 @@ jobs:
       - name: Skip noarch packages?
         id: check_skip
         run: |
-          echo "FORCE_JAVASCRIPT_ACTIONS_TO_NODE24=true" >> $GITHUB_ENV
           if { [ "${{ matrix.platform }}" == "osx-arm64" ] ||  [ "${{ matrix.platform }}" == "osx-64" ]; } && 
               { [ "${{ inputs.package }}" == "xspec-data" ] || [ "${{ inputs.package }}" == "xstar-data" ]; }; then
             echo "Skipping macOS job for noarch packages: ${{ inputs.package }}"
