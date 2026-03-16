@@ -89,7 +89,7 @@ requirements:
     - scipy
     - astropy-base
     - matplotlib
-    - if: linux or (osx and not arm64)
+    - if: (linux and not aarch64) or (osx and not arm64)
       then:
         - lynx
 
