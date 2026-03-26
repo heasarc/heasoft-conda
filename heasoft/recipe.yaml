@@ -83,6 +83,9 @@ requirements:
     - scipy
     - astropy-base
     - matplotlib
+    # astro-gdt
+    - requests
+    - reproject
     - if: linux or (osx and not arm64)
       then:
         - lynx
