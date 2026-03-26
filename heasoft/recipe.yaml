@@ -11,7 +11,7 @@ package:
 source:
   #url: https://heasarc.gsfc.nasa.gov/FTP/software/conda/source/${{ name }}-${{ version }}.tar.gz
   url: https://heasarc.gsfc.nasa.gov/FTP/software/lheasoft/irby/conda/.test/${{ name }}-${{ version }}.tar.gz
-  sha256: 5b7d96fdd99b74c703daaca2c846ebab26730960e227ffc7e56f40aa63ece1a4
+  sha256: 6447f67f85fe6ee485635dff7a4a7205d242018e49545388fd22bd50c9fe765f
   #path: /local/data/karpuz1/birby/clean
   patches:
     - tcltk_Makefile.patch
@@ -90,6 +90,9 @@ requirements:
     - scipy
     - astropy-base
     - matplotlib
+    # astro-gdt
+    - requests
+    - reproject
     - if: (linux and not aarch64) or (osx and not arm64)
       then:
         - lynx
