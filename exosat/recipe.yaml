@@ -1,0 +1,97 @@
+# yaml-language-server: $schema=https://raw.githubusercontent.com/prefix-dev/recipe-format/main/schema.json
+
+context:
+  name: exosat
+  version: 6.37
+
+package:
+  name: ${{ name|lower }}
+  version: ${{ version }}
+
+source:
+  #url: https://heasarc.gsfc.nasa.gov/FTP/software/conda/source/${{ name }}-${{ version }}.tar.gz
+  #sha256: 53d91083195ddad7f19260ba6dbeebc01d96802f7e0e7db9d17e950eb4e7b4f9
+  path: /local/data/karpuz1/birby/conda/heasoft
+  patches:
+    - ../heasoft/perl_config_heacore.patch
+    - ../heasoft/python_makefiles_heacore.patch
+    - ../heasoft/fix-x11-conda.patch
+
+build:
+  number: 0
+
+requirements:
+  host:
+    - ${{ compiler('cxx') }}
+    - ${{ compiler('c') }}
+    - ${{ compiler('fortran') }}
+    - pkg-config
+    - libcurl
+    - zlib
+    - libbrotlidec
+    - libiconv
+    - libpng
+    - xorg-libx11
+    - xorg-libxt
+    - xorg-xorgproto
+    - xorg-libxcursor
+    - fftw
+    - gsl
+    - if: osx or (linux and not aarch64)
+      then:
+        - fgsl
+    - perl
+    - pip
+    - setuptools
+    - numpy
+    - scipy
+    - astropy-base
+    - matplotlib
+    - if: linux and not aarch64
+      then:
+        - kernel-headers_linux-64 = 3.10.0
+    - if: linux and aarch64
+      then:
+        - kernel-headers_linux-aarch64 = 4.18.0
+    # cfitsio
+    # ape
+    # readline
+    # gsl
+    # fgsl
+    # callib
+    # xanlib
+    # ftoolslib
+    # cftoolslib
+  run:
+    - libcurl
+    - zlib
+    - libbrotlidec
+    - libiconv
+    - libpng
+    - xorg-libx11
+    - xorg-libxt
+    - xorg-libxcursor
+    - xorg-xorgproto
+    - fftw
+    - gsl
+    - if: osx or (linux and not aarch64)
+      then:
+        - fgsl
+    - perl
+    - numpy
+    - scipy
+    - astropy-base
+    - matplotlib
+    - if: (linux and not aarch64) or (osx and not arm64)
+      then:
+        - lynx
+    # rosat
+    # qdp
+
+about:
+  homepage: https://heasarc.gsfc.nasa.gov/docs/software/lheasoft/
+  #license_file: LICENSE
+  summary: the core library of heasoft
+  description: |
+    xspec.
+  documentation: https://heasarc.gsfc.nasa.gov/docs/software/lheasoft/
