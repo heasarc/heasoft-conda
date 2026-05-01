@@ -1,0 +1,34 @@
+--- a/tcltk/BUILD_DIR/Makefile.in
++++ b/tcltk/BUILD_DIR/Makefile.in
+@@ -398,6 +398,9 @@ makemake-pgplotperl: ${PGPLOTPERL_DIR}/Makefile
+ 	@if [ `echo ${HD_HOST} | grep -c ^aarch64-apple` -gt 0 ]; then \
+ 		sed -e 's: -fstack-protector-strong::' ${PGPLOTPERL_DIR}/Makefile > ${PGPLOTPERL_DIR}/Makefile_tmp; ${HD_MV_F} ${PGPLOTPERL_DIR}/Makefile_tmp ${PGPLOTPERL_DIR}/Makefile; \
+ 	fi
++	@if [ `echo ${HD_HOST} | grep -c conda` -gt 0 ]; then \
++		sed -e 's:--sysroot=./..:--sysroot=${PREFIX}:' ${PGPLOTPERL_DIR}/Makefile > ${PGPLOTPERL_DIR}/Makefile_tmp; ${HD_MV_F} ${PGPLOTPERL_DIR}/Makefile_tmp ${PGPLOTPERL_DIR}/Makefile; \
++	fi
+ 
+ ${EXTF77PERL_DIR}/Makefile: ${EXTF77PERL_DIR}/Makefile.PL
+ 	cd ${EXTF77PERL_DIR}; ${PERL} Makefile.PL
+--- a/tcltk/BUILD_DIR/configure
++++ b/tcltk/BUILD_DIR/configure
+@@ -5812,6 +5812,8 @@ if test `echo $PERL_CC | grep -c /` -eq 0; then
+    else
+       PERL_CC=""
+    fi
++elif test `echo $PERL_CC | grep -c conda` -ne 0; then
++   PERL_CC="$CC"
+ else
+    PERL_CC=""
+ fi
+--- a/tcltk/PGPLOT-perl/Makefile.PL
++++ b/tcltk/PGPLOT-perl/Makefile.PL
+@@ -275,6 +275,8 @@ WriteMakefile(
+     },
+     %items
+ );
++system("sed -E 's/-R/-L/g' Makefile > Makefile.new");
++system("mv Makefile.new Makefile");
+ 
+ 
+ # This subroutine is a nasty hack to modify OS X compile strings

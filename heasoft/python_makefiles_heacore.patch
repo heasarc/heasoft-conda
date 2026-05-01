@@ -1,0 +1,11 @@
+--- heacore/heasp/python/Makefile
++++ heacore/heasp/python/Makefile
+@@ -19,7 +19,7 @@
+ HD_LIBRARY_SRC_cxx      = heasp_wrap.cxx
+ 
+ HD_SHLIB_LIBS           = ${HD_LFLAGS} -l${HEASP} \
+-			  -l${CCFITS} -l${CFITSIO}
++			  -l${CCFITS} -l${CFITSIO} ${PYTHON_LIB}
+ 
+ HD_INSTALL_PYTHON_LIBS  = lib${HD_LIBRARY_ROOT}${SHLIB_SUFFIX} \
+                           heasp.py

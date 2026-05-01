@@ -1,0 +1,23 @@
+--- a/maxi/BUILD_DIR/Makefile
++++ b/maxi/BUILD_DIR/Makefile
+@@ -85,6 +85,9 @@ makemake-maxitoolperl: ${MAXITOOLPERL_DIR}/Makefile
+ 		sed -e 's: -L/opt/local/lib::' ${MAXITOOLPERL_DIR}/Makefile > ${MAXITOOLPERL_DIR}/Makefile_tmp; ${HD_MV_F} ${MAXITOOLPERL_DIR}/Makefile_tmp ${MAXITOOLPERL_DIR}/Makefile; \
+ 		sed -e 's: -L/usr/local/lib::' ${MAXITOOLPERL_DIR}/Makefile > ${MAXITOOLPERL_DIR}/Makefile_tmp; ${HD_MV_F} ${MAXITOOLPERL_DIR}/Makefile_tmp ${MAXITOOLPERL_DIR}/Makefile; \
+ 	fi
++	@if [ `echo ${HD_HOST} | grep -c conda` -gt 0 ]; then \
++		sed -e 's:--sysroot=./..:--sysroot=${PREFIX}:' ${MAXITOOLPERL_DIR}/Makefile > ${MAXITOOLPERL_DIR}/Makefile_tmp; ${HD_MV_F} ${MAXITOOLPERL_DIR}/Makefile_tmp ${MAXITOOLPERL_DIR}/Makefile; \
++	fi
+ 
+ ${MAXITOOLPERL_DIR}/Makefile: ${MAXITOOLPERL_DIR}/Makefile.PL
+ 	cd ${MAXITOOLPERL_DIR}; ${PERL} Makefile.PL OPTIMIZE=-O
+--- a/maxi/BUILD_DIR/configure
++++ b/maxi/BUILD_DIR/configure
+@@ -5912,6 +5912,8 @@ if test `echo $PERL_CC | grep -c /` -eq 0; then
+    else
+       PERL_CC=""
+    fi
++elif test `echo $PERL_CC | grep -c conda` -ne 0; then
++   PERL_CC="$CC"
+ else
+    PERL_CC=""
+ fi

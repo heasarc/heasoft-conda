@@ -20,14 +20,3 @@
  
  HD_INSTALL_SHELL_SCRIPTS	= POWplot
  
---- ftools/xte/tasks/xdf/Makefile
-+++ ftools/xte/tasks/xdf/Makefile
-@@ -15,7 +15,7 @@
- 
- HD_INSTALL_LIBRARIES	= ${HD_LIBRARY_ROOT}
- 
--HD_SHLIB_LIBS		= ${HD_LFLAGS} -l${CFITSIO} ${TCL} ${TK} ${XLIBS} ${CURL_LIB} ${SYSLIBS}
-+HD_SHLIB_LIBS		= ${HD_LFLAGS} -l${CFITSIO} ${TCL} ${TK} -lz ${XLIBS} ${CURL_LIB} ${SYSLIBS}
- 
- HD_INSTALL_SHELL_SCRIPTS	= xdf
- 

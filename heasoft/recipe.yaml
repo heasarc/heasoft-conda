@@ -12,23 +12,26 @@ source:
   #url: https://heasarc.gsfc.nasa.gov/FTP/software/conda/source/${{ name }}-${{ version }}.tar.gz
   #sha256: 53d91083195ddad7f19260ba6dbeebc01d96802f7e0e7db9d17e950eb4e7b4f9
   path: /local/data/karpuz1/birby/clean
-  patches:
-    - tcltk_Makefile.patch
-    - pgplot_makefiles.patch
-    - xspec.patch
-    - zlib_makefiles.patch
-    - python_makefiles.patch
+  patches: # order is important for tcltk_Makefile.patch & perl_config_tcltk.patch as they both modify the tcltk/BUILD_DIR/Makefile.in
     - itk_configure.patch
+    - tcltk_Makefile.patch
+    - perl_config_heacore.patch
+    - perl_config_tcltk_pgperl.patch
+    - perl_config_maxi.patch
+    - python_makefiles_heacore.patch
+    - python_makefiles_xspec.patch
+    - xspec.patch
+    - zlib_makefiles_fv.patch
+    - zlib_makefiles_xte.patch
     - if: osx
       then:
-      - pgplot_makefiles_osx.patch
+      - pgplot_makemake_osx.patch
     - if: linux
       then:
       - xpa.patch
       - mktclapp.patch
       - fv_makefile.patch
       - fv_unix.patch
-    - perl_config.patch
     - fix-x11-conda.patch
 
 build:
