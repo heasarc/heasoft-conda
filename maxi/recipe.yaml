@@ -17,6 +17,7 @@ source:
     - ../heasoft/perl_config_heacore.patch
     - ../heasoft/perl_config_maxi.patch
     - ../heasoft/python_makefiles_heacore.patch
+    - ../heasoft/python_makefiles_xspec.patch
     - ../heasoft/fix-x11-conda.patch
 
 build:
@@ -55,9 +56,19 @@ requirements:
     - if: linux and aarch64
       then:
         - kernel-headers_linux-aarch64 = 4.18.0
-    # cfitsio
-    # ape
     # readline
+    # cfitsio
+    # wcslib
+    # ape
+    # attitude (atFunctions)
+    # heainit
+    # heaio
+    # heautils
+    # ahapp
+    # ahgen
+    # ahlog
+    # heaapp
+    # xspec
   run:
     - libcurl
     - zlib
@@ -81,6 +92,27 @@ requirements:
     - if: (linux and not aarch64) or (osx and not arm64)
       then:
         - lynx
+    # readline
+    # cfitsio
+    # wcslib
+    # ape
+    # attitude (atFunctions)
+    # heainit
+    # heaio
+    # heautils
+    # ahapp
+    # ahgen
+    # ahlog
+    # heaapp
+    # xspec
+    # cfitsio-perl
+    - heagen
+    - heatools
+    - caltools
+    - fimage
+    - futils
+    - heasarc
+    - time
 
 about:
   homepage: https://heasarc.gsfc.nasa.gov/docs/software/lheasoft/

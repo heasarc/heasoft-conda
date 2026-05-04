@@ -57,12 +57,15 @@ requirements:
     - if: linux and aarch64
       then:
         - kernel-headers_linux-aarch64 = 4.18.0
+    # readline
     # cfitsio
     # ape
-    # readline
+    # heainit (getocctimes, gtiinvert)
+    # heaio (getocctimes, gtiinvert)
+    # heautils (getocctimes, gtiinvert, searchflickpix)
+    # heaapp (searchflickpix, gtiinvert)
+    # ahlog (searchflickpix, gtiinvert)
     # tcltk (pgplot, plt)
-    # gsl
-    # fgsl
     # callib
     # xanlib
     # ftoolslib
@@ -90,11 +93,32 @@ requirements:
     - if: (linux and not aarch64) or (osx and not arm64)
       then:
         - lynx
-    # futils
-    # fimage
-    # ximage
-    # heatools
-    # heasptools
+    # readline
+    # cfitsio
+    # ape
+    # heainit (getocctimes, gtiinvert)
+    # heaio (getocctimes, gtiinvert)
+    # heautils (getocctimes, gtiinvert, searchflickpix)
+    # heaapp (searchflickpix, gtiinvert)
+    # ahlog (searchflickpix, gtiinvert)
+    # tcltk (pgplot, plt)
+    # callib
+    # xanlib
+    # ftoolslib
+    # cftoolslib
+    # cfitsio-perl (pileest)
+    - heasptools
+    - heatools
+    - futils
+    - fimage
+    - ximage
+    # attitude (pileest, via HEAGEN.pm)
+    # caltools (pileest, via HEAGEN.pm)
+    # heasarc (pileest, via HEAGEN.pm)
+    # time (pileest, via HEAGEN.pm)
+    # qdp (pileest, via HEAGEN.pm)
+    # xronos (pileest, via HEAGEN.pm)
+    # xselect (pileest, via HEAGEN.pm)
 
 about:
   homepage: https://heasarc.gsfc.nasa.gov/docs/software/lheasoft/

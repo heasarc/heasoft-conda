@@ -53,9 +53,21 @@ requirements:
     - if: linux and aarch64
       then:
         - kernel-headers_linux-aarch64 = 4.18.0
-    # cfitsio
-    # ape
+    # gsl
     # readline
+    # cfitsio
+    # ccfits
+    # ape
+    # heainit
+    # heaio
+    # heautils
+    # heaapp
+    # heasp
+    # ahfits
+    # ahgen
+    # ahlog
+    # st_stream
+    # attitude (atFunctions, coord, coordfits, geomag, param_wrappers, random)
   run:
     - libcurl
     - zlib
@@ -79,19 +91,35 @@ requirements:
     - if: (linux and not aarch64) or (osx and not arm64)
       then:
         - lynx
-    # x attitude (built-in)
-    # heagen
-    # heasim
-    # heasptools
-    # heatools
-    # caltools
-    # fimage
-    # futils
-    # heasarc
-    # time
-    # ximage
-    # xronos
-    # xspec (included via heasim)
+    # gsl
+    # readline
+    # cfitsio
+    # ccfits
+    # ape
+    # heainit
+    # heaio
+    # heautils
+    # heaapp
+    # heasp
+    # ahfits
+    # ahgen
+    # ahlog
+    # st_stream
+    # attitude (atFunctions, coord, coordfits, geomag, param_wrappers, random)
+    # cfitsio-perl
+    # / attitude (currently included in src as build dependency)
+    - heagen
+    - heasim
+    - heasptools
+    - heatools
+    - caltools
+    - fimage
+    - futils
+    - heasarc
+    - time
+    - ximage
+    - xronos
+    # / xspec (included via heasim as a build dependency)
 
 about:
   homepage: https://heasarc.gsfc.nasa.gov/docs/software/lheasoft/

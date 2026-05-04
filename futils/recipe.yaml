@@ -57,16 +57,15 @@ requirements:
     - if: linux and aarch64
       then:
         - kernel-headers_linux-aarch64 = 4.18.0
+    # readline
     # cfitsio
     # ape
-    # readline
+    # heautils
     # tcltk (pgplot, plt)
-    # gsl
-    # fgsl
     # callib
-    # xanlib
-    # ftoolslib
     # cftoolslib
+    # ftoolslib
+    # xanlib
   run:
     - libcurl
     - zlib
@@ -90,7 +89,15 @@ requirements:
     - if: (linux and not aarch64) or (osx and not arm64)
       then:
         - lynx
-    # qdp
+    # readline
+    # cfitsio
+    # ape
+    # heautils
+    # tcltk (pgplot, plt)
+    # callib
+    # cftoolslib
+    # ftoolslib
+    # xanlib
 
 about:
   homepage: https://heasarc.gsfc.nasa.gov/docs/software/lheasoft/

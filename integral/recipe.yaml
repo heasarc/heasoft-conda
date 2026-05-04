@@ -16,6 +16,7 @@ source:
     - ../heasoft/tcltk_Makefile.patch
     - ../heasoft/perl_config_heacore.patch
     - ../heasoft/python_makefiles_heacore.patch
+    - ../heasoft/python_makefiles_xspec.patch
     - ../heasoft/fix-x11-conda.patch
 
 build:
@@ -54,9 +55,13 @@ requirements:
     - if: linux and aarch64
       then:
         - kernel-headers_linux-aarch64 = 4.18.0
+    # readline
     # cfitsio
     # ape
-    # readline
+    # heainit
+    # heaio
+    # heautils
+    # / xspec (currently included in src as a build dependency)
   run:
     - libcurl
     - zlib
@@ -80,6 +85,12 @@ requirements:
     - if: (linux and not aarch64) or (osx and not arm64)
       then:
         - lynx
+    # readline
+    # cfitsio
+    # ape
+    # heainit
+    # heaio
+    # heautils
 
 about:
   homepage: https://heasarc.gsfc.nasa.gov/docs/software/lheasoft/
