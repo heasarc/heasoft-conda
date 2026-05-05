@@ -124,7 +124,7 @@ source \$HEADAS/BUILD_DIR/headas-init.csh
 EOF
 chmod +x $PREFIX/bin/heainit.csh
 
-cat <<EOF >$PREFIX/bin/.heasoft-post-link.sh
+cat <<EOF >$PREFIX/bin/.fv-post-link.sh
 mkdir -p \$CONDA_PREFIX/etc/conda/activate.d
 cp \$CONDA_PREFIX/bin/heainit.*sh \$CONDA_PREFIX/etc/conda/activate.d/
 
@@ -134,7 +134,7 @@ cp \$CONDA_PREFIX/$HEA_SUBDIR/BUILD_DIR/headas-uninit.*sh \$CONDA_PREFIX/etc/con
 # fix conda x11 for mac
 bash \$CONDA_PREFIX/$HEA_SUBDIR/BUILD_DIR/fix-x11-conda.sh \$CONDA_PREFIX
 EOF
-cat <<EOF >$PREFIX/bin/.heasoft-pre-unlink.sh
+cat <<EOF >$PREFIX/bin/.fv-pre-unlink.sh
 rm \$CONDA_PREFIX/etc/conda/activate.d/heainit.*sh > /dev/null 2>&1
 rm \$CONDA_PREFIX/etc/conda/deactivate.d/headas-uninit.*sh > /dev/null 2>&1
 EOF
