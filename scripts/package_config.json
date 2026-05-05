@@ -6,11 +6,6 @@
             "dev-root": "/software/lheasoft/package_managers",
             "include": ["*"],
             "exclude": [
-                "x86_64-pc-linux-gnu-*",
-                "x86_64-apple*",
-                "spectral/help",
-                "spectral/modelData",
-                "Xspec/src/spectral/modelData",
                 "ftools/xstar/data/atdb.fits"
             ]
         },
@@ -29,6 +24,478 @@
             "dev-root": "/software/lheasoft/package_managers",
             "include": [
                 "ftools/xstar/data/"
+            ]
+        },
+        "attitude": {
+            "root": "/FTP/software/lheasoft/lheasoft{version}/heasoft-{version}",
+            "dev-root": "/software/lheasoft/package_managers",
+            "include": [
+                "BUILD_DIR/",
+                "heacore/",
+                "attitude/"
+            ]
+        },
+        "burstcube": {
+            "root": "/FTP/software/lheasoft/lheasoft{version}/heasoft-{version}",
+            "dev-root": "/software/lheasoft/package_managers",
+            "include": [
+                "BUILD_DIR/",
+                "heacore/",
+                "burstcube/"
+            ]
+        },
+        "calet": {
+            "root": "/FTP/software/lheasoft/lheasoft{version}/heasoft-{version}",
+            "dev-root": "/software/lheasoft/package_managers",
+            "include": [
+                "BUILD_DIR/",
+                "heacore/",
+                "calet/"
+            ]
+        },
+        "heagen": {
+            "root": "/FTP/software/lheasoft/lheasoft{version}/heasoft-{version}",
+            "dev-root": "/software/lheasoft/package_managers",
+            "include": [
+                "BUILD_DIR/",
+                "heacore/",
+                "attitude/",
+                "heagen/"
+            ]
+        },
+        "heasim": {
+            "root": "/FTP/software/lheasoft/lheasoft{version}/heasoft-{version}",
+            "dev-root": "/software/lheasoft/package_managers",
+            "include": [
+                "BUILD_DIR/",
+                "heacore/",
+                "tcltk/",
+                "Xspec/",
+                "heasim/"
+            ]
+        },
+        "heasptools": {
+            "root": "/FTP/software/lheasoft/lheasoft{version}/heasoft-{version}",
+            "dev-root": "/software/lheasoft/package_managers",
+            "include": [
+                "BUILD_DIR/",
+                "heacore/",
+                "heasptools/"
+            ]
+        },
+        "heatools": {
+            "root": "/FTP/software/lheasoft/lheasoft{version}/heasoft-{version}",
+            "dev-root": "/software/lheasoft/package_managers",
+            "include": [
+                "BUILD_DIR/",
+                "heacore/",
+                "heatools/"
+            ]
+        },
+        "hitomi": {
+            "root": "/FTP/software/lheasoft/lheasoft{version}/heasoft-{version}",
+            "dev-root": "/software/lheasoft/package_managers",
+            "include": [
+                "BUILD_DIR/",
+                "heacore/",
+                "attitude/",
+                "hitomixrism/"
+            ]
+        },
+        "integral": {
+            "root": "/FTP/software/lheasoft/lheasoft{version}/heasoft-{version}",
+            "dev-root": "/software/lheasoft/package_managers",
+            "include": [
+                "BUILD_DIR/",
+                "heacore/",
+                "tcltk/",
+                "Xspec/",
+                "integral/"
+            ]
+        },
+        "ixpe": {
+            "root": "/FTP/software/lheasoft/lheasoft{version}/heasoft-{version}",
+            "dev-root": "/software/lheasoft/package_managers",
+            "include": [
+                "BUILD_DIR/",
+                "heacore/",
+                "ixpe/"
+            ]
+        },
+        "maxi": {
+            "root": "/FTP/software/lheasoft/lheasoft{version}/heasoft-{version}",
+            "dev-root": "/software/lheasoft/package_managers",
+            "include": [
+                "BUILD_DIR/",
+                "heacore/",
+                "attitude/",
+                "tcltk/",
+                "Xspec/",
+                "maxi/"
+            ]
+        },
+        "nicer": {
+            "root": "/FTP/software/lheasoft/lheasoft{version}/heasoft-{version}",
+            "dev-root": "/software/lheasoft/package_managers",
+            "include": [
+                "BUILD_DIR/",
+                "heacore/",
+                "attitude/",
+                "nicer/"
+            ]
+        },
+        "nustar": {
+            "root": "/FTP/software/lheasoft/lheasoft{version}/heasoft-{version}",
+            "dev-root": "/software/lheasoft/package_managers",
+            "include": [
+                "BUILD_DIR/",
+                "heacore/",
+                "attitude/",
+                "nustar/"
+            ]
+        },
+        "suzaku": {
+            "root": "/FTP/software/lheasoft/lheasoft{version}/heasoft-{version}",
+            "dev-root": "/software/lheasoft/package_managers",
+            "include": [
+                "BUILD_DIR/",
+                "heacore/",
+                "attitude/",
+                "tcltk/",
+                "suzaku/"
+            ]
+        },
+        "swift": {
+            "root": "/FTP/software/lheasoft/lheasoft{version}/heasoft-{version}",
+            "dev-root": "/software/lheasoft/package_managers",
+            "include": [
+                "BUILD_DIR/",
+                "heacore/",
+                "attitude/",
+                "tcltk/",
+                "swift/"
+            ]
+        },
+        "xrism": {
+            "root": "/FTP/software/lheasoft/lheasoft{version}/heasoft-{version}",
+            "dev-root": "/software/lheasoft/package_managers",
+            "include": [
+                "BUILD_DIR/",
+                "heacore/",
+                "attitude/",
+                "hitomixrism/"
+            ]
+        },
+        "asca": {
+            "root": "/FTP/software/lheasoft/lheasoft{version}/heasoft-{version}",
+            "dev-root": "/software/lheasoft/package_managers",
+            "include": [
+                "BUILD_DIR/",
+                "heacore/",
+                "attitude/",
+                "tcltk/",
+                "ftools/BUILD_DIR/",
+                "ftools/bin.perl/",
+                "ftools/include/",
+                "ftools/refdata/",
+                "ftools/asca/",
+                "ftools/callib/",
+                "ftools/cftoolslib/",
+                "ftools/ftoolslib/",
+                "ftools/xanlib/"
+            ]
+        },
+        "caltools": {
+            "root": "/FTP/software/lheasoft/lheasoft{version}/heasoft-{version}",
+            "dev-root": "/software/lheasoft/package_managers",
+            "include": [
+                "BUILD_DIR/",
+                "heacore/",
+                "ftools/BUILD_DIR/",
+                "ftools/bin.perl/",
+                "ftools/include/",
+                "ftools/refdata/",
+                "ftools/caltools/",
+                "ftools/callib/",
+                "ftools/cftoolslib/",
+                "ftools/ftoolslib/",
+                "ftools/xanlib/"
+            ]
+        },
+        "einstein": {
+            "root": "/FTP/software/lheasoft/lheasoft{version}/heasoft-{version}",
+            "dev-root": "/software/lheasoft/package_managers",
+            "include": [
+                "BUILD_DIR/",
+                "heacore/",
+                "ftools/BUILD_DIR/",
+                "ftools/bin.perl/",
+                "ftools/include/",
+                "ftools/refdata/",
+                "ftools/einstein/",
+                "ftools/callib/",
+                "ftools/cftoolslib/",
+                "ftools/ftoolslib/",
+                "ftools/xanlib/"
+            ]
+        },
+        "exosat": {
+            "root": "/FTP/software/lheasoft/lheasoft{version}/heasoft-{version}",
+            "dev-root": "/software/lheasoft/package_managers",
+            "include": [
+                "BUILD_DIR/",
+                "heacore/",
+                "ftools/BUILD_DIR/",
+                "ftools/bin.perl/",
+                "ftools/include/",
+                "ftools/refdata/",
+                "ftools/exosat/",
+                "ftools/xanlib/"
+            ]
+        },
+        "fimage": {
+            "root": "/FTP/software/lheasoft/lheasoft{version}/heasoft-{version}",
+            "dev-root": "/software/lheasoft/package_managers",
+            "include": [
+                "BUILD_DIR/",
+                "heacore/",
+                "ftools/BUILD_DIR/",
+                "ftools/bin.perl/",
+                "ftools/include/",
+                "ftools/refdata/",
+                "ftools/fimage/",
+                "ftools/callib/",
+                "ftools/cftoolslib/",
+                "ftools/ftoolslib/",
+                "ftools/xanlib/"
+            ]
+        },
+        "futils": {
+            "root": "/FTP/software/lheasoft/lheasoft{version}/heasoft-{version}",
+            "dev-root": "/software/lheasoft/package_managers",
+            "include": [
+                "BUILD_DIR/",
+                "heacore/",
+                "tcltk/",
+                "ftools/BUILD_DIR/",
+                "ftools/bin.perl/",
+                "ftools/include/",
+                "ftools/refdata/",
+                "ftools/futils/",
+                "ftools/callib/",
+                "ftools/cftoolslib/",
+                "ftools/ftoolslib/",
+                "ftools/xanlib/"
+            ]
+        },
+        "fv": {
+            "root": "/FTP/software/lheasoft/lheasoft{version}/heasoft-{version}",
+            "dev-root": "/software/lheasoft/package_managers",
+            "include": [
+                "BUILD_DIR/",
+                "heacore/",
+                "tcltk/",
+                "ftools/BUILD_DIR/",
+                "ftools/include/",
+                "ftools/guis/"
+            ]
+        },
+        "gro": {
+            "root": "/FTP/software/lheasoft/lheasoft{version}/heasoft-{version}",
+            "dev-root": "/software/lheasoft/package_managers",
+            "include": [
+                "BUILD_DIR/",
+                "heacore/",
+                "tcltk/",
+                "ftools/BUILD_DIR/",
+                "ftools/bin.perl/",
+                "ftools/include/",
+                "ftools/refdata/",
+                "ftools/gro/",
+                "ftools/callib/",
+                "ftools/cftoolslib/",
+                "ftools/ftoolslib/",
+                "ftools/xanlib/"
+            ]
+        },
+        "heao1": {
+            "root": "/FTP/software/lheasoft/lheasoft{version}/heasoft-{version}",
+            "dev-root": "/software/lheasoft/package_managers",
+            "include": [
+                "BUILD_DIR/",
+                "heacore/",
+                "ftools/BUILD_DIR/",
+                "ftools/bin.perl/",
+                "ftools/include/",
+                "ftools/refdata/",
+                "ftools/heao1/",
+                "ftools/xanlib/"
+            ]
+        },
+        "heasarc": {
+            "root": "/FTP/software/lheasoft/lheasoft{version}/heasoft-{version}",
+            "dev-root": "/software/lheasoft/package_managers",
+            "include": [
+                "BUILD_DIR/",
+                "heacore/",
+                "tcltk/",
+                "ftools/BUILD_DIR/",
+                "ftools/bin.perl/",
+                "ftools/include/",
+                "ftools/refdata/",
+                "ftools/heasarc/",
+                "ftools/callib/",
+                "ftools/cftoolslib/",
+                "ftools/ftoolslib/",
+                "ftools/xanlib/"
+            ]
+        },
+        "oso8": {
+            "root": "/FTP/software/lheasoft/lheasoft{version}/heasoft-{version}",
+            "dev-root": "/software/lheasoft/package_managers",
+            "include": [
+                "BUILD_DIR/",
+                "heacore/",
+                "ftools/BUILD_DIR/",
+                "ftools/bin.perl/",
+                "ftools/include/",
+                "ftools/refdata/",
+                "ftools/oso8/",
+                "ftools/xanlib/"
+            ]
+        },
+        "qdp": {
+            "root": "/FTP/software/lheasoft/lheasoft{version}/heasoft-{version}",
+            "dev-root": "/software/lheasoft/package_managers",
+            "include": [
+                "BUILD_DIR/",
+                "heacore/",
+                "tcltk/",
+                "ftools/BUILD_DIR/",
+                "ftools/bin.perl/",
+                "ftools/include/",
+                "ftools/refdata/",
+                "ftools/qdp/",
+                "ftools/callib/",
+                "ftools/cftoolslib/",
+                "ftools/ftoolslib/",
+                "ftools/xanlib/"
+            ]
+        },
+        "rosat": {
+            "root": "/FTP/software/lheasoft/lheasoft{version}/heasoft-{version}",
+            "dev-root": "/software/lheasoft/package_managers",
+            "include": [
+                "BUILD_DIR/",
+                "heacore/",
+                "ftools/BUILD_DIR/",
+                "ftools/bin.perl/",
+                "ftools/include/",
+                "ftools/refdata/",
+                "ftools/rosat/",
+                "ftools/callib/",
+                "ftools/cftoolslib/",
+                "ftools/ftoolslib/",
+                "ftools/xanlib/"
+            ]
+        },
+        "time": {
+            "root": "/FTP/software/lheasoft/lheasoft{version}/heasoft-{version}",
+            "dev-root": "/software/lheasoft/package_managers",
+            "include": [
+                "BUILD_DIR/",
+                "heacore/",
+                "ftools/BUILD_DIR/",
+                "ftools/bin.perl/",
+                "ftools/include/",
+                "ftools/refdata/",
+                "ftools/time/",
+                "ftools/callib/",
+                "ftools/cftoolslib/",
+                "ftools/ftoolslib/",
+                "ftools/xanlib/"
+            ]
+        },
+        "vela5b": {
+            "root": "/FTP/software/lheasoft/lheasoft{version}/heasoft-{version}",
+            "dev-root": "/software/lheasoft/package_managers",
+            "include": [
+                "BUILD_DIR/",
+                "heacore/",
+                "ftools/BUILD_DIR/",
+                "ftools/bin.perl/",
+                "ftools/include/",
+                "ftools/refdata/",
+                "ftools/vela5b/",
+                "ftools/callib/",
+                "ftools/cftoolslib/",
+                "ftools/ftoolslib/",
+                "ftools/xanlib/"
+            ]
+        },
+        "ximage": {
+            "root": "/FTP/software/lheasoft/lheasoft{version}/heasoft-{version}",
+            "dev-root": "/software/lheasoft/package_managers",
+            "include": [
+                "BUILD_DIR/",
+                "heacore/",
+                "tcltk/",
+                "ftools/BUILD_DIR/",
+                "ftools/bin.perl/",
+                "ftools/include/",
+                "ftools/refdata/",
+                "ftools/image/",
+                "ftools/xanlib/"
+            ]
+        },
+        "xronos": {
+            "root": "/FTP/software/lheasoft/lheasoft{version}/heasoft-{version}",
+            "dev-root": "/software/lheasoft/package_managers",
+            "include": [
+                "BUILD_DIR/",
+                "heacore/",
+                "tcltk/",
+                "ftools/BUILD_DIR/",
+                "ftools/bin.perl/",
+                "ftools/include/",
+                "ftools/refdata/",
+                "ftools/timing/",
+                "ftools/xanlib/"
+            ]
+        },
+        "xselect": {
+            "root": "/FTP/software/lheasoft/lheasoft{version}/heasoft-{version}",
+            "dev-root": "/software/lheasoft/package_managers",
+            "include": [
+                "BUILD_DIR/",
+                "heacore/",
+                "tcltk/",
+                "ftools/BUILD_DIR/",
+                "ftools/bin.perl/",
+                "ftools/include/",
+                "ftools/refdata/",
+                "ftools/xselect/",
+                "ftools/cftoolslib/",
+                "ftools/ftoolslib/",
+                "ftools/xanlib/"
+            ]
+        },
+        "xte": {
+            "root": "/FTP/software/lheasoft/lheasoft{version}/heasoft-{version}",
+            "dev-root": "/software/lheasoft/package_managers",
+            "include": [
+                "BUILD_DIR/",
+                "heacore/",
+                "tcltk/",
+                "ftools/BUILD_DIR/",
+                "ftools/bin.perl/",
+                "ftools/include/",
+                "ftools/refdata/",
+                "ftools/xte/",
+                "ftools/callib/",
+                "ftools/cftoolslib/",
+                "ftools/ftoolslib/",
+                "ftools/xanlib/"
             ]
         }
     }
