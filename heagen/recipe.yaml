@@ -9,9 +9,9 @@ package:
   version: ${{ version }}
 
 source:
-  #url: https://heasarc.gsfc.nasa.gov/FTP/software/conda/source/${{ name }}-${{ version }}.tar.gz
-  #sha256: 53d91083195ddad7f19260ba6dbeebc01d96802f7e0e7db9d17e950eb4e7b4f9
-  path: /local/data/karpuz1/birby/conda/heasoft
+  url: https://heasarc.gsfc.nasa.gov/FTP/software/conda/.testing/source/${{ name }}-${{ version }}.tar.gz
+  sha256: 8f2b275d281677956e31b32c2f9c12c78a096799b73a58139f8e84cb81597fcc
+  #path: /local/data/karpuz1/birby/conda/heasoft
   patches:
     - ../heasoft/perl_config_heacore.patch
     - ../heasoft/python_makefiles_heacore.patch
