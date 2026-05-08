@@ -41,11 +41,13 @@ requirements:
     - xorg-libxt
     - xorg-xorgproto
     - xorg-libxcursor
-    - fgsl
     - numpy
     - if: linux
       then:
         - kernel-headers_linux-64 = 3.10.0
+    - if: osx or (linux and not aarch64)
+      then:
+        - fgsl
   run:
     - libcurl
     - zlib
@@ -56,8 +58,10 @@ requirements:
     - xorg-libxt
     - xorg-libxcursor
     - xorg-xorgproto
-    - fgsl
     - numpy
+    - if: osx or (linux and not aarch64)
+      then:
+        - fgsl
 
 
 about:
