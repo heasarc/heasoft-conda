@@ -68,7 +68,7 @@ jobs:
             echo "doing heasoft-tests too"
             cd ../output/src_cache
             # we use the same tar file
-            root=`ls -d heasoft-* | grep -v tar`
+            root=`find . -type d -name heasoft-\* | sed -e 's:^./::'`
             rm -rf ${root}
             ln -s ${root}.tar.gz ${root/heasoft/heasoft-tests}.tar.gz
             cd ../../heasoft-tests
