@@ -42,6 +42,8 @@ requirements:
     - xorg-xorgproto
     - xorg-libxcursor
     - numpy
+    - fftw
+    - gsl
     - if: linux
       then:
         - kernel-headers_linux-64 = 3.10.0
@@ -59,6 +61,8 @@ requirements:
     - xorg-libxcursor
     - xorg-xorgproto
     - numpy
+    - fftw
+    - gsl
     - if: osx or (linux and not aarch64)
       then:
         - fgsl
