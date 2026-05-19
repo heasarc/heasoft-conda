@@ -64,9 +64,9 @@ requirements:
     - scipy
     - astropy-base
     - matplotlib
-    # - if: linux
-    #   then:
-    #     - kernel-headers_linux-64 = 3.10.0
+    - if: linux
+      then:
+        - kernel-headers_linux-64 = 3.10.0
   run:
     - python = ${{ py_version }}
     - libcurl
