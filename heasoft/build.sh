@@ -53,10 +53,9 @@ cd BUILD_DIR
 # Sometimes issues like: -DPACKAGE_STRING=tcl 8.6
 find .. -name 'hmakerc' -exec sed -i 's/tcl\\ 8.6/tcl_8.6/g' {} +
 make all 2>&1 | tee build.txt || false
+tar -zcvf logs.tgz config.txt build.txt
+rm -rf config.txt build.txt hd_install.o
 make install 2>&1 | tee install.txt || false
-tar -zcvf logs.tgz config.txt build.txt install.txt
-rm -rf config.txt build.txt install.txt
-rm -rf $PREFIX/$HEA_SUBDIR/BUILD_DIR/hd_install.o
 
 # heasoftpy fhelp docs are not created correctly; re-run
 cd ../heacore/BUILD_DIR

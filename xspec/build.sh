@@ -48,10 +48,9 @@ fi
 cd BUILD_DIR
 ./configure "${configure_args[@]}" 2>&1 | tee config.txt || false
 make 2>&1 | tee build.txt || false
+tar -zcvf logs.tgz config.txt build.txt
+rm -rf config.txt build.txt hd_install.o
 make install 2>&1 | tee install.txt || false
-tar -zcvf logs.tgz config.txt build.txt install.txt
-rm -rf config.txt build.txt install.txt
-rm -rf $PREFIX/$HEA_SUBDIR/BUILD_DIR/hd_install.o
 
 # for xspec local models
 cp ../Xspec/BUILD_DIR/hmakerc $PREFIX/$HEA_SUBDIR/bin/
