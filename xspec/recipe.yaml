@@ -4,6 +4,7 @@ context:
   name: xspec
   version: 12.15.1
   hea_version: 6.36
+  py_version: 3.12
 
 package:
   name: ${{ name|lower }}
@@ -30,13 +31,14 @@ source:
     - ../heasoft/fix-x11-conda.patch
 
 build:
-  number: 0
+  number: 1
 
 requirements:
   host:
     - ${{ compiler('cxx') }}
     - ${{ compiler('c') }}
     - ${{ compiler('fortran') }}
+    - python = ${{ py_version }}
     - pkg-config
     - libcurl
     - zlib
@@ -49,10 +51,8 @@ requirements:
     - xorg-libxcursor
     - fgsl
     - numpy
-    - if: linux
-      then:
-        - kernel-headers_linux-64 = 3.10.0
   run:
+    - python = ${{ py_version }}
     - libcurl
     - zlib
     - libbrotlidec
