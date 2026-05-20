@@ -65,12 +65,20 @@ jobs:
           if [ $package == "heasoft" ]; then
             echo "doing heasoft-tests too"
             cd ../output/src_cache
+            ls
             # we use the same tar file
-            root=`ls -d heasoft-* | grep -v tar`
-            rm -rf ${root}
-            ln -s ${root}.tar.gz ${root/heasoft/heasoft-tests}.tar.gz
-            cd ../../heasoft-tests
-            rattler-build build --no-include-recipe --target-platform ${{ matrix.platform }} --output-dir ../output
+            tar_files=(heasoft-*.tar.gz)
+            if [ -e "${tar_files[0]}" ]; then
+              tar_file="${tar_files[0]}"
+              root="${tar_file%.tar.gz}"
+              test_tar_file="${tar_file/heasoft/heasoft-tests}"
+              if [ -d "$root" ]; then
+                  rm -rf "$root"
+              fi
+              ln -sf "$tar_file" "$test_tar_file"
+              cd ../../heasoft-tests
+              rattler-build build --no-include-recipe --target-platform ${{ matrix.platform }} --output-dir ../output
+            fi
           fi
           cd ..
           rm -rf output/src_cache output/bld
