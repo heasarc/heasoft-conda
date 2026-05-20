@@ -16,7 +16,6 @@ source:
     - ../heasoft/tcltk_Makefile.patch
     - ../heasoft/pgplot_makefiles.patch
     - ../heasoft/xspec.patch
-    - ../heasoft/xspec2.patch
     - ../heasoft/zlib_makefiles.patch
     - ../heasoft/python_makefiles.patch
     - ../heasoft/itk_configure.patch
@@ -36,7 +35,7 @@ source:
     - ../heasoft/fix-x11-conda.patch
 
 build:
-  number: 0
+  number: 1
 
 requirements:
   host:
