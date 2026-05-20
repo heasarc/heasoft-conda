@@ -67,7 +67,7 @@ jobs:
             cd ../output/src_cache
             ls
             # we use the same tar file
-            tar_files=(heasoft-*.tar.gz)
+            tar_files=(*heasoft-*.tar.gz)
             if [ -e "${tar_files[0]}" ]; then
               tar_file="${tar_files[0]}"
               root="${tar_file%.tar.gz}"
