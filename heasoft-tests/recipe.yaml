@@ -10,8 +10,9 @@ package:
 
 source:
   #url: https://heasarc.gsfc.nasa.gov/FTP/software/conda/source/${{ name }}-${{ version }}.tar.gz
-  #sha256: 53d91083195ddad7f19260ba6dbeebc01d96802f7e0e7db9d17e950eb4e7b4f9
-  path: /local/data/karpuz1/birby/clean
+  url: https://heasarc.gsfc.nasa.gov/FTP/software/lheasoft/irby/conda/.test/${{ name }}-${{ version }}.tar.gz
+  sha256: c9db18ae7ca4ef4def9e33eba6a1a60fb19e9ba902f96ea64f405104ec041e02
+  #path: /local/data/karpuz1/birby/conda/heasoft
   patches:
     - ../heasoft/tcltk_Makefile.patch
     - ../heasoft/pgplot_makefiles.patch
@@ -19,8 +20,6 @@ source:
     - ../heasoft/zlib_makefiles.patch
     - ../heasoft/python_makefiles.patch
     - ../heasoft/itk_configure.patch
-    - ../heasoft/iwidgets_configure.patch
-    - ../heasoft/tix_configure.patch
     - if: osx
       then:
       - ../heasoft/pgplot_makefiles_osx.patch
