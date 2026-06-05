@@ -50,10 +50,6 @@ fi
 # configure, build, install:
 cd BUILD_DIR
 ./configure "${configure_args[@]}" 2>&1 | tee config.txt || false
-# Sometimes issues like: -DPACKAGE_STRING=tcl 8.6; 2 steps so it works on mac
-find .. -name 'hmakerc' -exec sed -i.bak 's/tcl\\ 8.6/tcl_8.6/g' {} +
-find .. -name 'hmakerc.bak' -delete
-
 make all 2>&1 | tee build.txt || false
 tar -zcvf logs.tgz config.txt build.txt
 rm -rf config.txt build.txt hd_install.o
