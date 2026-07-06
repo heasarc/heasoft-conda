@@ -11,12 +11,11 @@ package:
 source:
   #url: https://heasarc.gsfc.nasa.gov/FTP/software/conda/source/${{ name }}-${{ version }}.tar.gz
   url: https://heasarc.gsfc.nasa.gov/FTP/software/lheasoft/irby/conda/.test/${{ name }}-${{ version }}.tar.gz
-  sha256: 00b60772fed9bd9277210765e98b1896d66163a4694d84994e75b98a4500c969
+  sha256: ec5000543c190c44f3f6554231fabb3137d991e2d202950e10864362a0ca5b58
   #path: /local/data/karpuz1/birby/conda/heasoft
   patches:
     - tcltk_Makefile.patch
     - pgplot_makefiles.patch
-    - xspec.patch
     - zlib_makefiles.patch
     - python_makefiles.patch
     - itk_configure.patch
@@ -62,6 +61,7 @@ requirements:
     - scipy
     - astropy-base
     - matplotlib
+    - libtorch
     - if: linux and not aarch64
       then:
         - kernel-headers_linux-64 = 3.10.0
@@ -91,6 +91,7 @@ requirements:
     - astro-gdt
     - requests
     - reproject
+    - libtorch
     - if: (linux and not aarch64) or (osx and not arm64)
       then:
         - lynx
