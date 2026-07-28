@@ -2,7 +2,7 @@
 
 context:
   name: heasoft
-  version: 6.36
+  version: 6.37
   py_version: 3.12
 
 package:
@@ -10,21 +10,18 @@ package:
   version: ${{ version }}
 
 source:
-  url: https://heasarc.gsfc.nasa.gov/FTP/software/conda/source/${{ name }}-${{ version }}.tar.gz
-  sha256: 53d91083195ddad7f19260ba6dbeebc01d96802f7e0e7db9d17e950eb4e7b4f9
+  #url: https://heasarc.gsfc.nasa.gov/FTP/software/conda/source/${{ name }}-${{ version }}.tar.gz
+  url: https://heasarc.gsfc.nasa.gov/FTP/software/lheasoft/irby/conda/.test/${{ name }}-${{ version }}.tar.gz
+  sha256: ec5000543c190c44f3f6554231fabb3137d991e2d202950e10864362a0ca5b58
+  #path: /local/data/karpuz1/birby/conda/heasoft
   patches:
-    - configures_opt.patch
     - tcltk_Makefile.patch
     - pgplot_makefiles.patch
-    - xspec.patch
     - zlib_makefiles.patch
     - python_makefiles.patch
     - itk_configure.patch
-    - iwidgets_configure.patch
-    - tix_configure.patch
     - if: osx
       then:
-      - configures.patch
       - pgplot_makefiles_osx.patch
     - if: linux
       then:
@@ -55,8 +52,10 @@ requirements:
     - xorg-xorgproto
     - xorg-libxcursor
     - fftw
-    - fgsl
     - gsl
+    - if: osx or (linux and not aarch64)
+      then:
+        - fgsl
     - perl
     - pip
     - setuptools
@@ -64,9 +63,13 @@ requirements:
     - scipy
     - astropy-base
     - matplotlib
-    - if: linux
+    - libtorch
+    - if: linux and not aarch64
       then:
         - kernel-headers_linux-64 = 3.10.0
+    - if: linux and aarch64
+      then:
+        - kernel-headers_linux-aarch64 = 4.18.0
   run:
     - python = ${{ py_version }}
     - libcurl
@@ -79,8 +82,10 @@ requirements:
     - xorg-libxcursor
     - xorg-xorgproto
     - fftw
-    - fgsl
     - gsl
+    - if: osx or (linux and not aarch64)
+      then:
+        - fgsl
     - perl
     - numpy
     - scipy
@@ -89,7 +94,8 @@ requirements:
     - astro-gdt
     - requests
     - reproject
-    - if: linux or (osx and not arm64)
+    - libtorch
+    - if: (linux and not aarch64) or (osx and not arm64)
       then:
         - lynx
 

@@ -2,28 +2,25 @@
 
 context:
   name: heasoft-tests
-  version: 6.36
+  version: 6.37
 
 package:
   name: ${{ name|lower }}
   version: ${{ version }}
 
 source:
-  url: https://heasarc.gsfc.nasa.gov/FTP/software/conda/source/${{ name }}-${{ version }}.tar.gz
-  sha256: 53d91083195ddad7f19260ba6dbeebc01d96802f7e0e7db9d17e950eb4e7b4f9
+  #url: https://heasarc.gsfc.nasa.gov/FTP/software/conda/source/${{ name }}-${{ version }}.tar.gz
+  url: https://heasarc.gsfc.nasa.gov/FTP/software/lheasoft/irby/conda/.test/${{ name }}-${{ version }}.tar.gz
+  sha256: ec5000543c190c44f3f6554231fabb3137d991e2d202950e10864362a0ca5b58
+  #path: /local/data/karpuz1/birby/conda/heasoft
   patches:
-    - ../heasoft/configures_opt.patch
     - ../heasoft/tcltk_Makefile.patch
     - ../heasoft/pgplot_makefiles.patch
-    - ../heasoft/xspec.patch
     - ../heasoft/zlib_makefiles.patch
     - ../heasoft/python_makefiles.patch
     - ../heasoft/itk_configure.patch
-    - ../heasoft/iwidgets_configure.patch
-    - ../heasoft/tix_configure.patch
     - if: osx
       then:
-      - ../heasoft/configures.patch
       - ../heasoft/pgplot_makefiles_osx.patch
     - if: linux
       then:

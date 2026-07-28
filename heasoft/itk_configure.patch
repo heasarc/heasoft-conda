@@ -9,14 +9,3 @@
      cat confdefs.h - <<_ACEOF >conftest.$ac_ext
  /* end confdefs.h.  */
  
-@@ -6156,8 +6156,8 @@ $as_echo_n "checking for Tcl private include files... " >&6; }
- 	    esac
- 	    result="Using ${TCL_INCLUDES}"
- 	else
--	    if test ! -f "${TCL_SRC_DIR}/generic/tclInt.h" ; then
--		as_fn_error $? "Cannot find private header tclInt.h in ${TCL_SRC_DIR}" "$LINENO" 5
-+	    if test ! -f "${TCL_SRC_DIR}/generic/tclInt.h" -a ! -f "${TCL_SRC_DIR}/tclInt.h"; then
-+		as_fn_error $? "Cannot find private header tclInt.h in ${TCL_SRC_DIR}/generic or ${TCL_SRC_DIR}" "$LINENO" 5
- 	    fi
- 	    result="Using srcdir found in tclConfig.sh: ${TCL_SRC_DIR}"
- 	fi

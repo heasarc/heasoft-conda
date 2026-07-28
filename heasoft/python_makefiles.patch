@@ -1,28 +1,28 @@
---- Xspec/src/XSUser/Python/xspec/Makefile
-+++ Xspec/src/XSUser/Python/xspec/Makefile
-@@ -13,7 +13,7 @@
- 
- HD_SHLIB_LIBS		= ${HD_LFLAGS} -lXSUser -lXSPlot -lXSMinuit -lMinuit2 \
- 			  -lxsmix -lXSFunctions -lXSFit -lXSModel -lXSUtil -lXS \
--			  ${F77LIBS4C} ${XLIBS}
-+			  ${F77LIBS4C} ${XLIBS} ${PYTHON_LIB}
- 
- HD_INSTALL_PYTHON_LIBS	= lib${HD_LIBRARY_ROOT}${SHLIB_SUFFIX} \
- 			  chain.py data.py fit.py __init__.py model.py parameter.py \
---- Xspec/src/XSUser/Python/mxspec/Makefile
-+++ Xspec/src/XSUser/Python/mxspec/Makefile
-@@ -10,7 +10,7 @@
+--- a/Xspec/src/XSUser/Python/mxspec/Makefile
++++ b/Xspec/src/XSUser/Python/mxspec/Makefile
+@@ -10,7 +10,7 @@ HD_CXXFLAGS		= -I${HD_SRC}/src -I${HD_SRC}/src/include \
  HD_LIBRARY_SRC_cxx	= PyCallXSTable.cxx PyCallXSMod.cxx pymXspecmodule.cxx
  
- HD_SHLIB_LIBS		= ${HD_LFLAGS} -lXSFunctions -lXSUtil -lXS \
+ HD_SHLIB_LIBS		= ${HD_LFLAGS} -lXSFunctions -lXSUtil \
 -			  ${F77LIBS4C}
 +			  ${F77LIBS4C} ${PYTHON_LIB}
  
  HD_INSTALL_PYTHON_LIBS	= lib${HD_LIBRARY_ROOT}${SHLIB_SUFFIX} \
  			  mmodel.py __init__.py
---- heacore/heasp/python/Makefile
-+++ heacore/heasp/python/Makefile
-@@ -19,7 +19,7 @@
+--- a/Xspec/src/XSUser/Python/xspec/Makefile
++++ b/Xspec/src/XSUser/Python/xspec/Makefile
+@@ -13,7 +13,7 @@ HD_LIBRARY_SRC_cxx	= PyFit.cxx PyModel.cxx PyParameter.cxx \
+
+ HD_SHLIB_LIBS		= ${HD_LFLAGS} -lXSUser -lXSPlot -lXSCore -lXSSim -lXSMinuit -lMinuit2 \
+			  -lxsmix -lXSFunctions -lXSFit -lXSModel -lXSData -lXSUtil \
+-			  ${F77LIBS4C} ${XLIBS}
++			  ${F77LIBS4C} ${XLIBS} ${PYTHON_LIB}
+
+ HD_INSTALL_PYTHON_LIBS	= lib${HD_LIBRARY_ROOT}${SHLIB_SUFFIX} \
+			  chain.py data.py fit.py inference.py __init__.py \
+--- a/heacore/heasp/python/Makefile
++++ b/heacore/heasp/python/Makefile
+@@ -19,7 +19,7 @@ HD_CXXFLAGS             = ${HD_STD_CXXFLAGS} ${NUMPY_INC} ${PYTHON_INC}
  HD_LIBRARY_SRC_cxx      = heasp_wrap.cxx
  
  HD_SHLIB_LIBS           = ${HD_LFLAGS} -l${HEASP} \
