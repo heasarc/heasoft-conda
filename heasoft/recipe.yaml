@@ -104,7 +104,7 @@ requirements:
 about:
   homepage: https://heasarc.gsfc.nasa.gov/docs/software/lheasoft/
   #license_file: LICENSE
-  summary: the core library of heasoft
+  summary: HEASoft - High Energy Astrophysics Software
   description: |
-    xspec.
+    HEASoft is HEASARC's software suite that encompasses both new and legacy mission-independent or multi-mission FTOOLS, x-ray analysis tools (XSPEC, XRONOS, and XIMAGE), XSTAR, and numerous mission-specific packages.
   documentation: https://heasarc.gsfc.nasa.gov/docs/software/lheasoft/
