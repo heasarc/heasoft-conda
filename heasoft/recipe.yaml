@@ -98,6 +98,8 @@ requirements:
     - if: (linux and not aarch64) or (osx and not arm64)
       then:
         - lynx
+  run_constraints:
+    - xspec-data >=6.37
 
 about:
   homepage: https://heasarc.gsfc.nasa.gov/docs/software/lheasoft/

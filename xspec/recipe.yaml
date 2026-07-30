@@ -63,6 +63,8 @@ requirements:
     - xorg-xorgproto
     - fgsl
     - numpy
+  run_constraints:
+    - xspec-data >=6.37
 
 
 about:
