@@ -93,10 +93,10 @@ requirements:
     - requests
     - reproject
     - libtorch
-    - mkl
     - if: (linux and not aarch64) or (osx and not arm64)
       then:
         - lynx
+        - mkl
 
 about:
   homepage: https://heasarc.gsfc.nasa.gov/docs/software/lheasoft/
