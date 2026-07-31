@@ -63,12 +63,14 @@ requirements:
     - xorg-xorgproto
     - fgsl
     - numpy
+  run_constraints:
+    - xspec-data >=6.37
 
 
 about:
-  homepage: https://heasarc.gsfc.nasa.gov/docs/xanadu/xanadu.html
+  homepage: https://heasarc.gsfc.nasa.gov/docs/software/xspec/index.html
   #license_file: LICENSE
-  summary: Xspec
+  summary: Xspec - An X-Ray Spectral Fitting Package
   description: |
-    xspec.
-  documentation: https://heasarc.gsfc.nasa.gov/docs/xanadu/xanadu.html
+    XSPEC is a command-driven, interactive, X-ray spectral-fitting program, designed to be completely detector-independent so that it can be used for any spectrometer.
+  documentation: https://heasarc.gsfc.nasa.gov/docs/software/xspec/index.html
