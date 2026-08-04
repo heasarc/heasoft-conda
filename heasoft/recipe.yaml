@@ -3,7 +3,6 @@
 context:
   name: heasoft
   version: 6.37
-  py_version: 3.12
 
 package:
   name: ${{ name|lower }}
@@ -12,7 +11,7 @@ package:
 source:
   #url: https://heasarc.gsfc.nasa.gov/FTP/software/conda/source/${{ name }}-${{ version }}.tar.gz
   url: https://heasarc.gsfc.nasa.gov/FTP/software/conda/.testing/source/${{ name }}-${{ version }}.tar.gz
-  sha256: 498735538b8806986ce9c5b4fe5dccc29b214511b62c66a6c3618b9eced82a10
+  sha256: 81f0abbf4e3e2ae343739785cc22f467942ef9a21e49e7059f0f39df73f07121
   #path: /local/data/karpuz1/birby/conda/heasoft
   patches:
     - tcltk_Makefile.patch
@@ -33,7 +32,7 @@ source:
     - fix-x11-conda.patch
 
 build:
-  number: 1
+  number: 0
 
 requirements:
   host:
