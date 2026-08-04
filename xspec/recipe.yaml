@@ -2,9 +2,8 @@
 
 context:
   name: xspec
-  version: 12.15.1
+  version: 13.0.0
   hea_version: 6.37
-  py_version: 3.12
 
 package:
   name: ${{ name|lower }}
@@ -17,12 +16,9 @@ source:
   patches:
     - ../heasoft/tcltk_Makefile.patch
     - ../heasoft/pgplot_makefiles.patch
-    - ../heasoft/xspec.patch
     - ../heasoft/zlib_makefiles.patch
-    - ../heasoft/python_makefiles.patch
+    # ../heasoft/python_makefiles.patch
     - ../heasoft/itk_configure.patch
-    - ../heasoft/iwidgets_configure.patch
-    - ../heasoft/tix_configure.patch
     - if: osx
       then:
       - ../heasoft/pgplot_makefiles_osx.patch
@@ -30,14 +26,14 @@ source:
     - ../heasoft/fix-x11-conda.patch
 
 build:
-  number: 1
+  number: 0
 
 requirements:
   host:
     - ${{ compiler('cxx') }}
     - ${{ compiler('c') }}
     - ${{ compiler('fortran') }}
-    - python = ${{ py_version }}
+    - python
     - pkg-config
     - libcurl
     - zlib
@@ -48,10 +44,15 @@ requirements:
     - xorg-libxt
     - xorg-xorgproto
     - xorg-libxcursor
-    - fgsl
     - numpy
+    - libtorch
+    - fftw
+    - gsl
+    - if: osx or (linux and not aarch64)
+      then:
+        - fgsl
   run:
-    - python = ${{ py_version }}
+    - python
     - libcurl
     - zlib
     - libbrotlidec
@@ -61,8 +62,16 @@ requirements:
     - xorg-libxt
     - xorg-libxcursor
     - xorg-xorgproto
-    - fgsl
     - numpy
+    - libtorch
+    - fftw
+    - gsl
+    - if: osx or (linux and not aarch64)
+      then:
+        - fgsl
+    - if: (linux and not aarch64) or (osx and not arm64)
+      then:
+        - mkl
   run_constraints:
     - xspec-data >=6.37
 
