@@ -17,7 +17,7 @@ source:
     - ../heasoft/tcltk_Makefile.patch
     - ../heasoft/pgplot_makefiles.patch
     - ../heasoft/zlib_makefiles.patch
-    # ../heasoft/python_makefiles.patch
+    - ../heasoft/python_makefiles.patch
     - ../heasoft/itk_configure.patch
     - if: osx
       then:
