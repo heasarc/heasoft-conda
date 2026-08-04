@@ -1,5 +1,21 @@
 --- a/heacore/BUILD_DIR/Makefile.in
 +++ b/heacore/BUILD_DIR/Makefile.in
+@@ -137,6 +137,7 @@ build-cfitsio:
+ 
+ publish-cfitsio:
+ 	@${MAKE} install-cfitsio HD_TOP_EXEC_PFX=${HD_BLD_EXEC_PFX} HD_EXEC_PFX=${HD_BLD_EXEC_PFX} HD_CP_P="${HD_LN_S}"
++	@rm -f ${HD_BLD_LIB}/libcfitsio.so
+ 
+ install-cfitsio:
+ 	@${MAKE} subdir-cfitsio HD_TARGET=install \
+@@ -158,6 +159,7 @@ install-cfitsio:
+ 	${MAKE} install-headers HD_INSTALL_HEADERS="$$hd_install_headers"
+ 	${MAKE} install-tasks HD_INSTALL_TASKS=${CFITSIO_DIR}/fpack
+ 	${MAKE} install-tasks HD_INSTALL_TASKS=${CFITSIO_DIR}/funpack
++	@rm -f ${HD_LIB}/libcfitsio.so
+ 
+ clean-cfitsio:
+ 	@${MAKE} subdir-cfitsio HD_TARGET=clean
 @@ -339,6 +339,9 @@ makemake-fitsperl: ${FITSPERL_DIR}/Makefile
  		sed -e 's: -L/opt/local/lib::' ${FITSPERL_DIR}/Makefile > ${FITSPERL_DIR}/Makefile_tmp; ${HD_MV_F} ${FITSPERL_DIR}/Makefile_tmp ${FITSPERL_DIR}/Makefile; \
  		sed -e 's: -L/usr/local/lib::' ${FITSPERL_DIR}/Makefile > ${FITSPERL_DIR}/Makefile_tmp; ${HD_MV_F} ${FITSPERL_DIR}/Makefile_tmp ${FITSPERL_DIR}/Makefile; \
