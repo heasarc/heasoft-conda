@@ -16,14 +16,14 @@ jobs:
     strategy:
       matrix:
         include:
-          - os: ubuntu-24.04-arm
-            platform: linux-aarch64
+          # os: ubuntu-24.04-arm
+          # platform: linux-aarch64
           - os: ubuntu-latest
             platform: linux-64
-          - os: macos-latest
-            platform: osx-arm64
-          - os: macos-latest
-            platform: osx-64
+          # os: macos-latest
+          # platform: osx-arm64
+          # os: macos-latest
+          # platform: osx-64
     name: ${{ inputs.package }} | ${{ matrix.platform }} | ${{ github.ref_name }}
 
     steps:
