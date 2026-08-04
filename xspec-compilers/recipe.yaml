@@ -2,7 +2,10 @@
 
 context:
   name: xspec-compilers
-  version: 12.15.1
+  version: 13.0.0
+  cxx_version: 16.1.0
+  c_version: ${{ cxx_version }}
+  fortran_version: ${{ cxx_version }}
 
 package:
   name: ${{ name|lower }}
@@ -10,13 +13,13 @@ package:
 
 
 build:
-  number: 1
+  number: 0
 
 requirements:
   run:
-    - ${{ compiler('cxx') }}
-    - ${{ compiler('c') }}
-    - ${{ compiler('fortran') }}
+    - ${{ compiler('cxx') }} = ${{ cxx_version }}
+    - ${{ compiler('c') }} = ${{ c_version }}
+    - ${{ compiler('fortran') }} = ${{ fortran_version }}
 
 
 about:
