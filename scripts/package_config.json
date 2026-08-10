@@ -6,23 +6,11 @@
             "dev-root": "/software/lheasoft/package_managers",
             "include": ["*"],
             "exclude": [
-                "x86_64-pc-linux-gnu-*",
-                "x86_64-apple*",
-                "spectral/help",
-                "spectral/modelData",
-                "Xspec/src/spectral/modelData",
                 "ftools/xstar/data/atdb.fits"
             ]
         },
         "heasoft-tests": {
             "link": "heasoft-{version}"
-        },
-        "xspec-data": {
-            "root": "/FTP/software/lheasoft/lheasoft{version}/heasoft-{version}",
-            "dev-root": "/software/lheasoft/package_managers",
-            "include": [
-                "Xspec/src/spectral/modelData"
-            ]
         },
         "xstar-data": {
             "root": "/FTP/software/lheasoft/lheasoft{version}/heasoft-{version}",
