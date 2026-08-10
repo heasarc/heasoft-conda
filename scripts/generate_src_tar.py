@@ -68,13 +68,13 @@ def pack_files(package, version, dev, config, dryrun):
     # handle the case of a link to another package
     if 'link' in pconfig:
         linked_packaged = pconfig['link'].format(version=version)
-        if not dryrun and not os.path.exists(f'{linked_packaged}.tar'):
+        if not dryrun and not os.path.exists(f'{linked_packaged}.tar.gz'):
             raise ValueError(
                 f'Package {package} is linked to {linked_packaged}, but '
-                f'no {linked_packaged}.tar file found!'
+                f'no {linked_packaged}.tar.gz file found!'
             )
         else:
-            cmd = f'ln -s {linked_packaged}.tar {package}-{version}.tar'
+            cmd = f'ln -s {linked_packaged}.tar.gz {package}-{version}.tar.gz'
             _run_cmd(cmd, dryrun)
     else:
 
@@ -112,12 +112,14 @@ def pack_files(package, version, dev, config, dryrun):
         basedir = os.path.basename(rootdir)
         tarfile = f'{cwd}/{package}-{version}.tar.gz'
         cmd = (
-            f'tar -czvf {tarfile} ' +
+            f'tar -czf {tarfile} ' +
             (' '.join([f'--exclude="{basedir}/{ex}"' for ex in exclude])) +
             ' ' +
             (' '.join([f'{basedir}/{inc}' for inc in include]))
         )
         os.chdir(f'{rootdir}/..')
+        _run_cmd(cmd, dryrun)
+        cmd = f'sha256sum {tarfile} >> {cwd}/shasums.txt'
         _run_cmd(cmd, dryrun)
         os.chdir(cwd)
 
