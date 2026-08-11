@@ -34,7 +34,6 @@ configure_args=(
     --with-fgsl=$PREFIX
     --with-gsl=$PREFIX
     --with-fftw=$PREFIX
-    --with-libtorch=$PREFIX
 )
 
 # Using the conda Tk breaks FV on macOS:
