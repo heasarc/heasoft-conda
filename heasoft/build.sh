@@ -112,7 +112,7 @@ fi
 find $PREFIX/$HEA_SUBDIR/lib -type f ! -type l -name "*$SHLIB_EXT*" -exec chmod 755 {} \;
 
 # Install fviewer:
-$PYTHON -m pip install fviewer
+#$PYTHON -m pip install fviewer
 
 # write initialization scripts
 # 1. write them to bin/heainit.[c]sh
