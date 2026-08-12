@@ -82,6 +82,7 @@ requirements:
       then:
         - fgsl
     - perl
+    - fviewer
     - numpy
     - scipy
     - astropy-base
