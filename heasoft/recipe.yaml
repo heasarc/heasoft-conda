@@ -55,7 +55,7 @@ requirements:
         - fgsl
     - perl
     - pip
-    - setuptools
+    - hatchling
     - numpy
     - scipy
     - astropy-base
