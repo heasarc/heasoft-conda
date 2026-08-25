@@ -1,0 +1,38 @@
+context:
+  name: "fviewer"
+  version: "0.3.8"         # Replace with your package version
+
+package:
+  name: ${{ name|lower }}
+  version: ${{ version }}
+
+source:
+  url: https://pypi.io/packages/source/${{ name[0] }}/${{ name }}/${{ name }}-${{ version }}.tar.gz
+  sha256: c84a4a354c7342f0df9f540af8cd30581f17136aaa7547604e069532dc41efc6
+
+build:
+  noarch: python
+  script: python -m pip install . -vv --no-deps --no-build-isolation
+
+requirements:
+  host:
+    - python >=3.10
+    - pip
+    - hatchling 
+  run:
+    - python >=3.10
+    - fastapi >=0.100.0
+    - requests >=2.33.1
+    - uvicorn >=0.23.0
+    - websockets >=11.0
+
+tests:
+  - python:
+      imports:
+        - fviewer
+      pip_check: true
+
+about:
+  homepage: https://github.com/heasarc/fviewer
+  license: BSD-3-Clause-Clear
+  summary: "modern, browser-based astronomical FITS file viewer"
