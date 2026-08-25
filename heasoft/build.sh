@@ -34,8 +34,12 @@ configure_args=(
     --with-fgsl=$PREFIX
     --with-gsl=$PREFIX
     --with-fftw=$PREFIX
-    --with-libtorch=$PREFIX
 )
+if [ "$ostype" = "Linux" ]; then
+   configure_args+=("--with-libtorch=$PREFIX")
+elif [ "$ostype" = "Darwin" ]; then
+   configure_args+=("--with-libtorch")
+fi
 
 # Using the conda Tk breaks FV on macOS:
 mask_files="libtk8.6.dylib" # libtcl8.6.dylib"

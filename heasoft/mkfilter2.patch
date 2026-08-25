@@ -1,0 +1,13 @@
+diff --git a/ftools/asca/tasks/mkfilter2/duvmif2.c b/ftools/asca/tasks/mkfilter2/duvmif2.c
+index 255b111334..e977c82ef6 100644
+--- a/ftools/asca/tasks/mkfilter2/duvmif2.c
++++ b/ftools/asca/tasks/mkfilter2/duvmif2.c
+@@ -70,7 +70,7 @@
+ #include "cfortran.h"
+ #include "cftools.h"
+ 
+-static double	golden();
++static double golden(double, double, double, double (*f)(), double, double *, int *);
+ 
+ int
+ duvmif2(f, xguess, step, bound, xacc, maxfn, x)
