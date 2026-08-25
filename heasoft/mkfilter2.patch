@@ -1,13 +1,13 @@
-diff --git a/ftools/asca/tasks/mkfilter2/duvmif2.c b/ftools/asca/tasks/mkfilter2/duvmif2.c
-index 255b111334..e977c82ef6 100644
---- a/ftools/asca/tasks/mkfilter2/duvmif2.c
-+++ b/ftools/asca/tasks/mkfilter2/duvmif2.c
-@@ -70,7 +70,7 @@
- #include "cfortran.h"
- #include "cftools.h"
- 
--static double	golden();
-+static double golden(double, double, double, double (*f)(), double, double *, int *);
- 
- int
- duvmif2(f, xguess, step, bound, xacc, maxfn, x)
+diff --git a/ftools/asca/tasks/Makefile b/ftools/asca/tasks/Makefile
+index 4b00e18698..b9627b4366 100644
+--- a/ftools/asca/tasks/Makefile
++++ b/ftools/asca/tasks/Makefile
+@@ -5,7 +5,7 @@ HD_COMPONENT_VERS	=
+ HD_SUBDIRS		= ascaarf ascaeffmap ascaexpo ascalin ascaray \
+ 			  attitude cleansis corpileup correctrdd dfe2mkf faint \
+ 			  faintdfe fasttime fastwmap fmosaic ghkcurve ghkdump \
+-			  gisrti gqaplot ldeadtime mkdtime mkfilter2 mkgisbgd \
++			  gisrti gqaplot ldeadtime mkdtime mkgisbgd \
+ 			  oldaspect sisclean sishist sispi sqaplot \
+ 			  sisrmg temp2gain timeconv \
+ 			  add_sis_rmf addascaspec ascascreen \
