@@ -35,6 +35,7 @@ configure_args=(
     --with-fgsl=$PREFIX
     --with-gsl=$PREFIX
     --with-fftw=$PREFIX
+    --with-libtorch=$PREFIX
 )
 
 mask_files="libtk8.6.dylib" # libtcl8.6.dylib"

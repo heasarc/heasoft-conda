@@ -34,6 +34,7 @@ configure_args=(
     --with-fgsl=$PREFIX
     --with-gsl=$PREFIX
     --with-fftw=$PREFIX
+    --with-libtorch=$PREFIX
 )
 
 # Using the conda Tk breaks FV on macOS:
@@ -59,12 +60,6 @@ tar -zcvf logs.tgz config.txt build.txt
 rm -rf config.txt build.txt hd_install.o
 make install 2>&1 | tee install.txt || false
 
-# heasoftpy fhelp docs are not created correctly; re-run
-cd ../heacore/BUILD_DIR
-export HEADAS=$PREFIX/$HEA_SUBDIR
-. $HEADAS/headas-init.sh
-hmake install-heasoftpy
-cd ../../BUILD_DIR
 
 # for xspec local models
 cp ../Xspec/BUILD_DIR/hmakerc $PREFIX/$HEA_SUBDIR/bin/
