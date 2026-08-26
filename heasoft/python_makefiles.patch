@@ -12,14 +12,14 @@
 --- a/Xspec/src/XSUser/Python/xspec/Makefile
 +++ b/Xspec/src/XSUser/Python/xspec/Makefile
 @@ -13,7 +13,7 @@ HD_LIBRARY_SRC_cxx	= PyFit.cxx PyModel.cxx PyParameter.cxx \
-
+ 
  HD_SHLIB_LIBS		= ${HD_LFLAGS} -lXSUser -lXSPlot -lXSCore -lXSSim -lXSMinuit -lMinuit2 \
-			  -lxsmix -lXSFunctions -lXSFit -lXSModel -lXSData -lXSUtil \
+ 			  -lxsmix -lXSFunctions -lXSFit -lXSModel -lXSData -lXSUtil \
 -			  ${F77LIBS4C} ${XLIBS}
 +			  ${F77LIBS4C} ${XLIBS} ${PYTHON_LIB}
-
+ 
  HD_INSTALL_PYTHON_LIBS	= lib${HD_LIBRARY_ROOT}${SHLIB_SUFFIX} \
-			  chain.py data.py fit.py inference.py __init__.py \
+ 			  chain.py data.py fit.py inference.py __init__.py \
 --- a/heacore/heasp/python/Makefile
 +++ b/heacore/heasp/python/Makefile
 @@ -19,7 +19,7 @@ HD_CXXFLAGS             = ${HD_STD_CXXFLAGS} ${NUMPY_INC} ${PYTHON_INC}
