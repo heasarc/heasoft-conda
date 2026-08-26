@@ -2,15 +2,16 @@
 
 context:
   name: heasoft
-  version: 6.37
+  version: 6.37.1
 
 package:
   name: ${{ name|lower }}
   version: ${{ version }}
 
 source:
-  url: https://heasarc.gsfc.nasa.gov/FTP/software/conda/source/${{ name }}-${{ version }}.tar.gz
-  sha256: b4f54a864ed541d18810d4b9fceb7a4550f0bdd632e25af543d89cb52b1b790e
+  #url: https://heasarc.gsfc.nasa.gov/FTP/software/conda/source/${{ name }}-${{ version }}.tar.gz
+  url: https://heasarc.gsfc.nasa.gov/FTP/software/conda/.staging/source/${{ name }}-${{ version }}.tar.gz
+  sha256: b81a8f4659623bfebe20fe319e65b458017b7459ccab69bf80b9075d55a62b80
   #path: /local/data/karpuz1/birby/conda/heasoft
   patches:
     - tcltk_Makefile.patch
