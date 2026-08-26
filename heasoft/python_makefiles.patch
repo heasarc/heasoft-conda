@@ -1,3 +1,5 @@
+diff --git a/Xspec/src/XSUser/Python/mxspec/Makefile b/Xspec/src/XSUser/Python/mxspec/Makefile
+index 94c7313ab5..78b6524981 100644
 --- a/Xspec/src/XSUser/Python/mxspec/Makefile
 +++ b/Xspec/src/XSUser/Python/mxspec/Makefile
 @@ -10,7 +10,7 @@ HD_CXXFLAGS		= -I${HD_SRC}/src -I${HD_SRC}/src/include \
@@ -9,6 +11,8 @@
  
  HD_INSTALL_PYTHON_LIBS	= lib${HD_LIBRARY_ROOT}${SHLIB_SUFFIX} \
  			  mmodel.py __init__.py
+diff --git a/Xspec/src/XSUser/Python/xspec/Makefile b/Xspec/src/XSUser/Python/xspec/Makefile
+index 1ee7cb997c..3db3ef2ac3 100644
 --- a/Xspec/src/XSUser/Python/xspec/Makefile
 +++ b/Xspec/src/XSUser/Python/xspec/Makefile
 @@ -13,7 +13,7 @@ HD_LIBRARY_SRC_cxx	= PyFit.cxx PyModel.cxx PyParameter.cxx \
@@ -20,6 +24,8 @@
  
  HD_INSTALL_PYTHON_LIBS	= lib${HD_LIBRARY_ROOT}${SHLIB_SUFFIX} \
  			  chain.py data.py fit.py inference.py __init__.py \
+diff --git a/heacore/heasp/python/Makefile b/heacore/heasp/python/Makefile
+index d8128b45ff..0cad497332 100644
 --- a/heacore/heasp/python/Makefile
 +++ b/heacore/heasp/python/Makefile
 @@ -19,7 +19,7 @@ HD_CXXFLAGS             = ${HD_STD_CXXFLAGS} ${NUMPY_INC} ${PYTHON_INC}
