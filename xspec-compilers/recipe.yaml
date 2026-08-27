@@ -2,9 +2,9 @@
 
 context:
   name: xspec-compilers
-  version: 13.0.0
-  gnu_version: 16.1.0
-  clang_version: 22.1.8
+  version: 13.1.0
+  gnu_version: 16.2.0
+  clang_version: 23.1.0
 
 package:
   name: ${{ name|lower }}

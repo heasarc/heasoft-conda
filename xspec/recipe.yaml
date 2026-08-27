@@ -10,10 +10,10 @@ package:
   version: ${{ version }}
 
 source:
+  #url: https://heasarc.gsfc.nasa.gov/FTP/software/conda/source/heasoft-${{ hea_version }}.tar.gz
   url: https://heasarc.gsfc.nasa.gov/FTP/software/conda/.staging/source/heasoft-${{ hea_version }}.tar.gz
-  #url: https://heasarc.gsfc.nasa.gov/FTP/software/conda/.staging/source/${{ name }}-${{ version }}.tar.gz
-  sha256: b81a8f4659623bfebe20fe319e65b458017b7459ccab69bf80b9075d55a62b80
-  #path: /local/data/karpuz1/birby/clean
+  sha256: 893afd9e4914793fe1d71f0a2a5bd2663f9bd6cb086a553129bc9f6cf039784f
+  #path: /local/data/karpuz1/birby/conda/heasoft
   patches:
     - ../heasoft/tcltk_Makefile.patch
     - ../heasoft/pgplot_makefiles.patch
@@ -46,9 +46,9 @@ requirements:
     - xorg-xorgproto
     - xorg-libxcursor
     - numpy
+    - pytorch * *cpu*
     - fftw
     - gsl
-    - pytorch * *cpu*
     - if: osx or (linux and not aarch64)
       then:
         - fgsl
@@ -64,9 +64,9 @@ requirements:
     - xorg-libxcursor
     - xorg-xorgproto
     - numpy
+    - pytorch * *cpu*
     - fftw
     - gsl
-    - pytorch * *cpu*
     - if: osx or (linux and not aarch64)
       then:
         - fgsl

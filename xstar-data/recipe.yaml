@@ -11,7 +11,7 @@ package:
 source:
   #url: https://heasarc.gsfc.nasa.gov/FTP/software/conda/source/${{ name }}-${{ version }}.tar.gz
   url: https://heasarc.gsfc.nasa.gov/FTP/software/conda/.staging/source/${{ name }}-${{ version }}.tar.gz
-  sha256: e2d8266447a21da75c92aa499b67d27170582d26d8e50f39bd6170abc51a4252
+  sha256: aedee1673d425d333a91e409e1096e7fc5d0c96e87ccb8854a688a037a203e68
 build:
   number: 0
   noarch: generic
