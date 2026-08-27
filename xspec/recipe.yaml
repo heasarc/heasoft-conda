@@ -10,8 +10,8 @@ package:
   version: ${{ version }}
 
 source:
-  #url: https://heasarc.gsfc.nasa.gov/FTP/software/conda/source/heasoft-${{ hea_version }}.tar.gz
-  url: https://heasarc.gsfc.nasa.gov/FTP/software/conda/.staging/source/${{ name }}-${{ version }}.tar.gz
+  url: https://heasarc.gsfc.nasa.gov/FTP/software/conda/.staging/source/heasoft-${{ hea_version }}.tar.gz
+  #url: https://heasarc.gsfc.nasa.gov/FTP/software/conda/.staging/source/${{ name }}-${{ version }}.tar.gz
   sha256: b81a8f4659623bfebe20fe319e65b458017b7459ccab69bf80b9075d55a62b80
   #path: /local/data/karpuz1/birby/clean
   patches:
