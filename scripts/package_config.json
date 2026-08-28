@@ -12,6 +12,27 @@
         "heasoft-tests": {
             "link": "heasoft-{version}"
         },
+        "fv": {
+            "root": "/FTP/software/lheasoft/lheasoft{version}/heasoft-{version}",
+            "dev-root": "/software/lheasoft/package_managers",
+            "include": [
+                "BUILD_DIR",
+                "heacore/BUILD_DIR",
+                "heacore/cfitsio",
+                "heacore/wcslib",
+                "ftools/BUILD_DIR",
+                "ftools/guis",
+                "ftools/include",
+                "tcltk/BUILD_DIR",
+                "tcltk/itk",
+                "tcltk/iwidgets",
+                "tcltk/pow",
+                "tcltk/tcl",
+                "tcltk/tix",
+                "tcltk/tk",
+                "tcltk/xpa"
+            ]
+        },
         "xstar-data": {
             "root": "/FTP/software/lheasoft/lheasoft{version}/heasoft-{version}",
             "dev-root": "/software/lheasoft/package_managers",
