@@ -4,9 +4,8 @@ context:
   name: xspec
   version: 13.1.0
   hea_version: 6.37.1
-  gnu_version: 16.2.0
-  clang_version: 22.1.8
-
+  #gnu_version: 16.2.0
+  #clang_version: 23.1.0
 
 package:
   name: ${{ name|lower }}
@@ -15,7 +14,7 @@ package:
 source:
   #url: https://heasarc.gsfc.nasa.gov/FTP/software/conda/source/heasoft-${{ hea_version }}.tar.gz
   url: https://heasarc.gsfc.nasa.gov/FTP/software/conda/.staging/source/heasoft-${{ hea_version }}.tar.gz
-  sha256: 893afd9e4914793fe1d71f0a2a5bd2663f9bd6cb086a553129bc9f6cf039784f
+  sha256: 31796b995fa1ae2d92a03f25ca6c6c825e30dc997158559abc4cbf939fb60404
   #path: /local/data/karpuz1/birby/conda/heasoft
   patches:
     - ../heasoft/tcltk_Makefile.patch
@@ -34,15 +33,18 @@ build:
 
 requirements:
   host:
-    - ${{ compiler('fortran') }} = ${{ gnu_version }}
-    - if: osx
-      then:
-      - ${{ compiler('cxx') }} = ${{ clang_version }}
-      - ${{ compiler('c') }} = ${{ clang_version }}
-    - if: linux
-      then:
-      - ${{ compiler('cxx') }} = ${{ gnu_version }}
-      - ${{ compiler('c') }} = ${{ gnu_version }}
+    #- ${{ compiler('fortran') }} = ${{ gnu_version }}
+    #- if: osx
+    #  then:
+    #  - ${{ compiler('cxx') }} = ${{ clang_version }}
+    #  - ${{ compiler('c') }} = ${{ clang_version }}
+    #- if: linux
+    #  then:
+    #  - ${{ compiler('cxx') }} = ${{ gnu_version }}
+    #  - ${{ compiler('c') }} = ${{ gnu_version }}
+    - ${{ compiler('cxx') }}
+    - ${{ compiler('c') }}
+    - ${{ compiler('fortran') }}
     - python
     - pkg-config
     - libcurl
