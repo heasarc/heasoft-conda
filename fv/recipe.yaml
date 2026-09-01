@@ -11,7 +11,7 @@ package:
 
 source:
   url: https://heasarc.gsfc.nasa.gov/FTP/software/conda/.staging/source/${{ name }}-${{ hea_version }}.tar.gz
-  sha256: 8dd411accf83434ef147d14504660787226ad51906c6b78ba86b472768c34e43
+  sha256: 38aaac9525b812fffd70ec6e3d8ed1afd5a3b6db0a745fa2e7655847b19a5fbb
   #path: /local/data/karpuz1/birby/conda/heasoft
   patches:
     - ../heasoft/tcltk_Makefile.patch
@@ -43,6 +43,8 @@ requirements:
     - xorg-libxt
     - xorg-xorgproto
     - xorg-libxcursor
+    # tcl ==8.6.11
+    # tk ==8.6.11
     # fftw
     # gsl
     # if: osx or (linux and not aarch64)
@@ -81,6 +83,8 @@ requirements:
     - xorg-libxt
     - xorg-libxcursor
     - xorg-xorgproto
+    # tcl ==8.6.11
+    # tk ==8.6.11
     # fftw
     # gsl
     # if: osx or (linux and not aarch64)
