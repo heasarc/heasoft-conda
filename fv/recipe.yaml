@@ -11,7 +11,7 @@ package:
 
 source:
   url: https://heasarc.gsfc.nasa.gov/FTP/software/conda/.staging/source/${{ name }}-${{ hea_version }}.tar.gz
-  sha256: 38aaac9525b812fffd70ec6e3d8ed1afd5a3b6db0a745fa2e7655847b19a5fbb
+  sha256: 0b247a0f4710c882e32c6b6088ba51c07102eb916f1172855a425d3a879c1ca9
   #path: /local/data/karpuz1/birby/conda/heasoft
   patches:
     - ../heasoft/tcltk_Makefile.patch
