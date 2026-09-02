@@ -44,8 +44,8 @@ requirements:
     - xorg-libxt
     - xorg-xorgproto
     - xorg-libxcursor
-    - tcl
-    - tk
+    - tcl ==8.6.13
+    - tk ==8.6.13
     # fftw
     # gsl
     # if: osx or (linux and not aarch64)
@@ -84,8 +84,8 @@ requirements:
     - xorg-libxt
     - xorg-libxcursor
     - xorg-xorgproto
-    - tcl
-    - tk
+    - tcl ==8.6.13
+    - tk ==8.6.13
     # fftw
     # gsl
     # if: osx or (linux and not aarch64)
