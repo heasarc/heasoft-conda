@@ -9,8 +9,8 @@ package:
   name: ${{ name|lower }}
   version: ${{ version }}
 source:
-  #url: https://heasarc.gsfc.nasa.gov/FTP/software/conda/source/${{ name }}-${{ version }}.tar.gz
-  url: https://heasarc.gsfc.nasa.gov/FTP/software/conda/.staging/source/${{ name }}-${{ version }}.tar.gz
+  #url: https://heasarc.gsfc.nasa.gov/FTP/software/conda/.staging/source/${{ name }}-${{ version }}.tar.gz
+  url: https://heasarc.gsfc.nasa.gov/FTP/software/conda/source/${{ name }}-${{ version }}.tar.gz
   sha256: a2520520e158f2c5c0c9de5abb663fc8aeb9e1c1b8499ab5df1a60d96e0df39a
 build:
   number: 0
