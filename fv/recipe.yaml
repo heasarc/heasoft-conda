@@ -44,36 +44,14 @@ requirements:
     - xorg-libxt
     - xorg-xorgproto
     - xorg-libxcursor
-    - tcl <=8.6.13
-    - tk <=8.6.13
-    # fftw
-    # gsl
-    # if: osx or (linux and not aarch64)
-    # then:
-    #   - fgsl
-    # perl
     - pip
     - hatchling
-    # fviewer
-    # numpy
-    # scipy
-    # astropy-base
-    # matplotlib
     - if: linux and not aarch64
       then:
         - kernel-headers_linux-64 = 3.10.0
     - if: linux and aarch64
       then:
         - kernel-headers_linux-aarch64 = 4.18.0
-    # cfitsio
-    # wcslib
-    # tcltk:
-    #  tcl/tk
-    #  itcl/itk
-    #  iwidgets
-    #  tix
-    #  xpa
-    #  pow
   run:
     - libcurl
     - zlib
@@ -84,8 +62,6 @@ requirements:
     - xorg-libxt
     - xorg-libxcursor
     - xorg-xorgproto
-    - tcl <=8.6.13
-    - tk <=8.6.13
     # fftw
     # gsl
     # if: osx or (linux and not aarch64)

@@ -30,10 +30,6 @@ configure_args=(
     --enable-collapse=all
     --x-includes=$PREFIX/include
     --x-libraries=$PREFIX/lib
-    --with-tcl=$PREFIX/lib
-    --with-fgsl=$PREFIX
-    --with-gsl=$PREFIX
-    --with-fftw=$PREFIX
 )
 
 # Using the conda Tk breaks FV on macOS:
@@ -43,7 +39,7 @@ if [ "$ostype" = "Darwin" ]; then
         mv $PREFIX/lib/$file $PREFIX/lib/${file}.off
     done
 elif [ "$ostype" = "Linux" ]; then
-    configure_args+=("--with-tk=$PREFIX/lib")
+    configure_args+=("--with-tcl=$PREFIX/lib --with-tk=$PREFIX/lib")
 fi
 
 
