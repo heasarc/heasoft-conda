@@ -45,6 +45,9 @@ requirements:
     - ${{ compiler('cxx') }}
     - ${{ compiler('c') }}
     - ${{ compiler('fortran') }}
+    - if: linux
+      then:
+        - glibc ==2.17
     - python
     - pkg-config
     - libcurl
