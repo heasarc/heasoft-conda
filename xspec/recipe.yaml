@@ -45,9 +45,12 @@ requirements:
     - ${{ compiler('cxx') }}
     - ${{ compiler('c') }}
     - ${{ compiler('fortran') }}
-    - if: linux
+    - if: linux and not aarch64
       then:
-        - glibc ==2.17
+        - kernel-headers_linux-64 = 3.10.0
+    - if: linux and aarch64
+      then:
+        - kernel-headers_linux-aarch64 = 4.18.0
     - python
     - pkg-config
     - libcurl
