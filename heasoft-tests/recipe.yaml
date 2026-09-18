@@ -34,7 +34,7 @@ source:
     - ../heasoft/fix-x11-conda.patch
 
 build:
-  number: 0
+  number: 1
 
 requirements:
   host:
@@ -50,6 +50,7 @@ requirements:
     - ${{ compiler('cxx') }}
     - ${{ compiler('c') }}
     - ${{ compiler('fortran') }}
+    - make
     - pkg-config
     - heasoft = ${{ version }}
   run:

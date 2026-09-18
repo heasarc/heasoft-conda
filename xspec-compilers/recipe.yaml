@@ -13,7 +13,7 @@ package:
 
 
 build:
-  number: 0
+  number: 1
 
 requirements:
   run:
@@ -26,6 +26,7 @@ requirements:
       then:
       - ${{ compiler('cxx') }} = ${{ gnu_version }}
       - ${{ compiler('c') }} = ${{ gnu_version }}
+    - make
 
 
 about:
