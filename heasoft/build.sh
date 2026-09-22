@@ -21,6 +21,9 @@ if [ "$ostype" = "Darwin" ]; then
         export CXXFLAGS="${CXXFLAGS} -D_LIBCPP_DISABLE_AVAILABILITY"
     fi
 fi
+# Export PERL & MAKE settings to avoid relying on leakage from hosts:
+export MAKE="$PREFIX/bin/make"
+export PERL="$PREFIX/bin/perl"
 
 bash BUILD_DIR/fix-x11-conda.sh $PREFIX
 
@@ -76,7 +79,8 @@ cp fix-x11-conda.sh $PREFIX/$HEA_SUBDIR/BUILD_DIR/
 # Assemble "tklib" folder and other items needed by compiled
 # version of FV on Linux:
 if [ "$ostype" = "Linux" ]; then
-    FV_TKLIB=$PREFIX/$HEA_SUBDIR/lib/fv/tklib
+    FV_DIR=$PREFIX/$HEA_SUBDIR/lib/fv
+    FV_TKLIB=$FV_DIR/tklib
     itcldir=`find $PREFIX/lib -type d -name itcl\* | xargs basename`
     itkdir=`find $PREFIX/$HEA_SUBDIR/lib -type d -name itk\* | xargs basename`
     tixdir=`find $PREFIX/$HEA_SUBDIR/lib -type d -name Tix\* | xargs basename`
@@ -98,6 +102,11 @@ if [ "$ostype" = "Linux" ]; then
     ln -s $PREFIX/$HEA_SUBDIR/lib/$itkdir/lib$itkdir.so $PREFIX/$HEA_SUBDIR/lib/.
     ln -s $PREFIX/$HEA_SUBDIR/lib/$tixdir/lib$tixdir.so $PREFIX/$HEA_SUBDIR/lib/.
     ln -s $PREFIX/lib/$itcldir/lib$itcldir.so $PREFIX/lib/.
+    cp -r ../ftools/guis/fv/class $FV_DIR/.
+    cp -r ../ftools/guis/fv/doc $FV_DIR/.
+    cp -r ../tcltk/pow/*.html $FV_DIR/doc/.
+    ln -s $FV_DIR/doc $PREFIX/$HEA_SUBDIR/bin/.
+    ln -s $FV_DIR/class $PREFIX/$HEA_SUBDIR/bin/.
 fi
 
 if [ "$ostype" = "Darwin" ]; then

@@ -21,6 +21,9 @@ if [ "$ostype" = "Darwin" ]; then
         export CXXFLAGS="${CXXFLAGS} -D_LIBCPP_DISABLE_AVAILABILITY"
     fi
 fi
+# Export PERL & MAKE settings to avoid relying on leakage from hosts:
+export MAKE="$PREFIX/bin/make"
+export PERL="$PREFIX/bin/perl"
 
 bash BUILD_DIR/fix-x11-conda.sh $PREFIX
 
