@@ -62,6 +62,12 @@ jobs:
             echo "package $package does not exist"
             exit 1
           fi 
+          if [ $package == "heasoft" ]; then
+             # build fviewer first
+             cd fviewer
+             rattler-build build --no-include-recipe --output-dir ../output
+             cd ..
+          fi
           cd $package
           rattler-build build --no-include-recipe --target-platform ${{ matrix.platform }} --output-dir ../output
           if [ $package == "heasoft" ]; then
