@@ -4,6 +4,8 @@ context:
   name: xspec
   version: 12.15.1
   hea_version: 6.36
+  gnu_version: 16.1.0
+  clang_version: 22.1.8
 
 package:
   name: ${{ name|lower }}
@@ -31,9 +33,18 @@ build:
 
 requirements:
   host:
-    - ${{ compiler('cxx') }}
-    - ${{ compiler('c') }}
-    - ${{ compiler('fortran') }}
+    - ${{ compiler('fortran') }} = ${{ gnu_version }}
+    - if: osx
+      then:
+      - ${{ compiler('cxx') }} = ${{ clang_version }}
+      - ${{ compiler('c') }} = ${{ clang_version }}
+    - if: linux
+      then:
+      - ${{ compiler('cxx') }} = ${{ gnu_version }}
+      - ${{ compiler('c') }} = ${{ gnu_version }}
+    - make
+    - perl
+    - python
     - pkg-config
     - libcurl
     - zlib
@@ -44,12 +55,16 @@ requirements:
     - xorg-libxt
     - xorg-xorgproto
     - xorg-libxcursor
+    - fftw
+    - gsl
     - fgsl
     - numpy
     - if: linux
       then:
         - kernel-headers_linux-64 = 3.10.0
   run:
+    - perl
+    - python
     - libcurl
     - zlib
     - libbrotlidec
@@ -59,14 +74,16 @@ requirements:
     - xorg-libxt
     - xorg-libxcursor
     - xorg-xorgproto
+    - fftw
+    - gsl
     - fgsl
     - numpy
 
 
 about:
-  homepage: https://heasarc.gsfc.nasa.gov/docs/xanadu/xanadu.html
+  homepage: https://heasarc.gsfc.nasa.gov/docs/software/xspec/index.html
   #license_file: LICENSE
-  summary: Xspec
+  summary: Xspec - An X-Ray Spectral Fitting Package
   description: |
-    xspec.
-  documentation: https://heasarc.gsfc.nasa.gov/docs/xanadu/xanadu.html
+    XSPEC is a command-driven, interactive, X-ray spectral-fitting program, designed to be completely detector-independent so that it can be used for any spectrometer.
+  documentation: https://heasarc.gsfc.nasa.gov/docs/software/xspec/index.html
