@@ -1,0 +1,11 @@
+--- tcltk/pgplot/makemake
++++ tcltk/pgplot/makemake
+@@ -1067,7 +1067,7 @@
+ 	@echo ' '
+ 
+ pgbind: $(SRC)/cpg/pgbind.c
+-	$(CCOMPL) $(CFLAGC) $(SRC)/cpg/pgbind.c -o pgbind
++	$(CCOMPL) $(CFLAGC) $(LDFLAGS_LD) $(SRC)/cpg/pgbind.c -o pgbind
+ 
+ # Note a HEASOFT-specific change here to switch the type of the C/Fortran
+ # string length variable "len_text" in cpg*.c to prevent memory faults on

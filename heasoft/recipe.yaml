@@ -24,6 +24,7 @@ source:
     - tix_configure.patch
     - if: osx
       then:
+      - pgplot_makefiles_osx.patch
       - configures.patch
     - perl_config.patch
     - fix-x11-conda.patch

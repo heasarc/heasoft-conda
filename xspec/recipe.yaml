@@ -25,6 +25,7 @@ source:
     - ../heasoft/tix_configure.patch
     - if: osx
       then:
+      - ../heasoft/pgplot_makefiles_osx.patch
       - ../heasoft/configures.patch
     - ../heasoft/perl_config.patch
     - ../heasoft/fix-x11-conda.patch
