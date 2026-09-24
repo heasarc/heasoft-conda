@@ -25,10 +25,11 @@ source:
     - if: osx
       then:
       - configures.patch
+    - perl_config.patch
     - fix-x11-conda.patch
 
 build:
-  number: 1
+  number: 2
 
 requirements:
   host:
@@ -83,6 +84,9 @@ requirements:
     - scipy
     - astropy-base
     - matplotlib
+    - astro-gdt
+    - requests
+    - reproject
     - if: linux or (osx and not arm64)
       then:
         - lynx
