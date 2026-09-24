@@ -26,6 +26,12 @@ source:
       then:
       - pgplot_makefiles_osx.patch
       - configures.patch
+    - if: linux
+      then:
+      - xpa.patch
+      - mktclapp.patch
+      - fv_makefile.patch
+      - fv_unix.patch
     - perl_config.patch
     - fix-x11-conda.patch
 
