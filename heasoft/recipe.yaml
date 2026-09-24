@@ -4,7 +4,7 @@ context:
   name: heasoft
   version: 6.36
   gnu_version: 16.1.0
-  clang_version: 22.1.8
+  clang_version: 21.1.6
 
 package:
   name: ${{ name|lower }}
