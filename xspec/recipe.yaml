@@ -6,6 +6,7 @@ context:
   hea_version: 6.36
   gnu_version: 16.1.0
   clang_version: 21.1.6
+  perl_version: 5.32
 
 package:
   name: ${{ name|lower }}
@@ -45,7 +46,7 @@ requirements:
       - ${{ compiler('cxx') }} = ${{ gnu_version }}
       - ${{ compiler('c') }} = ${{ gnu_version }}
     - make
-    - perl
+    - perl = ${{ perl_version }}
     - python
     - pkg-config
     - libcurl
@@ -65,7 +66,7 @@ requirements:
       then:
         - kernel-headers_linux-64 = 3.10.0
   run:
-    - perl
+    - perl = ${{ perl_version }}
     - python
     - libcurl
     - zlib

@@ -5,6 +5,7 @@ context:
   version: 6.36
   gnu_version: 16.1.0
   clang_version: 21.1.6
+  perl_version: 5.32
 
 package:
   name: ${{ name|lower }}
@@ -63,7 +64,7 @@ requirements:
     - fftw
     - fgsl
     - gsl
-    - perl
+    - perl = ${{ perl_version }}
     - pip
     - setuptools
     - numpy
@@ -86,7 +87,7 @@ requirements:
     - fftw
     - fgsl
     - gsl
-    - perl
+    - perl = ${{ perl_version }}
     - numpy
     - scipy
     - astropy-base
