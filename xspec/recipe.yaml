@@ -41,12 +41,13 @@ requirements:
       then:
       - ${{ compiler('cxx') }} = ${{ clang_version }}
       - ${{ compiler('c') }} = ${{ clang_version }}
+      - perl
     - if: linux
       then:
       - ${{ compiler('cxx') }} = ${{ gnu_version }}
       - ${{ compiler('c') }} = ${{ gnu_version }}
+      - perl = ${{ perl_version }}
     - make
-    - perl = ${{ perl_version }}
     - python
     - pkg-config
     - libcurl
@@ -66,7 +67,12 @@ requirements:
       then:
         - kernel-headers_linux-64 = 3.10.0
   run:
-    - perl = ${{ perl_version }}
+    - if: osx
+      then:
+      - perl
+    - if: linux
+      then:
+      - perl = ${{ perl_version }}
     - python
     - libcurl
     - zlib

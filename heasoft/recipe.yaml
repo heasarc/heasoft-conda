@@ -46,10 +46,12 @@ requirements:
       then:
       - ${{ compiler('cxx') }} = ${{ clang_version }}
       - ${{ compiler('c') }} = ${{ clang_version }}
+      - perl
     - if: linux
       then:
       - ${{ compiler('cxx') }} = ${{ gnu_version }}
       - ${{ compiler('c') }} = ${{ gnu_version }}
+      - perl = ${{ perl_version }}
     - make
     - pkg-config
     - libcurl
@@ -64,7 +66,6 @@ requirements:
     - fftw
     - fgsl
     - gsl
-    - perl = ${{ perl_version }}
     - pip
     - setuptools
     - numpy
@@ -75,6 +76,12 @@ requirements:
       then:
         - kernel-headers_linux-64 = 3.10.0
   run:
+    - if: osx
+      then:
+      - perl
+    - if: linux
+      then:
+      - perl = ${{ perl_version }}
     - libcurl
     - zlib
     - libbrotlidec
@@ -87,7 +94,6 @@ requirements:
     - fftw
     - fgsl
     - gsl
-    - perl = ${{ perl_version }}
     - numpy
     - scipy
     - astropy-base
