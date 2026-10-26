@@ -65,7 +65,6 @@ requirements:
     - xorg-xorgproto
     - xorg-libxcursor
     - numpy
-    - pytorch * *cpu*
     - fftw
     - gsl
     - if: osx or (linux and not aarch64)
@@ -84,7 +83,6 @@ requirements:
     - xorg-libxcursor
     - xorg-xorgproto
     - numpy
-    - pytorch * *cpu*
     - fftw
     - gsl
     - if: osx or (linux and not aarch64)

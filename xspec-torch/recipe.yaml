@@ -1,0 +1,106 @@
+# yaml-language-server: $schema=https://raw.githubusercontent.com/prefix-dev/recipe-format/main/schema.json
+
+context:
+  name: xspec
+  version: 13.0.1
+  hea_version: 6.37.1
+  #gnu_version: 16.2.0
+  #clang_version: 23.1.1
+
+package:
+  name: ${{ name|lower }}
+  version: ${{ version }}
+
+source:
+  #url: https://heasarc.gsfc.nasa.gov/FTP/software/conda/.staging/source/heasoft-${{ hea_version }}.tar.gz
+  url: https://heasarc.gsfc.nasa.gov/FTP/software/conda/source/heasoft-${{ hea_version }}.tar.gz
+  sha256: be1e779b65904a07a2c930449ed3667f2edf05dcfb3dd40d8d17f83735f3bda1
+  #path: /local/data/karpuz1/birby/conda/heasoft
+  patches:
+    - ../heasoft/tcltk_Makefile.patch
+    - ../heasoft/pgplot_makefiles.patch
+    - ../heasoft/zlib_makefiles.patch
+    - ../heasoft/python_makefiles.patch
+    - ../heasoft/itk_configure.patch
+    - if: osx
+      then:
+      - ../heasoft/pgplot_makefiles_osx.patch
+    - ../heasoft/perl_config.patch
+    - ../heasoft/fix-x11-conda.patch
+
+build:
+  number: 1
+
+requirements:
+  host:
+    #- ${{ compiler('fortran') }} = ${{ gnu_version }}
+    #- if: osx
+    #  then:
+    #  - ${{ compiler('cxx') }} = ${{ clang_version }}
+    #  - ${{ compiler('c') }} = ${{ clang_version }}
+    #- if: linux
+    #  then:
+    #  - ${{ compiler('cxx') }} = ${{ gnu_version }}
+    #  - ${{ compiler('c') }} = ${{ gnu_version }}
+    - ${{ compiler('cxx') }}
+    - ${{ compiler('c') }}
+    - ${{ compiler('fortran') }}
+    - if: linux and not aarch64
+      then:
+        - kernel-headers_linux-64 = 3.10.0
+    - if: linux and aarch64
+      then:
+        - kernel-headers_linux-aarch64 = 4.18.0
+    - make
+    - perl
+    - python
+    - pkg-config
+    - libcurl
+    - zlib
+    - libbrotlidec
+    - libiconv
+    - libpng
+    - xorg-libx11
+    - xorg-libxt
+    - xorg-xorgproto
+    - xorg-libxcursor
+    - numpy
+    - pytorch * *cpu*
+    - fftw
+    - gsl
+    - if: osx or (linux and not aarch64)
+      then:
+        - fgsl
+  run:
+    - perl
+    - python
+    - libcurl
+    - zlib
+    - libbrotlidec
+    - libiconv
+    - libpng
+    - xorg-libx11
+    - xorg-libxt
+    - xorg-libxcursor
+    - xorg-xorgproto
+    - numpy
+    - pytorch * *cpu*
+    - fftw
+    - gsl
+    - if: osx or (linux and not aarch64)
+      then:
+        - fgsl
+    - if: (linux and not aarch64) or (osx and not arm64)
+      then:
+        - mkl
+  run_constraints:
+    - xspec-data >=6.37
+
+
+about:
+  homepage: https://heasarc.gsfc.nasa.gov/docs/software/xspec/index.html
+  #license_file: LICENSE
+  summary: Xspec - An X-Ray Spectral Fitting Package
+  description: |
+    XSPEC is a command-driven, interactive, X-ray spectral-fitting program, designed to be completely detector-independent so that it can be used for any spectrometer.
+  documentation: https://heasarc.gsfc.nasa.gov/docs/software/xspec/index.html
