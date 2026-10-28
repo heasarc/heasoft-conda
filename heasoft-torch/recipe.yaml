@@ -5,6 +5,7 @@ context:
   version: 6.37.1
   #gnu_version: 16.2.0
   #clang_version: 23.1.1
+  python_version: 3.14.7
 
 package:
   name: ${{ name|lower }}
@@ -67,6 +68,7 @@ requirements:
       then:
         - fgsl
     - perl
+    - python = ${{ python_version }}
     - pip
     - hatchling
     - numpy
@@ -96,6 +98,7 @@ requirements:
       then:
         - fgsl
     - perl
+    - python = ${{ python_version }}
     - fviewer
     - numpy
     - scipy

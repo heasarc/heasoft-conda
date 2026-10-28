@@ -6,6 +6,7 @@ context:
   hea_version: 6.37.1
   #gnu_version: 16.2.0
   #clang_version: 23.1.1
+  python_version: 3.14.7
 
 package:
   name: ${{ name|lower }}
@@ -53,7 +54,7 @@ requirements:
         - kernel-headers_linux-aarch64 = 4.18.0
     - make
     - perl
-    - python
+    - python = ${{ python_version }}
     - pkg-config
     - libcurl
     - zlib
@@ -73,7 +74,7 @@ requirements:
         - fgsl
   run:
     - perl
-    - python
+    - python = ${{ python_version }}
     - libcurl
     - zlib
     - libbrotlidec
