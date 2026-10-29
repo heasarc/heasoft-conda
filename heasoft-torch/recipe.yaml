@@ -17,22 +17,22 @@ source:
   sha256: be1e779b65904a07a2c930449ed3667f2edf05dcfb3dd40d8d17f83735f3bda1
   #path: /local/data/karpuz1/birby/conda/heasoft
   patches:
-    - tcltk_Makefile.patch
-    - pgplot_makefiles.patch
-    - zlib_makefiles.patch
-    - python_makefiles.patch
-    - itk_configure.patch
+    - ../heasoft/tcltk_Makefile.patch
+    - ../heasoft/pgplot_makefiles.patch
+    - ../heasoft/zlib_makefiles.patch
+    - ../heasoft/python_makefiles.patch
+    - ../heasoft/itk_configure.patch
     - if: osx
       then:
-      - pgplot_makefiles_osx.patch
+      - ../heasoft/pgplot_makefiles_osx.patch
     - if: linux
       then:
-      - xpa.patch
-      - mktclapp.patch
-      - fv_makefile.patch
-      - fv_unix.patch
-    - perl_config.patch
-    - fix-x11-conda.patch
+      - ../heasoft/xpa.patch
+      - ../heasoft/mktclapp.patch
+      - ../heasoft/fv_makefile.patch
+      - ../heasoft/fv_unix.patch
+    - ../heasoft/perl_config.patch
+    - ../heasoft/fix-x11-conda.patch
 
 build:
   number: 1
