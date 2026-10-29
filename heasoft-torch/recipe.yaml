@@ -1,7 +1,7 @@
 # yaml-language-server: $schema=https://raw.githubusercontent.com/prefix-dev/recipe-format/main/schema.json
 
 context:
-  name: heasoft
+  name: heasoft-torch
   version: 6.37.1
   #gnu_version: 16.2.0
   #clang_version: 23.1.1
@@ -13,7 +13,7 @@ package:
 
 source:
   #url: https://heasarc.gsfc.nasa.gov/FTP/software/conda/.staging/source/${{ name }}-${{ version }}.tar.gz
-  url: https://heasarc.gsfc.nasa.gov/FTP/software/conda/source/${{ name }}-${{ version }}.tar.gz
+  url: https://heasarc.gsfc.nasa.gov/FTP/software/conda/source/heasoft-${{ version }}.tar.gz
   sha256: be1e779b65904a07a2c930449ed3667f2edf05dcfb3dd40d8d17f83735f3bda1
   #path: /local/data/karpuz1/birby/conda/heasoft
   patches:
