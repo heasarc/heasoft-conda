@@ -119,31 +119,31 @@ find $PREFIX/$HEA_SUBDIR/lib -type f ! -type l -name "*$SHLIB_EXT*" -exec chmod 
 # 2. Write a script bin/.xspe-post-link.sh that copies bin/heainit.[c]sh
 #    to $PREFIX/etc/conda/activate.d so they are executed after installation
 #    and when the conda environment is activavted.
-cat <<EOF >$PREFIX/bin/heainit.sh
+mkdir activate.d deactivate.d
+cat <<EOF >activate.d/heainit.sh
 #!/bin/bash
+# fix conda x11 for mac
+bash $CONDA_PREFIX/$HEA_SUBDIR/BUILD_DIR/fix-x11-conda.sh $CONDA_PREFIX
 export HEADAS=\$CONDA_PREFIX/$HEA_SUBDIR
 echo "activating heasoft in \$HEADAS"
 source \$HEADAS/BUILD_DIR/headas-init.sh
 EOF
-chmod +x $PREFIX/bin/heainit.sh
-cat <<EOF >$PREFIX/bin/heainit.csh
+chmod +x activate.d/heainit.sh
+cat <<EOF >activate.d/heainit.csh
 #!/bin/bash
+# fix conda x11 for mac
+bash $CONDA_PREFIX/$HEA_SUBDIR/BUILD_DIR/fix-x11-conda.sh $CONDA_PREFIX
 setenv HEADAS \$CONDA_PREFIX/$HEA_SUBDIR
 echo "activating heasoft in \$HEADAS"
 source \$HEADAS/BUILD_DIR/headas-init.csh
 EOF
-chmod +x $PREFIX/bin/heainit.csh
+chmod +x activate.d/heainit.csh
 
-cat <<EOF >$PREFIX/bin/.heasoft-post-link.sh
-mkdir -p \$CONDA_PREFIX/etc/conda/activate.d
-cp \$CONDA_PREFIX/bin/heainit.*sh \$CONDA_PREFIX/etc/conda/activate.d/
+cp headas-uninit.*sh deactivate.d/
 
-mkdir -p \$CONDA_PREFIX/etc/conda/deactivate.d
-cp \$CONDA_PREFIX/$HEA_SUBDIR/BUILD_DIR/headas-uninit.*sh \$CONDA_PREFIX/etc/conda/deactivate.d/
+cp -r activate.d $PREFIX/etc/conda/.
+cp -r deactivate.d $PREFIX/etc/conda/.
 
-# fix conda x11 for mac
-bash \$CONDA_PREFIX/$HEA_SUBDIR/BUILD_DIR/fix-x11-conda.sh \$CONDA_PREFIX
-EOF
 cat <<EOF >$PREFIX/bin/.heasoft-pre-unlink.sh
 rm \$CONDA_PREFIX/etc/conda/activate.d/heainit.*sh > /dev/null 2>&1
 rm \$CONDA_PREFIX/etc/conda/deactivate.d/headas-uninit.*sh > /dev/null 2>&1
