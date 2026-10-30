@@ -114,37 +114,41 @@ fi
 # modify the rpath, etc. (e.g. libxpa.so.1.0)
 find $PREFIX/$HEA_SUBDIR/lib -type f ! -type l -name "*$SHLIB_EXT*" -exec chmod 755 {} \;
 
-
-# write initialization scripts
-# 1. write them to bin/heainit.[c]sh
-# 2. Write a script bin/.xspe-post-link.sh that copies bin/heainit.[c]sh
-#    to $PREFIX/etc/conda/activate.d so they are executed after installation
-#    and when the conda environment is activavted.
+# Create initialization scripts heainit.[sh|csh] and fix-x11.sh
+# in $PWD/activate.d/
 mkdir activate.d deactivate.d
 cat <<EOF >activate.d/heainit.sh
 #!/bin/bash
-# fix conda x11 for mac
-bash $CONDA_PREFIX/$HEA_SUBDIR/BUILD_DIR/fix-x11-conda.sh $CONDA_PREFIX
 export HEADAS=\$CONDA_PREFIX/$HEA_SUBDIR
 echo "activating heasoft in \$HEADAS"
 source \$HEADAS/BUILD_DIR/headas-init.sh
 EOF
-chmod +x activate.d/heainit.sh
 cat <<EOF >activate.d/heainit.csh
 #!/bin/bash
-# fix conda x11 for mac
-bash $CONDA_PREFIX/$HEA_SUBDIR/BUILD_DIR/fix-x11-conda.sh $CONDA_PREFIX
 setenv HEADAS \$CONDA_PREFIX/$HEA_SUBDIR
 echo "activating heasoft in \$HEADAS"
 source \$HEADAS/BUILD_DIR/headas-init.csh
 EOF
-chmod +x activate.d/heainit.csh
+cat <<EOF >activate.d/fix-x11.sh
+# fix conda x11 for mac
+bash $CONDA_PREFIX/$HEA_SUBDIR/BUILD_DIR/fix-x11-conda.sh $CONDA_PREFIX
+EOF
+chmod +x activate.d/heainit.sh activate.d/heainit.csh activate.d/fix-x11.sh
 
+# Copy headas-uninit.[sh|csh] to ./deactivate.d:
 cp headas-uninit.*sh deactivate.d/
 
+# Copy de|activate.d folders to $PREFIX/etc/conda so they are available
+# for execution after installation / environment activation:
 cp -r activate.d $PREFIX/etc/conda/.
 cp -r deactivate.d $PREFIX/etc/conda/.
 
+# Copy init scripts to $PREFIX/bin:
+cp activate.d/heainit.* $PREFIX/bin/.
+#chmod +x $PREFIX/bin/heainit.*
+
+# Create a pre-unlink script to clean up $PREFIX bin & etc folders upon
+# deactivation:
 cat <<EOF >$PREFIX/bin/.heasoft-pre-unlink.sh
 rm \$CONDA_PREFIX/etc/conda/activate.d/heainit.*sh > /dev/null 2>&1
 rm \$CONDA_PREFIX/etc/conda/deactivate.d/headas-uninit.*sh > /dev/null 2>&1
