@@ -129,7 +129,9 @@ echo "activating heasoft in \$HEADAS"
 source \$HEADAS/BUILD_DIR/headas-init.csh
 EOF
 cat <<EOF >activate.d/fix-x11.sh
+#!/bin/bash
 # fix conda x11 for mac
+echo "Running \$CONDA_PREFIX/\$HEA_SUBDIR/BUILD_DIR/fix-11-conda.sh"
 bash $CONDA_PREFIX/$HEA_SUBDIR/BUILD_DIR/fix-x11-conda.sh $CONDA_PREFIX
 EOF
 chmod +x activate.d/heainit.sh activate.d/heainit.csh activate.d/fix-x11.sh
@@ -144,7 +146,6 @@ cp -r deactivate.d $PREFIX/etc/conda/.
 
 # Copy init scripts to $PREFIX/bin:
 cp activate.d/heainit.* $PREFIX/bin/.
-#chmod +x $PREFIX/bin/heainit.*
 
 # Create a pre-unlink script to clean up $PREFIX bin & etc folders upon
 # deactivation:
