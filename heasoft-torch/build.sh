@@ -114,28 +114,50 @@ fi
 # modify the rpath, etc. (e.g. libxpa.so.1.0)
 find $PREFIX/$HEA_SUBDIR/lib -type f ! -type l -name "*$SHLIB_EXT*" -exec chmod 755 {} \;
 
-# Create initialization scripts heainit.[sh|csh] and fix-x11.sh
-# in $PWD/activate.d/
+# Create initialization scripts heainit.[sh|csh] in $PWD/activate.d/
+# These will initialize HEASoft and check + apply the macOS X11 fix
+# (if needed) on first activation
 mkdir activate.d deactivate.d
-cat <<EOF >activate.d/heainit.sh
+cat <<'EOF' >activate.d/heainit.sh
 #!/bin/bash
-export HEADAS=\$CONDA_PREFIX/$HEA_SUBDIR
-echo "activating heasoft in \$HEADAS"
-source \$HEADAS/BUILD_DIR/headas-init.sh
+export HEADAS=$CONDA_PREFIX/heasoft
+echo "Activating heasoft in $HEADAS"
+
+# Check if X11 fix is needed (only on macOS)
+if [[ "$OSTYPE" == "darwin"* ]] && [ -f "$HEADAS/BUILD_DIR/fix-x11-conda.sh" ]; then
+    # Check if clobbered files exist
+    if ls $CONDA_PREFIX/include/X11/*.h__clobber-from-xorg-* >/dev/null 2>&1 || \
+       [ -d "$CONDA_PREFIX/__clobbers__/xorg-libx11" ] || \
+       [ -d "$CONDA_PREFIX/__clobbers__/xorg-xorgproto" ]; then
+        echo "Applying X11 header fix for macOS (one-time setup)..."
+        bash "$HEADAS/BUILD_DIR/fix-x11-conda.sh" "$CONDA_PREFIX" 2>/dev/null || \
+            echo "Note: Could not apply X11 fix automatically. You may need to run: conda install xorg-libx11 --clobber"
+    fi
+fi
+
+source $HEADAS/BUILD_DIR/headas-init.sh
 EOF
-cat <<EOF >activate.d/heainit.csh
-#!/bin/bash
-setenv HEADAS \$CONDA_PREFIX/$HEA_SUBDIR
-echo "activating heasoft in \$HEADAS"
-source \$HEADAS/BUILD_DIR/headas-init.csh
+cat <<'EOF' >activate.d/heainit.csh
+#!/bin/csh
+setenv HEADAS $CONDA_PREFIX/heasoft
+echo "Activating heasoft in $HEADAS"
+
+# Check if X11 fix is needed (only on macOS)
+if ( `uname` == "Darwin" && -f "$HEADAS/BUILD_DIR/fix-x11-conda.sh" ) then
+    # Simple check for clobbered files
+    set clobber_check = `ls $CONDA_PREFIX/include/X11/*.h__clobber-from-xorg-* >& /dev/null; echo $status`
+    if ( $clobber_check == 0 || -d "$CONDA_PREFIX/__clobbers__/xorg-libx11" ) then
+        echo "Applying X11 header fix for macOS (one-time setup)..."
+        bash "$HEADAS/BUILD_DIR/fix-x11-conda.sh" "$CONDA_PREFIX" >& /dev/null
+        if ( $status != 0 ) then
+            echo "Note: Could not apply X11 fix automatically. You may need to run: conda install xorg-libx11 --clobber"
+        endif
+    endif
+endif
+
+source $HEADAS/BUILD_DIR/headas-init.csh
 EOF
-cat <<EOF >activate.d/fix-x11.sh
-#!/bin/bash
-# fix conda x11 for mac
-echo "Running \$CONDA_PREFIX/\$HEA_SUBDIR/BUILD_DIR/fix-11-conda.sh"
-bash $CONDA_PREFIX/$HEA_SUBDIR/BUILD_DIR/fix-x11-conda.sh $CONDA_PREFIX
-EOF
-chmod +x activate.d/heainit.sh activate.d/heainit.csh activate.d/fix-x11.sh
+chmod +x activate.d/heainit.sh activate.d/heainit.csh
 
 # Copy headas-uninit.[sh|csh] to ./deactivate.d:
 cp headas-uninit.*sh deactivate.d/

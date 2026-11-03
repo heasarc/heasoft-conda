@@ -114,7 +114,8 @@ fi
 find $PREFIX/$HEA_SUBDIR/lib -type f ! -type l -name "*$SHLIB_EXT*" -exec chmod 755 {} \;
 
 # Create initialization scripts heainit.[sh|csh] in $PWD/activate.d/
-# These will check and apply X11 fix if needed on first activation
+# These will initialize HEASoft and check + apply the macOS X11 fix
+# (if needed) on first activation
 mkdir activate.d deactivate.d
 cat <<'EOF' >activate.d/heainit.sh
 #!/bin/bash
