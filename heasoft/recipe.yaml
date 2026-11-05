@@ -68,7 +68,7 @@ requirements:
       then:
         - fgsl
     - perl
-    - python = ${{ python_version }}
+    - python <= ${{ python_version }}
     - pip
     - hatchling
     - numpy
@@ -97,7 +97,7 @@ requirements:
       then:
         - fgsl
     - perl
-    - python = ${{ python_version }}
+    - python <= ${{ python_version }}
     - fviewer
     - numpy
     - scipy
