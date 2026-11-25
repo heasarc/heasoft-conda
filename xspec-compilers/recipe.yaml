@@ -3,8 +3,6 @@
 context:
   name: xspec-compilers
   version: 13.0.1
-  gnu_version: 16.2.0
-  clang_version: 23.1.1
 
 package:
   name: ${{ name|lower }}
@@ -16,15 +14,9 @@ build:
 
 requirements:
   run:
-    - ${{ compiler('fortran') }} = ${{ gnu_version }}
-    - if: osx
-      then:
-      - ${{ compiler('cxx') }} = ${{ clang_version }}
-      - ${{ compiler('c') }} = ${{ clang_version }}
-    - if: linux
-      then:
-      - ${{ compiler('cxx') }} = ${{ gnu_version }}
-      - ${{ compiler('c') }} = ${{ gnu_version }}
+    - ${{ compiler('fortran') }}
+    - ${{ compiler('cxx') }}
+    - ${{ compiler('c') }}
     - make
 
 

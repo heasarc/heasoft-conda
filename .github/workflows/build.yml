@@ -65,11 +65,11 @@ jobs:
           if [ $package == "heasoft" ]; then
              # build fviewer first
              cd fviewer
-             rattler-build build --no-include-recipe --output-dir ../output
+             ../scripts/run_build.sh
              cd ..
           fi
           cd $package
-          rattler-build build --no-include-recipe --target-platform ${{ matrix.platform }} --output-dir ../output
+           ../scripts/run_build.sh --target-platform ${{ matrix.platform }}
           if [ $package == "heasoft" ]; then
             echo "doing heasoft-tests too"
             cd ../output/src_cache
@@ -85,7 +85,7 @@ jobs:
               fi
               ln -sf "$tar_file" "$test_tar_file"
               cd ../../heasoft-tests
-              rattler-build build --no-include-recipe --target-platform ${{ matrix.platform }} --output-dir ../output
+              ../scripts/run_build.sh --target-platform ${{ matrix.platform }}
             fi
           fi
           cd ..

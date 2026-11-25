@@ -1,31 +1,28 @@
-# Content
+# HEASoft Conda Packages
 
-This repo contains the code to generate conda packages for heasoft and related
-packages.
-
-It also contains code to create source tar files for the different packages.
+This repository contains rattler-build recipes for HEASoft and related conda
+packages, along with tooling to create the source archives used by those
+recipes.
 
 Our public website advertising our conda packages:  
 https://heasarc.gsfc.nasa.gov/docs/software/conda.html
 
 ## Current Recipes
 
+The tracked package recipes are:
 
-The following packages are currently included in this repository:
+- `heasoft`: the HEASoft distribution, with `fviewer` as a runtime dependency
+- `heasoft-tests`: HEASoft unit-test executables for internal testing; depends
+  on the matching `heasoft` version
+- `xspec`: the standalone XSPEC spectral-fitting package
+- `xspec-compilers`: compilers and `make` for building local XSPEC models
+- `xspec-data`: XSPEC model data installed under `heasoft/spectral/modelData`
+- `xstar-data`: XSTAR reference data installed under `heasoft/refdata`
+- `fv`: the legacy HEASoft FITS viewer
+- `fviewer`: the modern browser-based FITS viewer
 
-The trivial packages that are basic or already included in conda-forge:
-- `healib` is a basic hello world example of creating a conda package.
-- `cfitsio`, linking to a test tarball of the CFITSIO package
-- `ccfits`, linking to a test tarball of the CCfits package
-- `heacore`, peant to package heacore as one package (NOT TESTED YET).
-
-The main packages are:
-- `heasoft` the full heasoft distribution (without xspec or xstar data files)
-- `heasoft-tests`: Build the test files only (`make test`). It has `heasoft` as a dependency
-and that is where it gets the binaries and libraries from. This package is for internal
-use only and is not meant to be distributed to users.
-- `xspec-data`: Data files for xspec (`spectral/modelData/*`). See `scripts/pacakge_config.json`. This is a dependency of `heasoft`
-- `xspec-compilers` for users who need the compilers to install local models
+The recipes and build scripts are the source of truth for current versions and
+dependencies.
 
 ## Required tools
 
@@ -45,12 +42,12 @@ mamba install rattler-build
 
 ## Full Lifecycle
 
-The full life cycle for conda packages, from source code to installation
+The full lifecycle for conda packages, from source code to installation, is:
 
-1. Developer - Creating: Create the source code path or tarball
-1. Developer - Building: Build the conda package
-1. Developer - Hosting: Copy the conda package to the desired distribution location
-1. User - Installing: Install the conda package 
+1. Developer - Creating: Create the source path or archive.
+1. Developer - Building: Build the conda package.
+1. Developer - Hosting: Copy the conda package to the distribution location.
+1. User - Installing: Install the conda package.
 
 ## Creating Source
 
@@ -62,25 +59,38 @@ For example, if using a local directory for temporary testing of the develop bra
 git clone git@sed-gitlab.gsfc.nasa.gov:heasarc/heasoft/heasoft.git --depth 1 heasoft-develop
 ```
 
-You could also create a source code tarball, such as to upload to the website for testing, assuming you have permissions to write to the needed web dir.  You could upload to your own testing dir `/www.prod/htdocs/yourdir/conda/` or `/www/htdocs/docs/yourdir/conda` (note that the heasarcdev web server necessitates the `-k` option when installing the package later).
+You can also create a source archive to upload for testing, assuming you have
+permission to write to the required web directory. For example:
 
 ```sh
-git clone git@sed-gitlab.gsfc.nasa.gov:heasarc/heasoft/heasoft.git --depth 1 heasoft-6.36
-tar -zcf heasoft-6.36.tar.gz heasoft-6.36
-sha256sum heasoft-6.36.tar.gz # for use in the recipe
-scp heasoft-6.36 gs66-hdev:/www/htdocs/yourdir/conda/
+git clone git@sed-gitlab.gsfc.nasa.gov:heasarc/heasoft/heasoft.git --depth 1 heasoft-6.37.1
+tar -zcf heasoft-6.37.1.tar.gz heasoft-6.37.1
+sha256sum heasoft-6.37.1.tar.gz # for use in the recipe
+scp heasoft-6.37.1.tar.gz gs66-hdev:/www/htdocs/yourdir/conda/
 ```
 
-The [scripts/generate_src_tar.py](scripts/generate_src_tar.py) script creates the tarball in an automated fashion.
+The [scripts/generate_src_tar.py](scripts/generate_src_tar.py) script automates
+this for the packages defined in
+[scripts/package_config.json](scripts/package_config.json). Start with a dry
+run from the repository root:
+
+```sh
+python3 scripts/generate_src_tar.py \
+  --package heasoft --version 6.37.1 --dryrun
+```
+
+Without `--dryrun`, the script creates the archive and appends its SHA-256 hash
+to `shasums.txt` in the directory where it was invoked. These generated files
+should not be committed.
 
 
 ## Building Packages
 
 To build a package, the recipe must be able to find the source code. Edit the `recipe.yaml` file for that package. Be sure the `context:version` matches the version you added to the filename.
 
-For building the heasoft package, if using a local path, change the `source` :
+For a temporary HEASoft build from a local checkout, change the recipe source:
 
-```
+```yaml
 context:
   name: heasoft
   version: develop
@@ -89,80 +99,99 @@ source:
   path: /path/to/heasoft-develop
 ```
 
-If using a tarball from to the website, this is where you copy in the sha256sum of the tarball:
+For a remote archive, set its URL and verified SHA-256 hash:
 
-```
+```yaml
 context:
   name: heasoft
-  version: 6.36
+  version: 6.37.1
 
 source:
   url: https://heasarc.gsfc.nasa.gov/yourdir/conda/${{ name }}-${{ version }}.tar.gz
   sha256: c92a03e0ee63a8bc10884e76aab43710621e49afb21b3054445bfc475b4e20fe
-
 ```
 
-Call the `run_build.sh` script from inside the relevant folder. For `cfitsio`, this will be:
+Call `run_build.sh` from inside the package directory:
 
 ```sh
-cd cfitsio
+cd xspec
 ../scripts/run_build.sh
 ```
 
-The `run_build.sh` script merely calls this line, which you could also call on your own:
-
-```
-rattler-build build --no-include-recipe --output-dir ../output
-```
-
-This will write the conda package in the `output` folder. For example, after creating the healib and cfitsio packages on a Mac, the `output` dir has the following contents:
+To resolve and report dependencies without running the build, use:
 
 ```sh
-ls -l ./output
-bld:
-drwxr-xr-x 2 klrutkow staff 64 Oct 15 00:44 rattler-build_cfitsio_1728967256/
-drwxr-xr-x 2 klrutkow staff 64 Oct 14 21:36 rattler-build_healib_1728956112/
-
-noarch:
--rw-r--r-- 1 klrutkow staff 109 Oct 14 21:35 repodata.json
-
-osx-64:
--rw-r--r-- 1 klrutkow staff 974K Oct 15 00:43 cfitsio-4.5.0-h0dc7051_0.conda
--rw-r--r-- 1 klrutkow staff 2.1K Oct 14 21:36 healib-0.1-h0dc7051_0.conda
--rw-r--r-- 1 klrutkow staff 1.2K Oct 15 00:43 repodata.json
-
-src_cache:
-drwxr-xr-x 126 klrutkow staff 4.0K Oct 15 00:40 cfitsio-4_5_0_81db33b9/
--rw-r--r--   1 klrutkow staff  14M Oct 15 00:40 cfitsio-4_5_0_81db33b9.tar
+../scripts/run_build.sh --resolve-only
 ```
 
-The contents of the `output` folder should not be kept under version control.
+This mode passes `--render-only --with-solve` to rattler-build and does not
+create a package.
+
+Use `--target-platform` to build or resolve for a specific platform:
+
+```sh
+../scripts/run_build.sh --target-platform linux-aarch64
+../scripts/run_build.sh --resolve-only --target-platform osx-arm64
+```
+
+Use the standalone updater to set `variants.yaml` to the latest compatible
+compiler versions available on conda-forge:
+
+```sh
+./scripts/update_compiler_versions.sh
+```
+
+Run it from the repository root. It requires `micromamba`, `jq`, and network
+access, updates the file atomically, and does not build a package. For each
+compiler family, it selects the latest version available on every platform
+governed by the corresponding variant key. Use `--help` for a summary.
+
+Build `fviewer` before `heasoft` so the dependency is available in the local
+output channel. CI performs this step automatically for HEASoft builds.
+
+The `run_build.sh` script loads the repository's shared compiler variants and
+then runs the package build. The equivalent command is:
+
+```sh
+rattler-build build --variant-config ../variants.yaml \
+  --no-include-recipe --output-dir ../output
+```
+
+The package is written beneath `output/` in its target-platform directory.
+Build caches are written to `output/bld` and `output/src_cache`. The entire
+`output` directory is generated content and should not be committed.
 
 ## Hosting Packages
 
-The package folders of `noarch` (contains os-independent packages e.g. `xspec-data`), `linux64`, `osx-arm` and `osx-64` should be put in the webserver. The release packages are in `https://heasarcdev.gsfc.nasa.gov/FTP/software/conda/`.
+Upload the generated platform directories to the web server. Depending on the
+builds performed, these can be `noarch`, `linux-64`, `linux-aarch64`, `osx-64`,
+and `osx-arm64`. Release packages are hosted at
+`https://heasarcdev.gsfc.nasa.gov/FTP/software/conda/`.
 
 For testing in your own dir:
 
 ```sh
 cd output
-scp -r noarch linux64 osx-arm osx-64 gs66-hdev:/www/htdocs/yourdir/conda/
+scp -r noarch linux-64 linux-aarch64 osx-64 osx-arm64 \
+  gs66-hdev:/www/htdocs/yourdir/conda/
 ```
 
 For local testing, you can also leave them on your local machine, and just point the mamba command to the appropriate directory.
 
 ## Installing the Packages 
 
-To use the packages that were built in the output dir, you can install the package with:
+To install a package built in `output`, include the local channel and
+conda-forge:
 
 ```sh
-mamba install cfitsio -c ./output
+mamba create -n hea heasoft -c ./output -c conda-forge
 ```
 
-To use them after hosting on the website, install with the following command:
+For a package hosted in a testing directory, use its channel URL:
 
 ```sh
-conda install healib -k -c https://heasarcdev.gsfc.nasa.gov/klrutkow/conda/
+conda install heasoft -k \
+  -c https://heasarcdev.gsfc.nasa.gov/yourdir/conda/ -c conda-forge
 ```
 
 The `-k` option is required when installing packages hosted on our heasarcdev server, to allow insecure connections.
@@ -188,7 +217,7 @@ source "${CONDA_DIR}/etc/profile.d/conda.sh"
 source "${CONDA_DIR}/etc/profile.d/mamba.sh" # for mamba support
 conda activate
 ```
-At this point, you see you prompt change to something like: `(base)[...]`
+At this point, your prompt changes to something like `(base)[...]`.
 
 2. Install heasoft into a new conda environment (called hea)
 ```sh
@@ -196,7 +225,7 @@ mamba create -n hea python=3.12 heasoft -k -c https://heasarcdev.gsfc.nasa.gov/a
 ```
 and wait for the install to finish.
 
-3. Activate the newly create conda environment (that has heasoft):
+3. Activate the newly created conda environment containing HEASoft:
 ```sh
 conda activate hea
 ```
@@ -214,11 +243,6 @@ If it is not done automatically, please open an issue so it is fixed.
 mamba install heasoft-tests -k -c https://heasarcdev.gsfc.nasa.gov/azoghbi/conda-full/
 ```
 
-6. If you are testing `xspec`, note that the xspec data files are distributed in a separate package
-`xspec-data`. In the future, the [model data files](https://heasarcdev.gsfc.nasa.gov/docs/wiki/heasoft/xspec/spectral-model-files/) (see also [this page](https://heasarc.gsfc.nasa.gov/docs/software/xspec/modeldata.html)) will be installed using `ftgetmodeldata` instead of using conda packages.
-
-## Notes about rattler-build
-
-
-
-
+6. If testing `xspec`, note that its model data are distributed separately in
+the `xspec-data` package. The recipes declare compatibility with this package
+as a run constraint rather than installing it automatically.

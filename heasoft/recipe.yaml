@@ -3,8 +3,6 @@
 context:
   name: heasoft
   version: 6.37.1
-  #gnu_version: 16.2.0
-  #clang_version: 23.1.1
 
 package:
   name: ${{ name|lower }}
@@ -38,15 +36,6 @@ build:
 
 requirements:
   host:
-    #- ${{ compiler('fortran') }} = ${{ gnu_version }}
-    #- if: osx
-    #  then:
-    #  - ${{ compiler('cxx') }} = ${{ clang_version }}
-    #  - ${{ compiler('c') }} = ${{ clang_version }}
-    #- if: linux
-    #  then:
-    #  - ${{ compiler('cxx') }} = ${{ gnu_version }}
-    #  - ${{ compiler('c') }} = ${{ gnu_version }}
     - ${{ compiler('cxx') }}
     - ${{ compiler('c') }}
     - ${{ compiler('fortran') }}
