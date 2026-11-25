@@ -146,11 +146,15 @@ access, updates the file atomically, and does not build a package. For each
 compiler family, it selects the latest version available on every platform
 governed by the corresponding variant key. Use `--help` for a summary.
 
+The same file defines `heasoft_version` and `xspec_version`. Related recipes
+use these shared values for package versions, source archives, and compatibility
+constraints, so update each release number there rather than in each recipe.
+
 Build `fviewer` before `heasoft` so the dependency is available in the local
 output channel. CI performs this step automatically for HEASoft builds.
 
-The `run_build.sh` script loads the repository's shared compiler variants and
-then runs the package build. The equivalent command is:
+The `run_build.sh` script loads the repository's shared release and compiler
+variants and then runs the package build. The equivalent command is:
 
 ```sh
 rattler-build build --variant-config ../variants.yaml \

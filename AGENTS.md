@@ -17,9 +17,9 @@ is defined primarily by `recipe.yaml`; compiled packages may also have a
   examples in `README.md`, which may lag behind active recipes.
 - Keep package versions, source URLs, SHA-256 hashes, dependency constraints,
   and build numbers consistent when changing a release.
-- Treat `variants.yaml` as the single source of truth for compiler versions.
-  Keep compiler helpers unversioned in recipes so `heasoft`, `xspec`,
-  `heasoft-tests`, `fv`, and `xspec-compilers` resolve the same toolchain.
+- Treat `variants.yaml` as the single source of truth for shared HEASoft and
+  XSPEC release numbers and compiler versions. Keep compiler helpers
+  unversioned in recipes so related packages resolve the same toolchain.
 - Patches in `heasoft/` may also describe behavior used by the related HEASoft
   source builds. Preserve patch paths and ordering unless the upstream source
   change requires otherwise.
@@ -100,8 +100,8 @@ unless the task explicitly requires them.
   dependencies under `requirements.run`.
 - Preserve selectors such as `if: linux`, `if: osx`, `aarch64`, and `arm64`.
   Do not assume Linux x86-64 behavior applies to every CI target.
-- Change compiler versions only in `variants.yaml`; do not duplicate numeric
-  compiler pins in individual recipes.
+- Change shared release and compiler versions only in `variants.yaml`; do not
+  duplicate numeric pins in individual recipes.
 - Compiled recipes use Bash build scripts. Follow the existing `$PREFIX`,
   `$CONDA_PREFIX`, `$OSX_ARCH`, and `$SHLIB_EXT` conventions, and avoid tools or
   libraries leaking from the host environment.

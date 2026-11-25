@@ -2,11 +2,10 @@
 
 context:
   name: xspec-compilers
-  version: 13.0.1
 
 package:
   name: ${{ name|lower }}
-  version: ${{ version }}
+  version: ${{ xspec_version }}
 
 
 build:

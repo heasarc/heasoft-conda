@@ -12,7 +12,8 @@ Usage: $(basename "$0")
 
 Update variants.yaml to the latest compiler versions available on conda-forge.
 Each selected version is available for every architecture governed by its
-variant key. The update is atomic and does not build any packages.
+variant key. Shared release variants are preserved. The update is atomic and
+does not build any packages.
 
 Requirements: micromamba, jq, and network access to conda-forge.
 EOF
@@ -113,7 +114,14 @@ fortran_version=$(latest_common_version \
 temp_file=$(mktemp "$variants_file.tmp.XXXXXX")
 trap 'rm -f "$temp_file"' EXIT
 
-cat >"$temp_file" <<EOF
+if ! grep -q '^c_compiler_version:' "$variants_file"; then
+	printf 'Error: c_compiler_version is missing from %s.\n' "$variants_file" >&2
+	exit 1
+fi
+
+awk '/^c_compiler_version:/ { exit } { print }' "$variants_file" >"$temp_file"
+
+cat >>"$temp_file" <<EOF
 c_compiler_version:
   - if: linux
     then: "$gnu_version"

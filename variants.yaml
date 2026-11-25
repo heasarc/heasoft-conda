@@ -1,3 +1,9 @@
+heasoft_version:
+  - "6.37.1"
+
+xspec_version:
+  - "13.0.1"
+
 c_compiler_version:
   - if: linux
     then: "16.2.0"

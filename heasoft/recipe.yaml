@@ -2,15 +2,14 @@
 
 context:
   name: heasoft
-  version: 6.37.1
 
 package:
   name: ${{ name|lower }}
-  version: ${{ version }}
+  version: ${{ heasoft_version }}
 
 source:
-  #url: https://heasarc.gsfc.nasa.gov/FTP/software/conda/.staging/source/${{ name }}-${{ version }}.tar.gz
-  url: https://heasarc.gsfc.nasa.gov/FTP/software/conda/source/${{ name }}-${{ version }}.tar.gz
+  #url: https://heasarc.gsfc.nasa.gov/FTP/software/conda/.staging/source/${{ name }}-${{ heasoft_version }}.tar.gz
+  url: https://heasarc.gsfc.nasa.gov/FTP/software/conda/source/${{ name }}-${{ heasoft_version }}.tar.gz
   sha256: be1e779b65904a07a2c930449ed3667f2edf05dcfb3dd40d8d17f83735f3bda1
   #path: /local/data/karpuz1/birby/conda/heasoft
   patches:
@@ -32,7 +31,7 @@ source:
     - fix-x11-conda.patch
 
 build:
-  number: 1
+  number: 2
 
 requirements:
   host:
@@ -100,6 +99,10 @@ requirements:
         - mkl
   run_constraints:
     - xspec-data >=6.37
+    - xspec-compilers ==${{ xspec_version }}
+    - ${{ compiler('cxx') }}
+    - ${{ compiler('c') }}
+    - ${{ compiler('fortran') }}
 
 about:
   homepage: https://heasarc.gsfc.nasa.gov/docs/software/lheasoft/
