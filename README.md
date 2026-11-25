@@ -150,6 +150,25 @@ The same file defines `heasoft_version` and `xspec_version`. Related recipes
 use these shared values for package versions, source archives, and compatibility
 constraints, so update each release number there rather than in each recipe.
 
+### Checking shared recipe variants
+
+Run the metadata regression test from the repository root or any package
+directory:
+
+```sh
+bash scripts/test_recipe_variants.sh
+```
+
+The script renders `heasoft`, `heasoft-tests`, `xspec`, and `xspec-compilers`
+for `linux-64`, `linux-aarch64`, `osx-64`, and `osx-arm64`. It also renders the
+noarch `xstar-data` recipe once for `linux-64`. The checks verify that rendered
+package versions, compiler packages and versions, source archive versions, and
+the optional `xspec-compilers` constraints agree with `variants.yaml`.
+
+This is a render-only test: it does not build packages, fetch source archives,
+or solve dependencies. It requires `rattler-build` in the active environment.
+Use `bash scripts/test_recipe_variants.sh --help` for a short summary.
+
 Build `fviewer` before `heasoft` so the dependency is available in the local
 output channel. CI performs this step automatically for HEASoft builds.
 
