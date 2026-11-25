@@ -39,18 +39,19 @@ while (( $# > 0 )); do
 done
 
 
-rattler_args=()
+rattler_command=(
+	rattler-build build
+	--variant-config "$repo_dir/variants.yaml"
+	--no-include-recipe
+	--output-dir ../output
+)
 
 if $resolve_only; then
-	rattler_args+=(--render-only --with-solve)
+	rattler_command+=(--render-only --with-solve)
 fi
 
 if [[ -n "$target_platform" ]]; then
-	rattler_args+=(--target-platform "$target_platform")
+	rattler_command+=(--target-platform "$target_platform")
 fi
 
-rattler-build build \
-	--variant-config "$repo_dir/variants.yaml" \
-	--no-include-recipe \
-	--output-dir ../output \
-	"${rattler_args[@]}"
+"${rattler_command[@]}"
