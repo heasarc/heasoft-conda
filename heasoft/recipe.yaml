@@ -60,6 +60,7 @@ requirements:
         - fgsl
     - perl
     - pip
+    - hatchling
     - numpy
     - scipy
     - astropy-base
