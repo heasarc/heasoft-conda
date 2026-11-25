@@ -73,7 +73,6 @@ requirements:
     - scipy
     - astropy-base
     - matplotlib
-    - pytorch * *cpu*
     - if: linux and not aarch64
       then:
         - kernel-headers_linux-64 = 3.10.0
@@ -104,7 +103,6 @@ requirements:
     - astro-gdt
     - requests
     - reproject
-    - pytorch * *cpu*
     - if: (linux and not aarch64) or (osx and not arm64)
       then:
         - lynx
