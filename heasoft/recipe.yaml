@@ -3,8 +3,9 @@
 context:
   name: heasoft
   version: 6.37.1
-  #gnu_version: 16.2.0
-  #clang_version: 23.1.1
+  gnu_version: 16.2.0
+  clang_version: 23.1.1
+  python_version: 3.14.7
 
 package:
   name: ${{ name|lower }}
@@ -34,22 +35,25 @@ source:
     - fix-x11-conda.patch
 
 build:
-  number: 1
+  number: 3
 
 requirements:
+  ignore_run_exports:
+    by_name:
+      - python_abi
   host:
-    #- ${{ compiler('fortran') }} = ${{ gnu_version }}
-    #- if: osx
-    #  then:
-    #  - ${{ compiler('cxx') }} = ${{ clang_version }}
-    #  - ${{ compiler('c') }} = ${{ clang_version }}
-    #- if: linux
-    #  then:
-    #  - ${{ compiler('cxx') }} = ${{ gnu_version }}
-    #  - ${{ compiler('c') }} = ${{ gnu_version }}
-    - ${{ compiler('cxx') }}
-    - ${{ compiler('c') }}
-    - ${{ compiler('fortran') }}
+    - ${{ compiler('fortran') }} = ${{ gnu_version }}
+    - if: osx
+      then:
+      - ${{ compiler('cxx') }} = ${{ clang_version }}
+      - ${{ compiler('c') }} = ${{ clang_version }}
+    - if: linux
+      then:
+      - ${{ compiler('cxx') }} = ${{ gnu_version }}
+      - ${{ compiler('c') }} = ${{ gnu_version }}
+    #- ${{ compiler('cxx') }}
+    #- ${{ compiler('c') }}
+    #- ${{ compiler('fortran') }}
     - make
     - pkg-config
     - libcurl
@@ -67,6 +71,7 @@ requirements:
       then:
         - fgsl
     - perl
+    - python <= ${{ python_version }}
     - pip
     - hatchling
     - numpy
@@ -95,6 +100,7 @@ requirements:
       then:
         - fgsl
     - perl
+    - python <= ${{ python_version }}
     - fviewer
     - numpy
     - scipy

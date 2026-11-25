@@ -4,8 +4,9 @@ context:
   name: xspec
   version: 13.0.1
   hea_version: 6.37.1
-  #gnu_version: 16.2.0
-  #clang_version: 23.1.1
+  gnu_version: 16.2.0
+  clang_version: 23.1.1
+  python_version: 3.14.7
 
 package:
   name: ${{ name|lower }}
@@ -29,22 +30,25 @@ source:
     - ../heasoft/fix-x11-conda.patch
 
 build:
-  number: 1
+  number: 2
 
 requirements:
+  ignore_run_exports:
+    by_name:
+      - python_abi
   host:
-    #- ${{ compiler('fortran') }} = ${{ gnu_version }}
-    #- if: osx
-    #  then:
-    #  - ${{ compiler('cxx') }} = ${{ clang_version }}
-    #  - ${{ compiler('c') }} = ${{ clang_version }}
-    #- if: linux
-    #  then:
-    #  - ${{ compiler('cxx') }} = ${{ gnu_version }}
-    #  - ${{ compiler('c') }} = ${{ gnu_version }}
-    - ${{ compiler('cxx') }}
-    - ${{ compiler('c') }}
-    - ${{ compiler('fortran') }}
+    - ${{ compiler('fortran') }} = ${{ gnu_version }}
+    - if: osx
+      then:
+      - ${{ compiler('cxx') }} = ${{ clang_version }}
+      - ${{ compiler('c') }} = ${{ clang_version }}
+    - if: linux
+      then:
+      - ${{ compiler('cxx') }} = ${{ gnu_version }}
+      - ${{ compiler('c') }} = ${{ gnu_version }}
+    #- ${{ compiler('cxx') }}
+    #- ${{ compiler('c') }}
+    #- ${{ compiler('fortran') }}
     - if: linux and not aarch64
       then:
         - kernel-headers_linux-64 = 3.10.0
@@ -53,7 +57,7 @@ requirements:
         - kernel-headers_linux-aarch64 = 4.18.0
     - make
     - perl
-    - python
+    - python <= ${{ python_version }}
     - pkg-config
     - libcurl
     - zlib
@@ -73,7 +77,7 @@ requirements:
         - fgsl
   run:
     - perl
-    - python
+    - python <= ${{ python_version }}
     - libcurl
     - zlib
     - libbrotlidec
