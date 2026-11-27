@@ -1,6 +1,6 @@
 context:
   name: "fviewer"
-  version: "0.3.8"         # Replace with your package version
+  version: "0.4.4"         # Replace with your package version
 
 package:
   name: ${{ name|lower }}
@@ -8,7 +8,7 @@ package:
 
 source:
   url: https://pypi.io/packages/source/${{ name[0] }}/${{ name }}/${{ name }}-${{ version }}.tar.gz
-  sha256: c84a4a354c7342f0df9f540af8cd30581f17136aaa7547604e069532dc41efc6
+  sha256: 15fb86dd1148bfac5f5a2d8d055e0834acc344fed492288f0130b14c88e702f1
 
 build:
   noarch: python
@@ -25,6 +25,7 @@ requirements:
     - requests >=2.33.1
     - uvicorn >=0.23.0
     - websockets >=11.0
+    - python-multipart >= 0.0.5
 
 tests:
   - python:
